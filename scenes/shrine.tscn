@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://dqyq1ar5ir2fm"]
+
+[ext_resource type="Script" uid="uid://b7u3lyjjxggg6" path="res://scripts/shrine_zone.gd" id="1_byhlw"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5me1t"]
+top_radius = 0.6
+bottom_radius = 0.6
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_byhlw"]
+radius = 0.6
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5me1t"]
+radius = 2.0
+
+[node name="Shrine" type="StaticBody3D" unique_id=1614487741]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=796275057]
+mesh = SubResource("CylinderMesh_5me1t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1077492160]
+shape = SubResource("CylinderShape3D_byhlw")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1493961662]
+light_energy = 0.0
+
+[node name="ShrineZone" type="Area3D" parent="." unique_id=903770417]
+script = ExtResource("1_byhlw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShrineZone" unique_id=1374168008]
+shape = SubResource("SphereShape3D_5me1t")
+
+[connection signal="body_entered" from="ShrineZone" to="ShrineZone" method="_on_body_entered"]

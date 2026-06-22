@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://bklnhvs8jobm3"]
+
+[ext_resource type="Script" uid="uid://c7wirn6efq3dh" path="res://scripts/hermit.gd" id="1_rnesq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rjinq"]
+albedo_color = Color(0.04395193, 0.04395193, 0.04395192, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_rjinq"]
+material = SubResource("StandardMaterial3D_rjinq")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rnesq"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lga8k"]
+radius = 0.8227539
+height = 2.0664063
+
+[node name="Hermit" type="CharacterBody3D" unique_id=564781588]
+script = ExtResource("1_rnesq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=829109243]
+mesh = SubResource("CapsuleMesh_rjinq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1218822866]
+shape = SubResource("CapsuleShape3D_rnesq")
+
+[node name="InteractZone" type="Area3D" parent="." unique_id=1118795409]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractZone" unique_id=58543626]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.033203125, 0)
+shape = SubResource("CapsuleShape3D_lga8k")
+
+[connection signal="body_entered" from="InteractZone" to="." method="_on_interact_zone_body_entered"]
+[connection signal="body_exited" from="InteractZone" to="." method="_on_interact_zone_body_exited"]

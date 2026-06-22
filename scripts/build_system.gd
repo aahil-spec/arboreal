@@ -3,7 +3,9 @@ extends Node3D
 
 @export var timber_label:Label
 @export var selected_label:Label
+@export var ember_label:Label
 @export var build_distance:float=8.0
+
 var current_hit_position:Vector3=Vector3.ZERO
 var has_hit:bool=false
 var build_mode:bool=false
@@ -45,6 +47,7 @@ func _unhandled_input(event):
 func _process(delta):
 	timber_label.text="Timber:"+str(GameManager.timber)
 	selected_label.text = "Selected: " + pieces[selected_index]["name"] + " (cost " + str(pieces[selected_index]["cost"]) + ")"
+	ember_label.text="Embers:"+str(GameManager.embers_collected)+"/3"
 @warning_ignore("unused_parameter")
 func _physics_process(delta):
 	var camera=get_viewport().get_camera_3d()

@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://cw34rjbuckyvy"]
+
+[ext_resource type="Script" uid="uid://ddfqjdvvww0qf" path="res://scripts/hollow.gd" id="1_rf16s"]
+[ext_resource type="Script" uid="uid://deglqab3lu5ri" path="res://scripts/hit_zone.gd" id="2_gvftp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ujcgo"]
+albedo_color = Color(0.32059968, 7.132977e-05, 0.32190922, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ujcgo"]
+material = SubResource("StandardMaterial3D_ujcgo")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rf16s"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gvftp"]
+radius = 1.1949168
+
+[node name="Hollow" type="CharacterBody3D" unique_id=1014640091]
+script = ExtResource("1_rf16s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1175821474]
+mesh = SubResource("CapsuleMesh_ujcgo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1962806674]
+shape = SubResource("CapsuleShape3D_rf16s")
+
+[node name="HitZone" type="Area3D" parent="." unique_id=1309805140]
+script = ExtResource("2_gvftp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitZone" unique_id=74167816]
+shape = SubResource("SphereShape3D_gvftp")
+
+[connection signal="body_entered" from="HitZone" to="HitZone" method="_on_body_entered"]
