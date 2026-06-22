@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://djqjs32ycfet3"]
+
+[ext_resource type="Script" uid="uid://cf8bbsuufh1uk" path="res://scripts/timber_pickup.gd" id="1_mioir"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rd1mw"]
+albedo_color = Color(0.2777152, 0.11375605, 0.06970488, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mioir"]
+material = SubResource("StandardMaterial3D_rd1mw")
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i637q"]
+size = Vector3(0.4, 0.4, 0.4)
+
+[node name="TimberPickup" type="Area3D" unique_id=1129366448]
+script = ExtResource("1_mioir")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=462763526]
+mesh = SubResource("BoxMesh_mioir")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1641846800]
+shape = SubResource("BoxShape3D_i637q")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

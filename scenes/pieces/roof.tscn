@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://duwk4m1akv7il"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4h2v6"]
+size = Vector3(2, 0.2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_os58n"]
+albedo_color = Color(0.4673599, 0, 0.06142924, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rrcs7"]
+material = SubResource("StandardMaterial3D_os58n")
+size = Vector3(2, 0.2, 2)
+
+[node name="Roof" type="StaticBody3D" unique_id=453607494]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2096439389]
+shape = SubResource("BoxShape3D_4h2v6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=782685386]
+mesh = SubResource("BoxMesh_rrcs7")

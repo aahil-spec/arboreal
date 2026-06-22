@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c307hdmos4gtm" path="res://demo/assets/textures/rock023_nrm_rgh.png" id="4_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://cayivor226ewb" path="res://scenes/player.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://cjk1qtfgs8esw" path="res://assests/models/Tree_2_C_Color1.gltf" id="6_tefeu"]
+[ext_resource type="PackedScene" uid="uid://djqjs32ycfet3" path="res://scenes/pieces/timber_pickup.tscn" id="7_o6xl0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tipki"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -117,5 +118,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.66801, 1.8409333, 201.2784
 
 [node name="Tree_2_C_Color12" parent="." unique_id=268144831 instance=ExtResource("6_tefeu")]
 transform = Transform3D(1, 0, 0, 0, 0.99998134, -0.006108614, 0, 0.006108614, 0.99998134, 25.861366, 0.7685499, 194.54912)
+
+[node name="Timber" type="Node3D" parent="." unique_id=2100848730]
+
+[node name="TimberPickup" parent="Timber" unique_id=1129366448 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.510658, 0.98753095, 196.11023)
+
+[node name="TimberPickup2" parent="Timber" unique_id=1283855593 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.510658, 0.98753095, 192.13374)
+
+[node name="TimberPickup3" parent="Timber" unique_id=932948179 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.041132, 0.98753095, 188.01007)
+
+[node name="TimberPickup4" parent="Timber" unique_id=1414104541 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.71496, 0.98753095, 188.01007)
+
+[node name="BuildSystem" type="Node3D" parent="." unique_id=39023323]
 
 [editable path="Tree_2_C_Color12"]
