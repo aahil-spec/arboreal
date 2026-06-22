@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://br37vam35068a"]
+
+[ext_resource type="Script" uid="uid://bhrw1wkol3eay" path="res://scripts/ember.gd" id="1_fyqlq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fyqlq"]
+albedo_color = Color(1, 1, 0.42745098, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_3p0h1"]
+material = SubResource("StandardMaterial3D_fyqlq")
+radius = 0.2
+height = 0.4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fyqlq"]
+radius = 0.2
+
+[node name="Ember" type="Area3D" unique_id=421441933]
+script = ExtResource("1_fyqlq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1908495712]
+mesh = SubResource("SphereMesh_3p0h1")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="MeshInstance3D" unique_id=1672068219]
+light_color = Color(0.31857762, 0.31685385, 0, 1)
+light_energy = 2.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=770397825]
+shape = SubResource("SphereShape3D_fyqlq")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

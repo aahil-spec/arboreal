@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://cayivor226ewb" path="res://scenes/player.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://cjk1qtfgs8esw" path="res://assests/models/Tree_2_C_Color1.gltf" id="6_tefeu"]
 [ext_resource type="PackedScene" uid="uid://djqjs32ycfet3" path="res://scenes/pieces/timber_pickup.tscn" id="7_o6xl0"]
+[ext_resource type="Script" uid="uid://8elj0g83qa4h" path="res://scripts/build_system.gd" id="8_tipki"]
+[ext_resource type="PackedScene" uid="uid://br37vam35068a" path="res://scenes/pieces/ember.tscn" id="9_85g3d"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tipki"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -116,13 +118,73 @@ metadata/_edit_lock_ = true
 [node name="Player" parent="." unique_id=600792781 instance=ExtResource("5_tbgi4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.66801, 1.8409333, 201.2784)
 
+[node name="BuildSystem" type="Node3D" parent="Player" unique_id=39023323 node_paths=PackedStringArray("timber_label", "selected_label")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.66801, -1.8409333, -201.2784)
+script = ExtResource("8_tipki")
+timber_label = NodePath("../../CanvasLayer/VBoxContainer/TimberLabel")
+selected_label = NodePath("../../CanvasLayer/VBoxContainer/SelectedLabel")
+
 [node name="Tree_2_C_Color12" parent="." unique_id=268144831 instance=ExtResource("6_tefeu")]
 transform = Transform3D(1, 0, 0, 0, 0.99998134, -0.006108614, 0, 0.006108614, 0.99998134, 25.861366, 0.7685499, 194.54912)
 
 [node name="Timber" type="Node3D" parent="." unique_id=2100848730]
 
 [node name="TimberPickup" parent="Timber" unique_id=1129366448 instance=ExtResource("7_o6xl0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.510658, 0.98753095, 196.11023)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.510658, 0.98753095, 193.42516)
+
+[node name="TimberPickup5" parent="Timber" unique_id=366021784 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.299217, 0.98753095, 191.03366)
+
+[node name="TimberPickup6" parent="Timber" unique_id=118955161 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.23201, 0.98753095, 196.11023)
+
+[node name="TimberPickup10" parent="Timber" unique_id=2103880990 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.084993, 0.98753095, 196.11023)
+
+[node name="TimberPickup11" parent="Timber" unique_id=1218636057 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.73725, 0.98753095, 196.11023)
+
+[node name="TimberPickup12" parent="Timber" unique_id=1076474287 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.73725, 0.98753095, 195.33267)
+
+[node name="TimberPickup13" parent="Timber" unique_id=931035081 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.212957, 0.98753095, 195.33267)
+
+[node name="TimberPickup14" parent="Timber" unique_id=1313327373 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.212957, 0.98753095, 194.2778)
+
+[node name="TimberPickup15" parent="Timber" unique_id=1676350059 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.292486, 0.98753095, 194.2778)
+
+[node name="TimberPickup16" parent="Timber" unique_id=265024163 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.292486, 0.98753095, 193.41795)
+
+[node name="TimberPickup17" parent="Timber" unique_id=1217227466 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.961725, 0.98753095, 193.41795)
+
+[node name="TimberPickup18" parent="Timber" unique_id=590682266 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.961725, 0.98753095, 192.26375)
+
+[node name="TimberPickup19" parent="Timber" unique_id=1931089873 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.011889, 0.98753095, 192.26375)
+
+[node name="TimberPickup20" parent="Timber" unique_id=72413448 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.011889, 0.98753095, 191.00754)
+
+[node name="TimberPickup21" parent="Timber" unique_id=1249152043 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.87078, 0.98753095, 191.00754)
+
+[node name="TimberPickup22" parent="Timber" unique_id=1598795814 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.87078, 0.98753095, 191.00754)
+
+[node name="TimberPickup7" parent="Timber" unique_id=162104606 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.78349, 0.98753095, 196.11023)
+
+[node name="TimberPickup8" parent="Timber" unique_id=1750751429 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.510658, 0.98753095, 194.92784)
+
+[node name="TimberPickup9" parent="Timber" unique_id=1434675728 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.510658, 0.98753095, 190.47266)
 
 [node name="TimberPickup2" parent="Timber" unique_id=1283855593 instance=ExtResource("7_o6xl0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.510658, 0.98753095, 192.13374)
@@ -133,6 +195,55 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.041132, 0.98753095, 188.01
 [node name="TimberPickup4" parent="Timber" unique_id=1414104541 instance=ExtResource("7_o6xl0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.71496, 0.98753095, 188.01007)
 
-[node name="BuildSystem" type="Node3D" parent="." unique_id=39023323]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1112402921]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=2054872510]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TimberLabel" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=504403259]
+layout_mode = 2
+
+[node name="SelectedLabel" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=52370947]
+layout_mode = 2
+
+[node name="HelpLabel" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=1021607374]
+layout_mode = 2
+text = "[B] Build Mode   [1-6] Select Piece   [Q/E] Rotate   [Left Click] Place"
+
+[node name="CrosshairH" type="ColorRect" parent="CanvasLayer" unique_id=1473656833]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3.0
+offset_top = -16.0
+offset_right = 3.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CrosshairV" type="ColorRect" parent="CanvasLayer" unique_id=1488608308]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -17.0
+offset_top = -3.0
+offset_right = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Ember" type="Node3D" parent="." unique_id=876940045]
+
+[node name="Ember2" parent="." unique_id=421441933 instance=ExtResource("9_85g3d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.167904, 0.18567944, 205.70256)
+
+[node name="Ember3" parent="." unique_id=1584278941 instance=ExtResource("9_85g3d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.880678, 0.18567944, 205.70256)
 
 [editable path="Tree_2_C_Color12"]

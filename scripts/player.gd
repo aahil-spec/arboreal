@@ -14,6 +14,12 @@ func _input(event):
 		rotate_y(-event.relative.x*MOUSE_SENSITIVITY)
 		camera_pivot.rotate_x(-event.relative.y*MOUSE_SENSITIVITY)
 		camera_pivot.rotation.x=clamp(camera_pivot.rotation.x,-1.2,1.2)
+		
+	if event.is_action_pressed("ui_cancel"):
+		if Input.mouse_mode==Input.MOUSE_MODE_CAPTURED:
+			Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+		else:
+			Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity")* delta

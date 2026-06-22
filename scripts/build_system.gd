@@ -1,6 +1,8 @@
 extends Node3D
 
 
+@export var timber_label:Label
+@export var selected_label:Label
 @export var build_distance:float=8.0
 var current_hit_position:Vector3=Vector3.ZERO
 var has_hit:bool=false
@@ -9,12 +11,12 @@ var ghost:Node3D=null
 var selected_index:int=0
 
 var pieces:Array=[
-	{"name":"Wall","scene":preload("res://scenes/pieces/wall.tscn"),"cost":2},
-	{"name":"Floor","scene":preload("res://scenes/pieces/floor.tscn"),"cost":2},
-	{"name":"Roof","scene":preload("res://scenes/pieces/roof.tscn"),"cost":3},
-	{"name":"Door","scene":preload("res://scenes/pieces/door.tscn"),"cost":2},
-	{"name":"Campfire","scene":preload("res://scenes/pieces/campfire.tscn"),"cost":4},
-	{"name":"Bed","scene":preload("res://scenes/pieces/bed.tscn"),"cost":3},
+	{"name":"Wall","scene":preload("res://scenes/pieces/wall.tscn"),"cost":2,"height_offset": 1.0},
+	{"name":"Floor","scene":preload("res://scenes/pieces/floor.tscn"),"cost":2,"height_offset": 0.1},
+	{"name":"Roof","scene":preload("res://scenes/pieces/roof.tscn"),"cost":3,"height_offset": 0.1},
+	{"name":"Door","scene":preload("res://scenes/pieces/door.tscn"),"cost":2,"height_offset": 1.0},
+	{"name":"Campfire","scene":preload("res://scenes/pieces/campfire.tscn"),"cost":4,"height_offset": 0.2},
+	{"name":"Bed","scene":preload("res://scenes/pieces/bed.tscn"),"cost":3,"height_offset": 0.25},
 ]
 
 func _unhandled_input(event):
@@ -25,12 +27,24 @@ func _unhandled_input(event):
 		else:
 			_remove_ghost()
 	if build_mode:
+		
+		if event.is_action_pressed("rotate_left") and ghost:
+			ghost.rotation.y-=PI/2
+		if event.is_action_pressed("rotate_right") and ghost:
+			ghost.rotation.y+=PI/2
 		for i in range(1,7):
 			if event.is_action_pressed("select_piece_%d"%i):
 				selected_index=i-1
 				_spawn_ghost()
-		if event.is_action_pressed("place_piece") and has_hit:
-			_place_piece()
+		if event.is_action_pressed("place_piece"):
+			if has_hit:
+				_place_piece()
+
+
+@warning_ignore("unused_parameter")
+func _process(delta):
+	timber_label.text="Timber:"+str(GameManager.timber)
+	selected_label.text = "Selected: " + pieces[selected_index]["name"] + " (cost " + str(pieces[selected_index]["cost"]) + ")"
 @warning_ignore("unused_parameter")
 func _physics_process(delta):
 	var camera=get_viewport().get_camera_3d()
@@ -41,13 +55,19 @@ func _physics_process(delta):
 	var to:Vector3=from+camera.global_transform.basis.z*-build_distance
 	var space_state=get_world_3d().direct_space_state
 	var query=PhysicsRayQueryParameters3D.create(from,to)
+	query.exclude=[get_parent().get_rid()]
 	var result=space_state.intersect_ray(query)
 	
 	if result:
 		has_hit=true
-		current_hit_position=result.position
+		var hit =result.position
+		var grid_size:float=1.0
+		hit.x=round(hit.x/grid_size)*grid_size
+		hit.z=round(hit.z/grid_size)*grid_size
+		current_hit_position=hit
 		if build_mode and ghost:
-			ghost.global_position=current_hit_position
+			var offset=pieces[selected_index]["height_offset"]
+			ghost.global_position=current_hit_position+Vector3(0,offset,0)
 	else:
 		has_hit=false
 func _spawn_ghost():
@@ -76,9 +96,9 @@ func _make_transparent(node:Node):
 func _place_piece():
 	var piece=pieces[selected_index]
 	if GameManager.spend_timber(piece["cost"]):
-		var real_piece=piece["scene"].instantite()
+		var real_piece=piece["scene"].instantiate()
 		get_tree().current_scene.add_child(real_piece)
-		real_piece.global_position=current_hit_position
-		real_piece.piece.rotation=ghost.rotation
+		real_piece.global_position=current_hit_position+Vector3(0,piece["height_offset"],0)
+		real_piece.rotation=ghost.rotation
 	else:
 		print("not enough timber! need",piece["cost"])
