@@ -3,11 +3,18 @@ extends CharacterBody3D
 
 const SPEED = 3.0
 const DETECT_RADIUS:float=8.0
+const MAX_HEALTH:int=30
+
 var player:Node3D=null
+var health:int=MAX_HEALTH
 
 func _ready():
 	player=get_tree().current_scene.get_node("Player")
-	
+	add_to_group("enemy")
+func take_damage(amount:int):
+	health-=amount
+	if health<=0:
+		queue_free()
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y-=ProjectSettings.get_setting("physics/3d/default_gravity")*delta

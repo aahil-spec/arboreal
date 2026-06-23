@@ -6,6 +6,7 @@ extends Node3D
 @export var ember_label:Label
 @export var build_distance:float=8.0
 
+@onready var health_label:Label=get_tree().current_scene.get_node("CanvasLayer/VBoxContainer/HealthLabel")
 var current_hit_position:Vector3=Vector3.ZERO
 var has_hit:bool=false
 var build_mode:bool=false
@@ -22,8 +23,13 @@ var pieces:Array=[
 ]
 
 func _unhandled_input(event):
+	if event.is_action_pressed("save_game"):
+		SaveSystem.save_game()
+	if event.is_action_pressed("load_game"):
+		SaveSystem.load_game()
 	if event.is_action_pressed("toggle_build"):
 		build_mode=!build_mode
+		GameManager.build_mode=build_mode
 		if build_mode:
 			_spawn_ghost()
 		else:
@@ -48,6 +54,7 @@ func _process(delta):
 	timber_label.text="Timber:"+str(GameManager.timber)
 	selected_label.text = "Selected: " + pieces[selected_index]["name"] + " (cost " + str(pieces[selected_index]["cost"]) + ")"
 	ember_label.text="Embers:"+str(GameManager.embers_collected)+"/3"
+	health_label.text="Health:"+str(GameManager.player_health)+"/"+str(GameManager.MAX_PLAYER_HEALTH)
 @warning_ignore("unused_parameter")
 func _physics_process(delta):
 	var camera=get_viewport().get_camera_3d()
@@ -100,8 +107,11 @@ func _place_piece():
 	var piece=pieces[selected_index]
 	if GameManager.spend_timber(piece["cost"]):
 		var real_piece=piece["scene"].instantiate()
+		real_piece.add_to_group("placed_piece")
 		get_tree().current_scene.add_child(real_piece)
-		real_piece.global_position=current_hit_position+Vector3(0,piece["height_offset"],0)
+		var pos=current_hit_position +Vector3(0,piece["height_offset"],0)
+		real_piece.global_position=pos
 		real_piece.rotation=ghost.rotation
+		GameManager.record_pieces(piece["name"],pos,real_piece.rotation)
 	else:
 		print("not enough timber! need",piece["cost"])
