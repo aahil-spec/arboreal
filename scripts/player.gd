@@ -4,12 +4,17 @@ extends CharacterBody3D
 const SPEED:float = 5.0
 const JUMP_VELOCITY :float= 4.5
 const MOUSE_SENSITIVITY:float=0.003
+const ATTACK_DAMAGE:int=15
+const FOOTSTEP_INTERVAL:float=0.4
+
 @onready var camera_pivot:Node3D=$CameraPivot
+@onready var attack_zone:Area3D=$AttackZone
+var footstep_timer:float=0.0
 
 func _ready():
 	Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
 	
-func _input(event):
+func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x*MOUSE_SENSITIVITY)
 		camera_pivot.rotate_x(-event.relative.y*MOUSE_SENSITIVITY)
@@ -20,10 +25,17 @@ func _input(event):
 			Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 		else:
 			Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
+			
+	if event.is_action_pressed("attack") and not GameManager.build_mode:
+		_attack()
+func _attack():
+	for body in attack_zone.get_overlapping_bodies():
+		if body.is_in_group("enemy"):
+			body.take_damage(ATTACK_DAMAGE)
+			
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity")* delta
-
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
@@ -35,5 +47,20 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
-
+	var moving=direction.length()>0.1 and is_on_floor()
+	if moving:
+		footstep_timer-=delta
+		if footstep_timer<=0.0:
+			footstep_timer=FOOTSTEP_INTERVAL
+	else:
+		footstep_timer=0.0
+	if global_position.y<-50.0:
+		velocity=Vector3.ZERO
+		global_position=$"../PlayerSpawnPoint".global_position
+	if GameManager.player_health<=0:
+		GameManager.heal_player(GameManager.MAX_PLAYER_HEALTH)
+		global_position=$"../PlayerSpawnPoint".global_position
+		GameManager.player_invincible=true
+		await get_tree().create_timer(2.0).timeout
+		GameManager.player_invincible=false
 	move_and_slide()

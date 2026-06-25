@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://ykj4sthu66lt"]
+
+[ext_resource type="Script" uid="uid://ci0cqt1l4s1hk" path="res://scripts/husk.gd" id="1_ai7p3"]
+[ext_resource type="Script" uid="uid://c4ghdbslagsnk" path="res://scripts/hit_zone1.gd" id="2_2hxwp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5gka"]
+albedo_color = Color(0.26953536, 0.06277309, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_o5gka"]
+material = SubResource("StandardMaterial3D_o5gka")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ai7p3"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2hxwp"]
+radius = 1.6765431
+
+[node name="Husk1" type="CharacterBody3D" unique_id=1374809841]
+script = ExtResource("1_ai7p3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1981423991]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_o5gka")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=828573384]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_ai7p3")
+
+[node name="HitZone" type="Area3D" parent="." unique_id=1621134165]
+script = ExtResource("2_2hxwp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitZone" unique_id=731399362]
+shape = SubResource("SphereShape3D_2hxwp")
+
+[connection signal="body_entered" from="HitZone" to="HitZone" method="_on_body_entered"]

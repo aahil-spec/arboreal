@@ -14,6 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://bklnhvs8jobm3" path="res://scenes/hermit.tscn" id="10_choun"]
 [ext_resource type="PackedScene" uid="uid://dqyq1ar5ir2fm" path="res://scenes/shrine.tscn" id="11_ya4ey"]
 [ext_resource type="PackedScene" uid="uid://cw34rjbuckyvy" path="res://scenes/hollow.tscn" id="12_eb6dy"]
+[ext_resource type="Script" uid="uid://ccbkosgmduvu0" path="res://scripts/threshold_marker.gd" id="15_jkv2x"]
+[ext_resource type="PackedScene" uid="uid://ykj4sthu66lt" path="res://scenes/husk.tscn" id="16_jbj1t"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a8y0u"]
 
@@ -100,6 +102,9 @@ normal_texture = ExtResource("4_o6xl0")
 [sub_resource type="Terrain3DAssets" id="Terrain3DAssets_0ld40"]
 mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_jbj1t")])
 texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_muem4"), SubResource("Terrain3DTextureAsset_dp3eg")])
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a8y0u"]
+size = Vector3(1, 9.643311, 302.9136)
 
 [node name="Main" type="Node3D" unique_id=661294341]
 
@@ -282,5 +287,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.109707, 1.1064706, 236.170
 
 [node name="Hollow" parent="." unique_id=1014640091 instance=ExtResource("12_eb6dy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.55043, 0.9568677, 227.50854)
+
+[node name="PlayerSpawnPoint" type="Marker3D" parent="." unique_id=830485578]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.781977, 2.1736474, 201.35796)
+
+[node name="ThresholdMarker" type="Area3D" parent="." unique_id=1831462105]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 281.92096, 9.8107815, 54.879555)
+script = ExtResource("15_jkv2x")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThresholdMarker" unique_id=1324771738]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.560974, -4.3216553, 146.00568)
+shape = SubResource("BoxShape3D_a8y0u")
+
+[node name="Husk1" parent="." unique_id=1374809841 instance=ExtResource("16_jbj1t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 309.9211, 5.3741245, 58.530582)
+
+[connection signal="body_entered" from="ThresholdMarker" to="ThresholdMarker" method="_on_body_entered"]
 
 [editable path="Tree_2_C_Color12"]

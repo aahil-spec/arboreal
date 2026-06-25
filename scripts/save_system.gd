@@ -9,17 +9,27 @@ var piece_scenes:Dictionary={
 	"Door":"res://scenes/pieces/door.tscn",
 	"Campfire":"res://scenes/pieces/campfire.tscn",
 	"Bed":"res://scenes/pieces/bed.tscn",
+	"Stairs":"res://scenes/pieces/stairs.tscn",
+	"Window":"res://scenes/pieces/window.tscn",
+	"Fence":"res://scenes/pieces/fence.tscn",
+	"Torch":"res://scenes/pieces/torch.tscn",
+	
 }
 
 func save_game():
 	var player=get_tree().current_scene.get_node("Player")
 	var data ={
 		"timber":GameManager.timber,
+		"collected_timber_names":GameManager.collected_timber_names,
 		"embers_collected":GameManager.embers_collected,
 		"collected_ember_names":GameManager.collected_ember_names,
 		"placed_pieces":GameManager.placed_pieces,
+		"player_health":GameManager.player_health,
+		"shrine_lit":GameManager.shrine_lit,
+		"husk_defeated":GameManager.husk_defeated,
 		"player_position":{"x":player.global_position.x,"y":player.global_position.y,"z":player.global_position.z}
 	}
+	
 	var file=FileAccess.open(SAVE_PATH,FileAccess.WRITE)
 	file.store_string(JSON.stringify(data))
 	file.close()
@@ -29,14 +39,19 @@ func load_game():
 	if not FileAccess.file_exists(SAVE_PATH):
 		print("no save file found")
 		return
+		
 	var file =FileAccess.open(SAVE_PATH,FileAccess.READ)
 	var data=JSON.parse_string(file.get_as_text())
 	file.close()
 	
 	GameManager.timber=data["timber"]
+	GameManager.collected_timber_names=data["collected_timber_names"]
 	GameManager.embers_collected=data["embers_collected"]
 	GameManager.collected_ember_names=data["collected_ember_names"]
 	GameManager.placed_pieces=data["placed_pieces"]
+	GameManager.player_health=data["player_health"]
+	GameManager.shrine_lit=data["shrine_lit"]
+	GameManager.husk_defeated=data["husk_defeated"]
 	
 	for node in get_tree().get_nodes_in_group("placed_piece"):
 		node.queue_free()

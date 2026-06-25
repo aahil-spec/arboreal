@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bmm3vk73bb7uf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hmmio"]
+size = Vector3(2, 0.5, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hmmio"]
+albedo_color = Color(0.63153017, 0.20481667, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ryoug"]
+material = SubResource("StandardMaterial3D_hmmio")
+size = Vector3(2, 0.5, 2)
+
+[node name="Stairs" type="StaticBody3D" unique_id=1398750500]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=253303450]
+shape = SubResource("BoxShape3D_hmmio")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=840388624]
+mesh = SubResource("BoxMesh_ryoug")

@@ -3,11 +3,31 @@ extends CharacterBody3D
 
 var player_in_range:bool=false
 var current_line:int=0
-var lines:Array=[
-	"...the shrine's gone dark,traveler.",
-	"Find the three embers hidden in the old ruins.",
-	"Bring them back, and we might just see another sunrise."
-]
+var lines:Array=[]
+
+func _get_lines():
+	if GameManager.husk_defeated:
+		return[
+			"you did it.arboreal owes you a debt it cant repay.",
+			"rest now,traveler. youve earned it",
+		]
+	elif GameManager.shrine_lit:
+		return[
+			"the shrines light reached further than i'd hoped",
+			"something stirred north in the ashen hollow",
+			"go and see whats woken be careful"
+		]
+	elif GameManager.embers_collected>0:
+		return[
+			"youre making progress."+str (GameManager.embers_collected)+"of 3 embers found",
+			"the ruins hold the rest keep looking"
+		]
+	else:
+		return[
+			"..the shrines gone dark traveler",
+			"find the three embers hidden in the old ruins",
+			"bring them back and we might just see another sunrise"
+		]
 func _on_interact_zone_body_entered(body):
 	if body.name=="Player":
 		player_in_range=true
@@ -20,6 +40,7 @@ func _on_interact_zone_body_exited(body):
 		
 func _unhandled_input(event):
 	if player_in_range and event.is_action_pressed("interact"):
+		lines=_get_lines()
 		var label = get_tree().current_scene.get_node("CanvasLayer/VBoxContainer/DialogueLabel")
 		label.visible=true
 		label.text=lines[current_line]

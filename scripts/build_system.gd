@@ -20,6 +20,10 @@ var pieces:Array=[
 	{"name":"Door","scene":preload("res://scenes/pieces/door.tscn"),"cost":2,"height_offset": 1.0},
 	{"name":"Campfire","scene":preload("res://scenes/pieces/campfire.tscn"),"cost":4,"height_offset": 0.2},
 	{"name":"Bed","scene":preload("res://scenes/pieces/bed.tscn"),"cost":3,"height_offset": 0.25},
+	{"name":"Stairs","scene":preload("res://scenes/pieces/stairs.tscn"),"cost":3,"height_offset":0.25},
+	{"name":"Window","scene":preload("res://scenes/pieces/window.tscn"),"cost":3,"height_offset":1.0},
+	{"name":"Fence","scene":preload("res://scenes/pieces/fence.tscn"),"cost":2,"height_offset":0.5},
+	{"name": "Torch", "scene": preload("res://scenes/pieces/torch.tscn"), "cost":2,"height_offset": 0.3},
 ]
 
 func _unhandled_input(event):
@@ -44,6 +48,13 @@ func _unhandled_input(event):
 			if event.is_action_pressed("select_piece_%d"%i):
 				selected_index=i-1
 				_spawn_ghost()
+		if event is InputEventMouseButton and event.pressed:
+			if event.button_index==MOUSE_BUTTON_WHEEL_UP:
+				selected_index=(selected_index+1)%pieces.size()
+				_spawn_ghost()
+			elif event.button_index==MOUSE_BUTTON_WHEEL_DOWN:
+				selected_index=(selected_index-1+pieces.size())%pieces.size()
+				_spawn_ghost() 
 		if event.is_action_pressed("place_piece"):
 			if has_hit:
 				_place_piece()
@@ -55,6 +66,13 @@ func _process(delta):
 	selected_label.text = "Selected: " + pieces[selected_index]["name"] + " (cost " + str(pieces[selected_index]["cost"]) + ")"
 	ember_label.text="Embers:"+str(GameManager.embers_collected)+"/3"
 	health_label.text="Health:"+str(GameManager.player_health)+"/"+str(GameManager.MAX_PLAYER_HEALTH)
+	
+	if GameManager.husk_defeated:
+		ember_label.text="arboreal is safe.well done"
+	elif GameManager.shrine_lit:
+		ember_label.text="find what stirred in the ashen hollow"
+	else:
+		ember_label.text="embers:"+str(GameManager.embers_collected)+"/3"
 @warning_ignore("unused_parameter")
 func _physics_process(delta):
 	var camera=get_viewport().get_camera_3d()

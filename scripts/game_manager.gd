@@ -4,11 +4,14 @@ var embers_collected:int=0
 var collected_ember_names:Array=[]
 var has_built_shelter:bool=false
 var timber:int=0
+var collected_timber_names:Array=[]
 var placed_pieces:Array=[]
 var time_of_day:float=300.0
 var player_health:int=100 
 var build_mode:bool=false
 var player_invincible:bool=false
+var shrine_lit:bool=false
+var husk_defeated:bool=false 
 
 const MAX_PLAYER_HEALTH:int=100
 const DAY_LENGTH_SECONDS:float=300.0
@@ -26,8 +29,11 @@ func collect_ember(ember_name:String=""):
 	if ember_name!="":
 		collected_ember_names.append(ember_name)
 
-func add_timber(amount:int):
-	timber+=amount
+func add_timber(amount: int, pickup_name: String = ""):
+	timber += amount
+	if pickup_name != "":
+		collected_timber_names.append(pickup_name)
+	print("Timber: ", timber)
 	
 func spend_timber(amount:int) ->bool:
 	if timber>=amount:
