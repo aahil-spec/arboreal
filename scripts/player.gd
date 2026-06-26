@@ -10,14 +10,13 @@ const FOOTSTEP_INTERVAL:float=0.4
 @onready var camera_pivot:Node3D=$CameraPivot
 @onready var attack_zone:Area3D=$AttackZone
 var footstep_timer:float=0.0
-
+var was_on_floor:bool=true
 @export var damage_vignette:ColorRect
 func _ready():
 	Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
 	GameManager.player_damaged.connect(_on_player_damaged)
 	
 func _on_player_damaged():
-	print("OUCH! The player was hit!")
 	_camera_shake()
 	_flash_vignette()
 	
@@ -49,11 +48,19 @@ func _unhandled_input(event):
 	if event.is_action_pressed("attack") and not GameManager.build_mode:
 		_attack()
 func _attack():
+	var mesh=$MeshInstance3D
+	var original_pos=mesh.position
+	var lunge_tween=create_tween()
+	lunge_tween.tween_property(mesh,"position",original_pos+Vector3(0,0,-0.3),0.05)
+	lunge_tween.tween_property(mesh,"position",original_pos,0.1)
 	for body in attack_zone.get_overlapping_bodies():
 		if body.is_in_group("enemy"):
 			body.take_damage(ATTACK_DAMAGE,global_position)
 			
 func _physics_process(delta):
+	if is_on_floor() and not was_on_floor:
+		_squash()
+	was_on_floor=is_on_floor()
 	if not is_on_floor():
 		velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity")* delta
 	# Handle jump.
@@ -84,3 +91,9 @@ func _physics_process(delta):
 		await get_tree().create_timer(2.0).timeout
 		GameManager.player_invincible=false
 	move_and_slide()
+func _squash():
+	var mesh=$MeshInstance3D
+	var original_scale=mesh.scale
+	var tween=create_tween()
+	tween.tween_property(mesh, "scale", Vector3(original_scale.x * 1.2, original_scale.y * 0.7, original_scale.z * 1.2), 0.06)
+	tween.tween_property(mesh,"scale",original_scale,0.12)

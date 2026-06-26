@@ -12,7 +12,8 @@ var build_mode:bool=false
 var player_invincible:bool=false
 var shrine_lit:bool=false
 var husk_defeated:bool=false 
-
+var is_raining:bool=false
+var rain_check_timer:float=30.0
 const MAX_PLAYER_HEALTH:int=100
 const DAY_LENGTH_SECONDS:float=300.0
 
@@ -21,6 +22,13 @@ func _process(delta):
 	time_of_day+=(24.0/DAY_LENGTH_SECONDS)*delta
 	if time_of_day>=24.0:
 		time_of_day-=24.0
+	rain_check_timer-=delta
+	if rain_check_timer<=0.0:
+		rain_check_timer=30.0
+		if not is_raining and randf()<0.3:
+			is_raining=true
+		elif is_raining and randf()<0.3:
+			is_raining=false
 		
 func is_night() ->bool:
 	return time_of_day<6.0 or time_of_day>20.0
@@ -54,7 +62,7 @@ func damage_player(amount:int):
 	player_health-=amount
 	if player_health<0:
 		player_health=0
-		player_damaged.emit()
+	player_damaged.emit()
 		
 func heal_player(amount:int):
 	player_health=min(player_health+amount,MAX_PLAYER_HEALTH)

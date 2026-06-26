@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cayivor226ewb" path="res://scenes/player.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://cjk1qtfgs8esw" path="res://assests/models/Tree_2_C_Color1.gltf" id="6_tefeu"]
 [ext_resource type="PackedScene" uid="uid://djqjs32ycfet3" path="res://scenes/pieces/timber_pickup.tscn" id="7_o6xl0"]
+[ext_resource type="Script" uid="uid://bi4ph4oxxsuim" path="res://scripts/rain.gd" id="8_muem4"]
 [ext_resource type="Script" uid="uid://8elj0g83qa4h" path="res://scripts/build_system.gd" id="8_tipki"]
 [ext_resource type="PackedScene" uid="uid://br37vam35068a" path="res://scenes/pieces/ember.tscn" id="9_85g3d"]
 [ext_resource type="Script" uid="uid://c5keim0asarpo" path="res://scripts/canvas_layer.gd" id="10_a8y0u"]
@@ -16,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://cw34rjbuckyvy" path="res://scenes/hollow.tscn" id="12_eb6dy"]
 [ext_resource type="Script" uid="uid://ccbkosgmduvu0" path="res://scripts/threshold_marker.gd" id="15_jkv2x"]
 [ext_resource type="PackedScene" uid="uid://ykj4sthu66lt" path="res://scenes/husk.tscn" id="16_jbj1t"]
+[ext_resource type="FastNoiseLite" uid="uid://bcigb5d2j40vy" path="res://1.tres" id="18_dp3eg"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a8y0u"]
 
@@ -27,6 +29,155 @@ background_mode = 2
 sky = SubResource("Sky_jkv2x")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jbj1t"]
+emission_shape = 3
+emission_box_extents = Vector3(10, 1, 10)
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+
+[sub_resource type="Shader" id="Shader_0ld40"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.6.1.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_always, cull_back, diffuse_burley, specular_schlick_ggx;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform ivec2 albedo_texture_size;
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+
+uniform float roughness : hint_range(0.0, 1.0);
+uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01);
+
+uniform sampler2D texture_refraction : filter_linear_mipmap, repeat_enable;
+uniform float refraction : hint_range(-1.0, 1.0, 0.001);
+uniform vec4 refraction_texture_channel;
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_linear_mipmap;
+uniform sampler2D depth_texture : hint_depth_texture, repeat_disable, filter_nearest;
+
+uniform sampler2D texture_normal : hint_roughness_normal, filter_linear_mipmap, repeat_enable;
+uniform float normal_scale : hint_range(-16.0, 16.0);
+varying vec3 uv1_triplanar_pos;
+
+uniform float uv1_blend_sharpness : hint_range(0.0, 150.0, 0.001);
+varying vec3 uv1_power_normal;
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+void vertex() {
+	vec3 normal = MODEL_NORMAL_MATRIX * NORMAL;
+
+	TANGENT = vec3(0.0, 0.0, -1.0) * abs(normal.x);
+	TANGENT += vec3(1.0, 0.0, 0.0) * abs(normal.y);
+	TANGENT += vec3(1.0, 0.0, 0.0) * abs(normal.z);
+	TANGENT = inverse(MODEL_NORMAL_MATRIX) * normalize(TANGENT);
+
+	BINORMAL = vec3(0.0, 1.0, 0.0) * abs(normal.x);
+	BINORMAL += vec3(0.0, 0.0, -1.0) * abs(normal.y);
+	BINORMAL += vec3(0.0, 1.0, 0.0) * abs(normal.z);
+	BINORMAL = inverse(MODEL_NORMAL_MATRIX) * normalize(BINORMAL);
+
+	// UV1 Triplanar: Enabled (with World Triplanar)
+	uv1_power_normal = pow(abs(normal), vec3(uv1_blend_sharpness));
+	uv1_triplanar_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz * uv1_scale + uv1_offset+TIME*0.01;
+	uv1_power_normal /= dot(uv1_power_normal, vec3(1.0));
+	uv1_triplanar_pos *= vec3(1.0, -1.0, 1.0);
+}
+
+vec4 triplanar_texture(sampler2D p_sampler, vec3 p_weights, vec3 p_triplanar_pos) {
+	vec4 samp = vec4(0.0);
+	samp += texture(p_sampler, p_triplanar_pos.xy) * p_weights.z;
+	samp += texture(p_sampler, p_triplanar_pos.xz) * p_weights.y;
+	samp += texture(p_sampler, p_triplanar_pos.zy * vec2(-1.0, 1.0)) * p_weights.x;
+	return samp;
+}
+
+void fragment() {
+	vec4 albedo_tex = triplanar_texture(texture_albedo, uv1_power_normal, uv1_triplanar_pos);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+	float metallic_tex = dot(triplanar_texture(texture_metallic, uv1_power_normal, uv1_triplanar_pos), metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	SPECULAR = specular;
+
+	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	float roughness_tex = dot(triplanar_texture(texture_roughness, uv1_power_normal, uv1_triplanar_pos), roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+
+	// Normal Map: Enabled
+	NORMAL_MAP = triplanar_texture(texture_normal, uv1_power_normal, uv1_triplanar_pos).rgb;
+	NORMAL_MAP_DEPTH = normal_scale;
+
+	// Refraction: Enabled (with normal map texture)
+	vec3 unpacked_normal = NORMAL_MAP;
+	unpacked_normal.xy = unpacked_normal.xy * 2.0 - 1.0;
+	unpacked_normal.z = sqrt(max(0.0, 1.0 - dot(unpacked_normal.xy, unpacked_normal.xy)));
+	vec3 ref_normal = normalize(mix(
+			NORMAL,
+			TANGENT * unpacked_normal.x + BINORMAL * unpacked_normal.y + NORMAL * unpacked_normal.z,
+			NORMAL_MAP_DEPTH));
+	vec2 ref_ofs = SCREEN_UV - ref_normal.xy * dot(triplanar_texture(texture_refraction, uv1_power_normal, uv1_triplanar_pos), refraction_texture_channel) * refraction;
+
+	float ref_amount = 1.0 - albedo.a * albedo_tex.a;
+
+	float refraction_depth_tex = textureLod(depth_texture, ref_ofs, 0.0).r;
+	vec4 ndc = OUTPUT_IS_SRGB ? vec4(vec3(SCREEN_UV, refraction_depth_tex) * 2.0 - 1.0, 1.0) : vec4(SCREEN_UV * 2.0 - 1.0, refraction_depth_tex, 1.0);
+	vec4 refraction_view_pos = INV_PROJECTION_MATRIX * ndc;
+	refraction_view_pos.xyz /= refraction_view_pos.w;
+
+	// If the depth buffer is lower then the model's Z position, use the refracted UV, otherwise use the normal screen UV.
+	// At low depth differences, decrease refraction intensity to avoid sudden discontinuities.
+	EMISSION += textureLod(screen_texture, mix(SCREEN_UV, ref_ofs, smoothstep(0.0, 1.0, VERTEX.z - refraction_view_pos.z)), ROUGHNESS * 8.0).rgb * ref_amount * EXPOSURE;
+	ALBEDO *= 1.0 - ref_amount;
+	// Force transparency on the material (required for refraction).
+	ALPHA = 1.0;
+}
+"
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gqmmt"]
+noise = ExtResource("18_dp3eg")
+seamless = true
+as_normal_map = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yc10j"]
+render_priority = 0
+shader = SubResource("Shader_0ld40")
+shader_parameter/albedo = Color(0.047058824, 0.31764707, 0.46666667, 0.5058824)
+shader_parameter/albedo_texture_size = Vector2i(0, 0)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 0.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/refraction = 0.05
+shader_parameter/refraction_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/texture_normal = SubResource("NoiseTexture2D_gqmmt")
+shader_parameter/normal_scale = 1.0
+shader_parameter/uv1_blend_sharpness = 1.0
+shader_parameter/uv1_scale = Vector3(0.04, 0.04, 0.04)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dp3eg"]
+material = SubResource("ShaderMaterial_yc10j")
+size = Vector3(0.02, 0.4, 0.02)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a8y0u"]
+size = Vector3(1, 9.643311, 341.62634)
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_muem4"]
+geometry_parsed_geometry_type = 1
 
 [sub_resource type="Gradient" id="Gradient_ya4ey"]
 offsets = PackedFloat32Array(0.2, 1)
@@ -103,8 +254,8 @@ normal_texture = ExtResource("4_o6xl0")
 mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_jbj1t")])
 texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_muem4"), SubResource("Terrain3DTextureAsset_dp3eg")])
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_a8y0u"]
-size = Vector3(1, 9.643311, 341.62634)
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jscy8"]
+material = SubResource("ShaderMaterial_yc10j")
 
 [node name="Main" type="Node3D" unique_id=661294341]
 
@@ -116,14 +267,6 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 shadow_enabled = true
 script = ExtResource("1_trceg")
 
-[node name="Terrain3D" type="Terrain3D" parent="." unique_id=1275351008]
-data_directory = "res://map terrian"
-material = SubResource("Terrain3DMaterial_a8y0u")
-assets = SubResource("Terrain3DAssets_0ld40")
-collision_radius = 256
-top_level = true
-metadata/_edit_lock_ = true
-
 [node name="Player" parent="." unique_id=600792781 node_paths=PackedStringArray("damage_vignette") instance=ExtResource("5_tbgi4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.66801, 1.8409333, 201.2784)
 damage_vignette = NodePath("../CanvasLayer/DamageVignette")
@@ -134,6 +277,14 @@ script = ExtResource("8_tipki")
 timber_label = NodePath("../../CanvasLayer/VBoxContainer/TimberLabel")
 selected_label = NodePath("../../CanvasLayer/VBoxContainer/SelectedLabel")
 ember_label = NodePath("../../CanvasLayer/VBoxContainer/EmberLabel")
+
+[node name="Rain" type="GPUParticles3D" parent="Player" unique_id=388917736]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.5747066, 0)
+amount = 200
+lifetime = 1.5
+process_material = SubResource("ParticleProcessMaterial_jbj1t")
+draw_pass_1 = SubResource("BoxMesh_dp3eg")
+script = ExtResource("8_muem4")
 
 [node name="Tree_2_C_Color12" parent="." unique_id=268144831 instance=ExtResource("6_tefeu")]
 transform = Transform3D(1, 0, 0, 0, 0.99998134, -0.006108614, 0, 0.006108614, 0.99998134, 25.861366, 0.7685499, 194.54912)
@@ -270,14 +421,13 @@ text = "WASD - Move      Space - Jump      Mouse - Look
    E - Interact      F5 - Save   F9 - Load   H - This menu"
 
 [node name="DamageVignette" type="ColorRect" parent="CanvasLayer" unique_id=1776418004]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(1, 0.20392157, 0.12156863, 1)
+color = Color(1, 0.20392157, 0.12156863, 0)
 
 [node name="Ember" type="Node3D" parent="." unique_id=876940045]
 
@@ -322,6 +472,21 @@ shape = SubResource("BoxShape3D_a8y0u")
 
 [node name="Husk1" parent="." unique_id=1374809841 instance=ExtResource("16_jbj1t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 317.28815, 8.447172, 224.12244)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=2057997992]
+navigation_mesh = SubResource("NavigationMesh_muem4")
+
+[node name="Terrain3D" type="Terrain3D" parent="NavigationRegion3D" unique_id=1275351008]
+data_directory = "res://map terrian"
+material = SubResource("Terrain3DMaterial_a8y0u")
+assets = SubResource("Terrain3DAssets_0ld40")
+collision_radius = 256
+top_level = true
+metadata/_edit_lock_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2075315958]
+transform = Transform3D(300.25397, 0, 0, 0, 62.28371, 0, 0, 0, 494.69583, -202.30948, -64.024086, 144.23157)
+mesh = SubResource("CapsuleMesh_jscy8")
 
 [connection signal="body_entered" from="ThresholdMarker" to="ThresholdMarker" method="_on_body_entered"]
 

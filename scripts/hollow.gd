@@ -3,7 +3,7 @@ extends CharacterBody3D
 
 const SPEED = 3.0
 const DETECT_RADIUS:float=8.0
-const MAX_HEALTH:int=30
+const MAX_HEALTH:int=90
 const KNOCKBACK_FORCE:float=4.0
 const KNOCKBACK_DURATION:float=0.3
 
