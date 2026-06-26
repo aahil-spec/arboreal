@@ -104,7 +104,7 @@ mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_jbj1t")])
 texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_muem4"), SubResource("Terrain3DTextureAsset_dp3eg")])
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a8y0u"]
-size = Vector3(1, 9.643311, 302.9136)
+size = Vector3(1, 9.643311, 341.62634)
 
 [node name="Main" type="Node3D" unique_id=661294341]
 
@@ -124,8 +124,9 @@ collision_radius = 256
 top_level = true
 metadata/_edit_lock_ = true
 
-[node name="Player" parent="." unique_id=600792781 instance=ExtResource("5_tbgi4")]
+[node name="Player" parent="." unique_id=600792781 node_paths=PackedStringArray("damage_vignette") instance=ExtResource("5_tbgi4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.66801, 1.8409333, 201.2784)
+damage_vignette = NodePath("../CanvasLayer/DamageVignette")
 
 [node name="BuildSystem" type="Node3D" parent="Player" unique_id=39023323 node_paths=PackedStringArray("timber_label", "selected_label", "ember_label")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.66801, -1.8409333, -201.2784)
@@ -268,22 +269,38 @@ text = "WASD - Move      Space - Jump      Mouse - Look
    B - Build Mode   1-6 - Select Piece   Q/E - Rotate   Click - Place
    E - Interact      F5 - Save   F9 - Load   H - This menu"
 
+[node name="DamageVignette" type="ColorRect" parent="CanvasLayer" unique_id=1776418004]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0.20392157, 0.12156863, 1)
+
 [node name="Ember" type="Node3D" parent="." unique_id=876940045]
 
 [node name="Ember2" parent="Ember" unique_id=421441933 groups=["ember"] instance=ExtResource("9_85g3d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.167904, 0.18567944, 205.70256)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108.831276, 1.3089035, 307.8939)
 
 [node name="Ember4" parent="Ember" unique_id=474699277 groups=["ember"] instance=ExtResource("9_85g3d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.213177, 0.18567944, 205.70256)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130.62442, 1.3244426, 297.44022)
 
 [node name="Ember3" parent="Ember" unique_id=1584278941 groups=["ember"] instance=ExtResource("9_85g3d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.880678, 0.18567944, 205.70256)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146.71297, 1.3509483, 284.11383)
 
 [node name="Hermit" parent="." unique_id=564781588 instance=ExtResource("10_choun")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.558043, 0.901104, 236.25269)
 
 [node name="Shrine" parent="." unique_id=1614487741 instance=ExtResource("11_ya4ey")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.109707, 1.1064706, 236.17052)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108.821915, 0.03433132, 307.90344)
+
+[node name="Shrine2" parent="." unique_id=1877496963 instance=ExtResource("11_ya4ey")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130.64526, 0.03433132, 297.45114)
+
+[node name="Shrine3" parent="." unique_id=422829047 instance=ExtResource("11_ya4ey")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146.73611, 0.03433132, 284.13904)
 
 [node name="Hollow" parent="." unique_id=1014640091 instance=ExtResource("12_eb6dy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.55043, 0.9568677, 227.50854)
@@ -299,8 +316,12 @@ script = ExtResource("15_jkv2x")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.560974, -4.3216553, 146.00568)
 shape = SubResource("BoxShape3D_a8y0u")
 
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="ThresholdMarker" unique_id=322120989]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 175.99573, -4.3216553, 13.177666)
+shape = SubResource("BoxShape3D_a8y0u")
+
 [node name="Husk1" parent="." unique_id=1374809841 instance=ExtResource("16_jbj1t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 309.9211, 5.3741245, 58.530582)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 317.28815, 8.447172, 224.12244)
 
 [connection signal="body_entered" from="ThresholdMarker" to="ThresholdMarker" method="_on_body_entered"]
 

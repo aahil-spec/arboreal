@@ -16,6 +16,7 @@ var husk_defeated:bool=false
 const MAX_PLAYER_HEALTH:int=100
 const DAY_LENGTH_SECONDS:float=300.0
 
+signal player_damaged
 func _process(delta):
 	time_of_day+=(24.0/DAY_LENGTH_SECONDS)*delta
 	if time_of_day>=24.0:
@@ -53,6 +54,7 @@ func damage_player(amount:int):
 	player_health-=amount
 	if player_health<0:
 		player_health=0
+		player_damaged.emit()
 		
 func heal_player(amount:int):
 	player_health=min(player_health+amount,MAX_PLAYER_HEALTH)

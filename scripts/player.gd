@@ -11,9 +11,29 @@ const FOOTSTEP_INTERVAL:float=0.4
 @onready var attack_zone:Area3D=$AttackZone
 var footstep_timer:float=0.0
 
+@export var damage_vignette:ColorRect
 func _ready():
 	Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
+	GameManager.player_damaged.connect(_on_player_damaged)
 	
+func _on_player_damaged():
+	print("OUCH! The player was hit!")
+	_camera_shake()
+	_flash_vignette()
+	
+func _camera_shake():
+	var original_pos=camera_pivot.position
+	var tween=create_tween()
+	for i in range(4):
+		var offset=Vector3(randf_range(-0.1,0.1),randf_range(-0.1,0.1),0)
+		tween.tween_property(camera_pivot,"position",original_pos+offset,0.03)
+	tween.tween_property(camera_pivot,"position",original_pos,0.05)
+	
+func _flash_vignette():
+	if damage_vignette:
+		damage_vignette.color.a=0.35
+		var tween=create_tween()
+		tween.tween_property(damage_vignette,"color:a",0.0,0.4)
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x*MOUSE_SENSITIVITY)
@@ -31,7 +51,7 @@ func _unhandled_input(event):
 func _attack():
 	for body in attack_zone.get_overlapping_bodies():
 		if body.is_in_group("enemy"):
-			body.take_damage(ATTACK_DAMAGE)
+			body.take_damage(ATTACK_DAMAGE,global_position)
 			
 func _physics_process(delta):
 	if not is_on_floor():
