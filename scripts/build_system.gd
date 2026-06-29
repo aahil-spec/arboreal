@@ -7,6 +7,7 @@ extends Node3D
 @export var build_distance:float=8.0
 
 @onready var health_label:Label=get_tree().current_scene.get_node("CanvasLayer/VBoxContainer/HealthLabel")
+@onready var nav_region:NavigationRegion3D=get_tree().current_scene.get_node("NavigationRegion3D")
 var current_hit_position:Vector3=Vector3.ZERO
 var has_hit:bool=false
 var build_mode:bool=false
@@ -131,5 +132,8 @@ func _place_piece():
 		real_piece.global_position=pos
 		real_piece.rotation=ghost.rotation
 		GameManager.record_pieces(piece["name"],pos,real_piece.rotation)
+		real_piece.add_to_group("navmesh_source")
+		nav_region.bake_navigation_mesh()
+		
 	else:
 		print("not enough timber! need",piece["cost"])

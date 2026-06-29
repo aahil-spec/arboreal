@@ -29,4 +29,7 @@ script = ExtResource("2_gvftp")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitZone" unique_id=74167816]
 shape = SubResource("SphereShape3D_gvftp")
 
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=756365059]
+path_return_max_radius = 0.4
+
 [connection signal="body_entered" from="HitZone" to="HitZone" method="_on_body_entered"]

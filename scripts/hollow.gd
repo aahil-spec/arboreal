@@ -6,15 +6,23 @@ const DETECT_RADIUS:float=8.0
 const MAX_HEALTH:int=90
 const KNOCKBACK_FORCE:float=4.0
 const KNOCKBACK_DURATION:float=0.3
+const ALERT_DURATION:float=0.4
+
 
 var knockback_timer:float=0.0
 var player:Node3D=null
 var health:int=MAX_HEALTH
+var alert_timer:float=0.0
+var is_alert:bool=false
+var was_detecting:bool=false
 
 @onready var mesh:MeshInstance3D=$MeshInstance3D
+@onready var nav_agent:NavigationAgent3D=$NavigationAgent3D
+
 func _ready():
 	player=get_tree().current_scene.get_node("Player")
 	add_to_group("enemy")
+	
 func take_damage(amount:int,attacker_position:Vector3=Vector3.ZERO):
 	health-=amount
 	_flash()
@@ -40,23 +48,47 @@ func _physics_process(delta):
 		
 	if knockback_timer>0.0:
 		knockback_timer-=delta
-	else:
+		move_and_slide()
+		return
 		
-		if GameManager.is_night():
-			var distance =global_position.distance_to(player.global_position)
-			if distance<DETECT_RADIUS:
-				var direction=(player.global_position-global_position)
+	var detecting=false
+	if GameManager.is_night():
+		var distance =global_position.distance_to(player.global_position)
+		detecting=distance<DETECT_RADIUS
+		
+	if detecting and not was_detecting:
+		is_alert=true
+		alert_timer=ALERT_DURATION
+	was_detecting=detecting
+	
+	if is_alert:
+		alert_timer-=delta
+		
+		var player_look=Vector3(player.global_position.x,global_position.y,player.global_position.z)
+		if global_position.distance_to(player_look):
+			look_at(player_look,Vector3.UP)
+		velocity.x=move_toward(velocity.x,0,SPEED)
+		velocity.z=move_toward(velocity.z,0,SPEED)
+		if alert_timer<=0.0:
+			is_alert=false
+			
+	elif detecting:
+		nav_agent.target_position=player.global_position
+		var distance_to_player=global_position.distance_to(player.global_position)
+		if distance_to_player>1.5:
+				var next_point=nav_agent.get_next_path_position()
+				var direction=(next_point-global_position)
 				direction.y=0
-				direction=direction.normalized()
-				velocity.x=direction.x*SPEED
-				velocity.z=direction.z*SPEED
-				var look_target=Vector3(player.global_position.x,global_position.y,global_position.z)
-				look_at(look_target,Vector3.UP)
-			else:
-				velocity.x=move_toward(velocity.x,0,SPEED)
-				velocity.x=move_toward(velocity.z,0,SPEED)
+				if direction.length()>0.05:
+					direction=direction.normalized()
+					velocity.x=direction.x*SPEED
+					velocity.z=direction.z*SPEED
+					var look_target=global_position+direction
+					look_at(look_target,Vector3.UP)
 		else:
 			velocity.x=move_toward(velocity.x,0,SPEED)
 			velocity.z=move_toward(velocity.z,0,SPEED)
+	else:
+		velocity.x=move_toward(velocity.x,0,SPEED)
+		velocity.z=move_toward(velocity.z,0,SPEED)
 	move_and_slide()
-	
