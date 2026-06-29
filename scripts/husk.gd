@@ -43,6 +43,7 @@ func take_damage(amount:int,attacker_position:Vector3=Vector3.ZERO):
 		knockback_timer=KNOCKBACK_DURATION
 	if health<=0:
 		GameManager.husk_defeated=true
+		GameManager.add_item("sword_ember")
 		queue_free()
 
 func _flash():

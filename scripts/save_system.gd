@@ -27,6 +27,9 @@ func save_game():
 		"player_health":GameManager.player_health,
 		"shrine_lit":GameManager.shrine_lit,
 		"husk_defeated":GameManager.husk_defeated,
+		"inventory":GameManager.inventory,
+		"equipped":GameManager.equipped,
+		"collected_item_pickup_names":GameManager.collected_item_pickup_names,
 		"player_position":{"x":player.global_position.x,"y":player.global_position.y,"z":player.global_position.z}
 	}
 	
@@ -52,6 +55,9 @@ func load_game():
 	GameManager.player_health=data["player_health"]
 	GameManager.shrine_lit=data["shrine_lit"]
 	GameManager.husk_defeated=data["husk_defeated"]
+	GameManager.inventory=data["inventory"]
+	GameManager.equipped=data["equipped"]
+	GameManager.collected_item_pickup_names=data["collected_item_pickup_names"]
 	
 	for node in get_tree().get_nodes_in_group("placed_piece"):
 		node.queue_free()
@@ -60,16 +66,27 @@ func load_game():
 		var scene_path=piece_scenes[entry["name"]]
 		var piece=load(scene_path).instantiate()
 		piece.add_to_group("placed_piece")
+		piece.add_to_group("navmesh_source")
 		get_tree().current_scene.add_child(piece)
 		var pos =entry["position"]
 		piece.global_position=Vector3(pos["x"],pos["y"],pos["z"])
 		var rot=entry["rotation"]
 		piece.rotation=Vector3(rot["x"],rot["y"],rot["z"])
 		
+	var nav_region=get_tree().current_scene.get_node("NavigationRegion3D")
+	nav_region.bake_navigation_mesh()
 	for ember_node in get_tree().get_nodes_in_group("ember"):
 		if ember_node.name in GameManager.collected_ember_names:
 			ember_node.queue_free()
-			
+	for timber_node in get_tree().get_nodes_in_group("timber"):
+		if timber_node.name in GameManager.collected_timber_names:
+			timber_node.queue_free()
+	for item_node in get_tree().get_nodes_in_group("item_pickup"):
+		if item_node.name in GameManager.collected_item_pickup_names:
+			item_node.queue_free()
+	if GameManager.husk_defeated:
+		for boss_node in get_tree().get_nodes_in_group("boss"):
+			boss_node.queue_free()
 	var player =get_tree().current_scene.get_node("Player")
 	var ppos=data["player_position"]
 	player.global_position=Vector3(ppos["x"],ppos["y"],ppos["z"])

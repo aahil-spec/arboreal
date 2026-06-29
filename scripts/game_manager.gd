@@ -15,6 +15,7 @@ var player_invincible:bool=false
 var shrine_lit:bool=false
 var husk_defeated:bool=false 
 var is_raining:bool=false
+var collected_item_pickup_names:Array=[]
 var rain_check_timer:float=30.0
 const MAX_PLAYER_HEALTH:int=100
 const DAY_LENGTH_SECONDS:float=300.0
@@ -78,8 +79,10 @@ func damage_player(amount:int):
 func heal_player(amount:int):
 	player_health=min(player_health+amount,MAX_PLAYER_HEALTH)
 	
-func add_item(item_id:String):
+func add_item(item_id:String,pickup_name:String=""):
 	inventory.append(item_id)
+	if pickup_name!="":
+		collected_item_pickup_names.append(pickup_name)
 	print("Picked up: ", items[item_id]["name"])
 	
 func equip_item(item_id:String):

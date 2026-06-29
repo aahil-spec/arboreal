@@ -8,6 +8,7 @@ extends Node3D
 
 @onready var health_label:Label=get_tree().current_scene.get_node("CanvasLayer/VBoxContainer/HealthLabel")
 @onready var nav_region:NavigationRegion3D=get_tree().current_scene.get_node("NavigationRegion3D")
+@onready var equipped_label:Label=get_tree().current_scene.get_node("CanvasLayer/VBoxContainer/EquippedLabel")
 var current_hit_position:Vector3=Vector3.ZERO
 var has_hit:bool=false
 var build_mode:bool=false
@@ -68,12 +69,11 @@ func _process(delta):
 	ember_label.text="Embers:"+str(GameManager.embers_collected)+"/3"
 	health_label.text="Health:"+str(GameManager.player_health)+"/"+str(GameManager.MAX_PLAYER_HEALTH)
 	
-	if GameManager.husk_defeated:
-		ember_label.text="arboreal is safe.well done"
-	elif GameManager.shrine_lit:
-		ember_label.text="find what stirred in the ashen hollow"
-	else:
-		ember_label.text="embers:"+str(GameManager.embers_collected)+"/3"
+	var weapon_name="None"
+	if GameManager.equipped["weapon"]!="":
+		weapon_name=GameManager.items[GameManager.equipped["weapon"]]["name"]
+	equipped_label.text="Weapon:"+weapon_name
+	
 @warning_ignore("unused_parameter")
 func _physics_process(delta):
 	var camera=get_viewport().get_camera_3d()
