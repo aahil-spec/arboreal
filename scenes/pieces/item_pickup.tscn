@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cwe66jl187s1i"]
+
+[ext_resource type="Script" uid="uid://bj4lklmk736nb" path="res://scripts/item_pickup.gd" id="1_i1pn5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5863l"]
+albedo_color = Color(0.83137256, 0.6313726, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_i1pn5"]
+material = SubResource("StandardMaterial3D_5863l")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2kbmk"]
+
+[node name="ItemPickup" type="Area3D" unique_id=410712748]
+script = ExtResource("1_i1pn5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1727127531]
+mesh = SubResource("SphereMesh_i1pn5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=457170219]
+shape = SubResource("SphereShape3D_2kbmk")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

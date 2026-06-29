@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://ccbkosgmduvu0" path="res://scripts/threshold_marker.gd" id="15_jkv2x"]
 [ext_resource type="PackedScene" uid="uid://ykj4sthu66lt" path="res://scenes/husk.tscn" id="16_jbj1t"]
 [ext_resource type="Terrain3DAssets" uid="uid://dkgj7jcnrmc0j" path="res://new_terrain_3d_assets.tres" id="17_dp3eg"]
+[ext_resource type="PackedScene" uid="uid://cwe66jl187s1i" path="res://scenes/pieces/item_pickup.tscn" id="17_muem4"]
 [ext_resource type="FastNoiseLite" uid="uid://bcigb5d2j40vy" path="res://1.tres" id="18_dp3eg"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a8y0u"]
@@ -308,6 +309,9 @@ layout_mode = 2
 [node name="DialogueLabel" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=1676583652]
 layout_mode = 2
 
+[node name="EquippedLabel" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=961130736]
+layout_mode = 2
+
 [node name="CrosshairH" type="ColorRect" parent="CanvasLayer" unique_id=1473656833]
 anchors_preset = 8
 anchor_left = 0.5
@@ -357,6 +361,25 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 0.20392157, 0.12156863, 0)
+
+[node name="InventoryPanel" type="Panel" parent="CanvasLayer" unique_id=716773866]
+visible = false
+anchors_preset = -1
+anchor_left = 0.25260416
+anchor_top = 0.2669753
+anchor_right = 0.7508681
+anchor_bottom = 0.7268519
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/InventoryPanel" unique_id=530401250]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Ember" type="Node3D" parent="." unique_id=876940045]
 
@@ -416,6 +439,17 @@ assets = ExtResource("17_dp3eg")
 collision_radius = 256
 top_level = true
 metadata/_edit_lock_ = true
+
+[node name="ItemPickup" parent="." unique_id=410712748 instance=ExtResource("17_muem4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2532187, 1.4524059, 241.41116)
+
+[node name="ItemPickup2" parent="." unique_id=2137566899 instance=ExtResource("17_muem4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2532187, 1.4524059, 248.04219)
+item_id = "armor_leather"
+
+[node name="ItemPickup3" parent="." unique_id=477376296 instance=ExtResource("17_muem4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2532187, 1.4524059, 254.76714)
+item_id = "boots_swift"
 
 [connection signal="body_entered" from="ThresholdMarker" to="ThresholdMarker" method="_on_body_entered"]
 

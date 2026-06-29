@@ -7,8 +7,11 @@ const MAX_HEALTH:int=80
 const KNOCKBACK_FORCE:float=3.0
 const KNOCKBACK_DURATION:float=0.3
 const PATROL_RADIUS:float=6.0
+const ALERT_DURATION:float=0.4
 
-
+var alert_timer:float=0.0
+var is_Alert:bool=false
+var was_detecting:bool=false
 var health:int=MAX_HEALTH
 var player:Node3D=null
 var knockback_timer:float=0.0
@@ -58,23 +61,44 @@ func _physics_process(delta):
 		knockback_timer-=delta
 		move_and_slide()
 		return
-	if distance_to_player<DETECT_RADIUS:
-		nav_agent.target_position=player.global_position
-	else:
-		if global_position.distance_to(patrol_target)<1.0:
-			_pick_new_patrol_target()
-		nav_agent.target_position=patrol_target
-	if not nav_agent.is_navigation_finished():
-		var next_point=nav_agent.get_next_path_position()
-		var direction=(next_point-global_position)
-		direction.y=0
-		if direction.length()>0.05:
-			direction=direction.normalized()
-			velocity.x=direction.x*SPEED
-			velocity.z=direction.z*SPEED
-			var look_target=global_position+direction
-			look_at(look_target,Vector3.UP)
-	else:
+	var detecting=distance_to_player<DETECT_RADIUS
+	
+	if DETECT_RADIUS and not was_detecting:
+		is_Alert=true
+		alert_timer=ALERT_DURATION
+	was_detecting=detecting
+	
+	if is_Alert:
+		alert_timer-=delta
+		var player_look=Vector3(player.global_position.x,global_position.y,player.global_position.z)
+		if global_position.distance_to(player_look):
+			look_at(player_look,Vector3.UP)
+			
 		velocity.x=move_toward(velocity.x,0,SPEED)
 		velocity.z=move_toward(velocity.z,0,SPEED)
+		
+		if alert_timer<=0.0:
+			is_Alert=false
+			
+	else:
+		if detecting:
+			nav_agent.target_position=player.global_position
+		else:
+			if global_position.distance_to(patrol_target)<1.0:
+				_pick_new_patrol_target()
+			nav_agent.target_position=patrol_target
+		var distance_to_target=global_position.distance_to(nav_agent.target_position)
+		if distance_to_target>1.5:
+			var next_point=nav_agent.get_next_path_position()
+			var direction=(next_point-global_position)
+			direction.y=0
+			if direction.length()>0.05:
+				direction=direction.normalized()
+				velocity.x=direction.x*SPEED
+				velocity.z=direction.z*SPEED
+				var look_target=global_position+direction
+				look_at(look_target,Vector3.UP)
+		else:
+			velocity.x=move_toward(velocity.x,0,SPEED)
+			velocity.z=move_toward(velocity.z,0,SPEED)
 	move_and_slide()

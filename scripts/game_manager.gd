@@ -1,5 +1,7 @@
 extends Node
 
+signal player_damaged
+
 var embers_collected:int=0
 var collected_ember_names:Array=[]
 var has_built_shelter:bool=false
@@ -17,7 +19,15 @@ var rain_check_timer:float=30.0
 const MAX_PLAYER_HEALTH:int=100
 const DAY_LENGTH_SECONDS:float=300.0
 
-signal player_damaged
+var items:Dictionary={
+	"sword_iron":{"name":"Iron Sword","type":"weapon","bonus_key":"attack_damage","bonus_value":10},
+	"sword_ember":{"name":"Ember Blade","type":"weapon","bonus_key":"attack_damage","bonus_value":25},
+	"armor_leather":{"name":"Leather Armor","type":"armor","bonus_key":"defense","bonus_value":5},
+	"boots_swift":{"name":"Swift Boots","type":"boots","bonus_key":"speed_bonus","bonus_value":1.0},
+}
+
+var inventory:Array=[]
+var equipped:Dictionary={"weapon":"","armor":"","boots":""}
 func _process(delta):
 	time_of_day+=(24.0/DAY_LENGTH_SECONDS)*delta
 	if time_of_day>=24.0:
@@ -59,10 +69,38 @@ func record_pieces(piece_name:String,position:Vector3,rotation:Vector3):
 func damage_player(amount:int):
 	if player_invincible:
 		return
-	player_health-=amount
+	var reduced=max(amount-get_defense(),1)
+	player_health-=reduced
 	if player_health<0:
 		player_health=0
 	player_damaged.emit()
 		
 func heal_player(amount:int):
 	player_health=min(player_health+amount,MAX_PLAYER_HEALTH)
+	
+func add_item(item_id:String):
+	inventory.append(item_id)
+	print("Picked up: ", items[item_id]["name"])
+	
+func equip_item(item_id:String):
+	var item_type=items[item_id]["type"]
+	equipped[item_type]=item_id
+	print("Equipped: ", items[item_id]["name"])
+	
+func get_attack_damage():
+	var base=15
+	if equipped["weapon"] !="" and items[equipped["weapon"]]["bonus_key"]=="attack_damage":
+		base+=items[equipped["weapon"]]["bonus_value"]
+	return base
+		
+func get_defense():
+	var defense=0
+	if equipped["armor"]!=""and items[equipped["armor"]]["bonus_key"]=="defense":
+		defense+=items[equipped["armor"]]["bonus_value"]
+	return defense
+		
+func get_speed_bonus():
+	var bonus=0.0
+	if equipped["boots"] !=""and items[equipped["boots"]]["bonus_key"]=="speed_bonus":
+		bonus+=items[equipped["boots"]]["bonus_value"]
+	return bonus
