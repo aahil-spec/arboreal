@@ -6,6 +6,7 @@ const JUMP_VELOCITY :float= 4.5
 const MOUSE_SENSITIVITY:float=0.003
 const ATTACK_DAMAGE:int=15
 const FOOTSTEP_INTERVAL:float=0.4
+const SPRINT_MULTIPLIER:float=1.6
 
 @onready var camera_pivot:Node3D=$CameraPivot
 @onready var attack_zone:Area3D=$AttackZone
@@ -60,6 +61,8 @@ func _attack():
 			
 func _physics_process(delta):
 	if is_on_floor() and not was_on_floor:
+		_update_shelter_status()
+		_update_heat_status()
 		_squash()
 	was_on_floor=is_on_floor()
 	if not is_on_floor():
@@ -69,6 +72,13 @@ func _physics_process(delta):
 	var input_dir :Vector2= Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var direction :Vector3= (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	var current_speed=SPEED+GameManager.get_speed_bonus()
+	
+	var wants_to_sprint=Input.is_action_pressed("sprint") and direction.length()>0.1 and GameManager.stamina>0.0
+	GameManager.is_sprinting=wants_to_sprint
+	if wants_to_sprint:
+		current_speed*=SPRINT_MULTIPLIER
+		
+	print("Stamin level:",GameManager.stamina)
 	if direction:
 		velocity.x = direction.x *current_speed
 		velocity.z = direction.z * current_speed
@@ -98,3 +108,20 @@ func _squash():
 	var tween=create_tween()
 	tween.tween_property(mesh, "scale", Vector3(original_scale.x * 1.2, original_scale.y * 0.7, original_scale.z * 1.2), 0.06)
 	tween.tween_property(mesh,"scale",original_scale,0.12)
+
+func _update_shelter_status():
+	var space_state=get_world_3d().direct_space_state
+	var from=global_position+Vector3(0,0.5,0)
+	var to=from+Vector3(0,50,0)
+	var query=PhysicsRayQueryParameters3D.create(from,to)
+	query.exclude=[get_rid()]
+	var result=space_state.intersect_ray(query)
+	GameManager.is_sheltered=not result.is_empty()
+	
+func _update_heat_status():
+	var near=false
+	for heat_node in get_tree().get_nodes_in_group("heat_source"):
+		if global_position.distance_to(heat_node.global_position)<4.0:
+			near =true
+			break
+	GameManager.near_heat_source=near

@@ -134,6 +134,8 @@ func _place_piece():
 		GameManager.record_pieces(piece["name"],pos,real_piece.rotation)
 		real_piece.add_to_group("navmesh_source")
 		nav_region.bake_navigation_mesh()
+		if piece["name"]=="Campfire" or piece["name"]=="Torch":
+			real_piece.add_to_group("heat_source")
 		
 	else:
 		print("not enough timber! need",piece["cost"])

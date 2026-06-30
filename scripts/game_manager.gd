@@ -29,6 +29,30 @@ var items:Dictionary={
 
 var inventory:Array=[]
 var equipped:Dictionary={"weapon":"","armor":"","boots":""}
+
+var hunger:float=100.0
+var thirst:float=100.0
+const MAX_HUNGER:float=100.0
+const MAX_THRIST:float=100.0
+const HUNGER_DRAIN_PER_SECOND:float=100.0/720.0
+const THRIST_DRAIN_PER_SECOND:float=100.0/480.0
+var survival_damage_timer:float=1.0
+
+var stamina:float=100.0
+const MAX_STAMINA:float=100.0
+const STAMINA_DRAIN_PER_SECOND:float=15.0
+const STAMINA_REGEN_PER_SECOND:float=3.0
+var is_sprinting:bool=false
+
+var collected_berry_names:Array=[]
+
+var warmth:float=100.0
+const MAX_WARMTH:float=100.0
+const WARMTH_DRAIN_PER_SECOND:float=100.0/300.0
+const WARMTH_REGEN_PER_SECOND:float=100.0/120.0
+var is_sheltered:bool=false
+var near_heat_source:bool=false
+
 func _process(delta):
 	time_of_day+=(24.0/DAY_LENGTH_SECONDS)*delta
 	if time_of_day>=24.0:
@@ -40,6 +64,28 @@ func _process(delta):
 			is_raining=true
 		elif is_raining and randf()<0.3:
 			is_raining=false
+	
+	hunger=max(hunger-HUNGER_DRAIN_PER_SECOND*delta,0.0)
+	thirst=max(thirst-THRIST_DRAIN_PER_SECOND*delta,0.0)
+	
+	print("Hunger: ", hunger, " Thirst: ", thirst)
+	if is_sprinting and stamina>0.0:
+		stamina=max(stamina-STAMINA_DRAIN_PER_SECOND*delta,0.0)
+	else:
+		stamina=min(stamina+STAMINA_REGEN_PER_SECOND*delta,MAX_STAMINA)
+		
+	var exposed=(is_night() or is_raining) and not is_sheltered and not near_heat_source
+	if exposed:
+		warmth=max(warmth-WARMTH_DRAIN_PER_SECOND*delta,0.0)
+	else:
+		warmth=min(warmth+WARMTH_REGEN_PER_SECOND*delta,MAX_WARMTH)
+	if hunger <=0.0 or thirst<=0.0 or warmth<=0.0:
+		survival_damage_timer-=delta
+		if survival_damage_timer<=0.0:
+			survival_damage_timer=1.0
+			damage_player(2)
+			
+			
 		
 func is_night() ->bool:
 	return time_of_day<6.0 or time_of_day>20.0
@@ -107,3 +153,11 @@ func get_speed_bonus():
 	if equipped["boots"] !=""and items[equipped["boots"]]["bonus_key"]=="speed_bonus":
 		bonus+=items[equipped["boots"]]["bonus_value"]
 	return bonus
+
+func eat(amount:float,pickup_name:String=""):
+	hunger=min(hunger+amount,MAX_HUNGER)
+	if pickup_name!="":
+		collected_berry_names.append(pickup_name)
+		
+func drink(amount:float):
+	thirst=min(thirst+amount,MAX_THRIST)
