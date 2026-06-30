@@ -78,7 +78,6 @@ func _physics_process(delta):
 	if wants_to_sprint:
 		current_speed*=SPRINT_MULTIPLIER
 		
-	print("Stamin level:",GameManager.stamina)
 	if direction:
 		velocity.x = direction.x *current_speed
 		velocity.z = direction.z * current_speed

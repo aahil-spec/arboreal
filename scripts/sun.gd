@@ -1,15 +1,26 @@
 extends DirectionalLight3D
 
-@onready var world_env:Environment=$"../WorldEnvironment".environment
+@export var world_env: WorldEnvironment
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 @warning_ignore("unused_parameter")
 func _process(delta):
-	var angle=(GameManager.time_of_day/24.0)*360.0-90.0
-	rotation_degrees.x=angle
+	var time=GameManager.time_of_day
+	var intensity=0.0
 	
-	if GameManager.is_night():
-		light_energy=0.1
-		world_env.ambient_light_energy=0.2
+	if time>=6.0 and time<=8.0:
+		intensity=(time-6.0)/2.0
+	elif time>8.0 and time<18.0:
+		intensity=1.0
+	elif time>=18.0 and time<=20.0:
+		intensity=1.0-((time-18.0)/2.0)
 	else:
-		light_energy=1.2
-		world_env.ambient_light_energy=1.0
+		intensity=0.0
+		
+	rotation_degrees.x=lerp(-90.0,-270.0,time/24.0)
+	
+	light_color=Color("1b2234").lerp(Color("ffffff"),intensity)
+	light_energy=lerp(0.2,1.0,intensity)
+	
+	if world_env and world_env.environment:
+		world_env.environment.background_energy_multiplier = lerp(0.3, 1.0, intensity)
+		world_env.environment.ambient_light_energy = lerp(0.4, 1.0, intensity)

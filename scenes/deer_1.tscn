@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dltodfw2o6pxm"]
+
+[ext_resource type="Script" uid="uid://03xx05p5kto5" path="res://scripts/deer_1.gd" id="1_gg8fw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pl26e"]
+albedo_color = Color(0.37507248, 0.21643949, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_o561r"]
+material = SubResource("StandardMaterial3D_pl26e")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pl26e"]
+
+[node name="Deer1" type="CharacterBody3D" unique_id=1703654575]
+script = ExtResource("1_gg8fw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1598278992]
+transform = Transform3D(-4.3711385e-08, 0.99999994, 0, -0.99999994, -4.3711385e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_o561r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1026260887]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_pl26e")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1388861260]

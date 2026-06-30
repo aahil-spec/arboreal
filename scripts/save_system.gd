@@ -30,7 +30,12 @@ func save_game():
 		"inventory":GameManager.inventory,
 		"equipped":GameManager.equipped,
 		"collected_item_pickup_names":GameManager.collected_item_pickup_names,
-		"player_position":{"x":player.global_position.x,"y":player.global_position.y,"z":player.global_position.z}
+		"player_position":{"x":player.global_position.x,"y":player.global_position.y,"z":player.global_position.z},
+		"hunger":GameManager.hunger,
+		"thirst":GameManager.thirst,
+		"stamina":GameManager.stamina,
+		"warmth":GameManager.warmth,
+		"collected_berry_names":GameManager.collected_berry_names,
 	}
 	
 	var file=FileAccess.open(SAVE_PATH,FileAccess.WRITE)
@@ -58,7 +63,11 @@ func load_game():
 	GameManager.inventory=data["inventory"]
 	GameManager.equipped=data["equipped"]
 	GameManager.collected_item_pickup_names=data["collected_item_pickup_names"]
-	
+	GameManager.hunger=data["hunger"]
+	GameManager.thirst=data["thirst"]
+	GameManager.stamina=data["stamina"]
+	GameManager.warmth=data["warmth"]
+	GameManager.collected_berry_names=data["collected_berry_names"]
 	for node in get_tree().get_nodes_in_group("placed_piece"):
 		node.queue_free()
 		
@@ -67,6 +76,8 @@ func load_game():
 		var piece=load(scene_path).instantiate()
 		piece.add_to_group("placed_piece")
 		piece.add_to_group("navmesh_source")
+		if entry["name"]=="Campfire"or entry["name"=="Torch"]:
+			piece.add_to_group("heat_source")
 		get_tree().current_scene.add_child(piece)
 		var pos =entry["position"]
 		piece.global_position=Vector3(pos["x"],pos["y"],pos["z"])
@@ -87,6 +98,9 @@ func load_game():
 	if GameManager.husk_defeated:
 		for boss_node in get_tree().get_nodes_in_group("boss"):
 			boss_node.queue_free()
+	for berry_node in get_tree().get_nodes_in_group("berry"):
+		if berry_node.name in GameManager.collected_berry_names:
+			berry_node.queue_free()
 	var player =get_tree().current_scene.get_node("Player")
 	var ppos=data["player_position"]
 	player.global_position=Vector3(ppos["x"],ppos["y"],ppos["z"])

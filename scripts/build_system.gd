@@ -9,6 +9,10 @@ extends Node3D
 @onready var health_label:Label=get_tree().current_scene.get_node("CanvasLayer/VBoxContainer/HealthLabel")
 @onready var nav_region:NavigationRegion3D=get_tree().current_scene.get_node("NavigationRegion3D")
 @onready var equipped_label:Label=get_tree().current_scene.get_node("CanvasLayer/VBoxContainer/EquippedLabel")
+@onready var hunger_bar:ProgressBar=get_tree().current_scene.get_node("CanvasLayer/VBoxContainer2/HungerBar")
+@onready var thirst_bar:ProgressBar=get_tree().current_scene.get_node("CanvasLayer/VBoxContainer2/ThirstBar")
+@onready var stamina_bar:ProgressBar=get_tree().current_scene.get_node("CanvasLayer/VBoxContainer2/StaminaBar")
+@onready var warmth_bar:ProgressBar=get_tree().current_scene.get_node("CanvasLayer/VBoxContainer2/WarmthBar")
 var current_hit_position:Vector3=Vector3.ZERO
 var has_hit:bool=false
 var build_mode:bool=false
@@ -68,7 +72,10 @@ func _process(delta):
 	selected_label.text = "Selected: " + pieces[selected_index]["name"] + " (cost " + str(pieces[selected_index]["cost"]) + ")"
 	ember_label.text="Embers:"+str(GameManager.embers_collected)+"/3"
 	health_label.text="Health:"+str(GameManager.player_health)+"/"+str(GameManager.MAX_PLAYER_HEALTH)
-	
+	hunger_bar.value=GameManager.hunger
+	thirst_bar.value=GameManager.thirst
+	stamina_bar.value=GameManager.stamina
+	warmth_bar.value=GameManager.warmth
 	var weapon_name="None"
 	if GameManager.equipped["weapon"]!="":
 		weapon_name=GameManager.items[GameManager.equipped["weapon"]]["name"]

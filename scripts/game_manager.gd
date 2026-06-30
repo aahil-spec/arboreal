@@ -53,6 +53,8 @@ const WARMTH_REGEN_PER_SECOND:float=100.0/120.0
 var is_sheltered:bool=false
 var near_heat_source:bool=false
 
+var fiber:int=0
+var collected_fiber_names:Array=[]
 func _process(delta):
 	time_of_day+=(24.0/DAY_LENGTH_SECONDS)*delta
 	if time_of_day>=24.0:
@@ -68,7 +70,6 @@ func _process(delta):
 	hunger=max(hunger-HUNGER_DRAIN_PER_SECOND*delta,0.0)
 	thirst=max(thirst-THRIST_DRAIN_PER_SECOND*delta,0.0)
 	
-	print("Hunger: ", hunger, " Thirst: ", thirst)
 	if is_sprinting and stamina>0.0:
 		stamina=max(stamina-STAMINA_DRAIN_PER_SECOND*delta,0.0)
 	else:
@@ -99,7 +100,7 @@ func add_timber(amount: int, pickup_name: String = ""):
 	timber += amount
 	if pickup_name != "":
 		collected_timber_names.append(pickup_name)
-	print("Timber: ", timber)
+	
 	
 func spend_timber(amount:int) ->bool:
 	if timber>=amount:
@@ -161,3 +162,14 @@ func eat(amount:float,pickup_name:String=""):
 		
 func drink(amount:float):
 	thirst=min(thirst+amount,MAX_THRIST)
+func add_fiber(amount:int,pickup_name:String=""):
+	fiber+=amount
+	if pickup_name!="":
+		collected_fiber_names.append(pickup_name)
+	print("Fiber:",fiber)
+	
+func spend_fiber(amount:int):
+	if fiber>=amount:
+		fiber-=amount
+		return true
+	return false
