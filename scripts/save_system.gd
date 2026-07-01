@@ -21,6 +21,8 @@ func save_game():
 	var data ={
 		"timber":GameManager.timber,
 		"collected_timber_names":GameManager.collected_timber_names,
+		"fiber":GameManager.fiber,
+		"collected_fiber_names": GameManager.collected_fiber_names,
 		"embers_collected":GameManager.embers_collected,
 		"collected_ember_names":GameManager.collected_ember_names,
 		"placed_pieces":GameManager.placed_pieces,
@@ -68,6 +70,8 @@ func load_game():
 	GameManager.stamina=data["stamina"]
 	GameManager.warmth=data["warmth"]
 	GameManager.collected_berry_names=data["collected_berry_names"]
+	GameManager.fiber=data["fiber"]
+	GameManager.collected_fiber_names=data["collected_fiber_names"]
 	for node in get_tree().get_nodes_in_group("placed_piece"):
 		node.queue_free()
 		
@@ -101,6 +105,9 @@ func load_game():
 	for berry_node in get_tree().get_nodes_in_group("berry"):
 		if berry_node.name in GameManager.collected_berry_names:
 			berry_node.queue_free()
+	for fiber_node in get_tree().get_nodes_in_group("fiber"):
+		if fiber_node.name in GameManager.collected_fiber_names:
+			fiber_node.queue_free()
 	var player =get_tree().current_scene.get_node("Player")
 	var ppos=data["player_position"]
 	player.global_position=Vector3(ppos["x"],ppos["y"],ppos["z"])

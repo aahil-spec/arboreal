@@ -25,6 +25,8 @@ var items:Dictionary={
 	"sword_ember":{"name":"Ember Blade","type":"weapon","bonus_key":"attack_damage","bonus_value":25},
 	"armor_leather":{"name":"Leather Armor","type":"armor","bonus_key":"defense","bonus_value":5},
 	"boots_swift":{"name":"Swift Boots","type":"boots","bonus_key":"speed_bonus","bonus_value":1.0},
+	"raw_meat_bundle":{"name":"Raw Meat","type":"ingredient","bonus_key":"none","bonus_value":0},
+	"torch_extra":{"name":"Spare Torch","type":"ingredient","bonus_key":"none","bonus_value":0},
 }
 
 var inventory:Array=[]
@@ -55,6 +57,12 @@ var near_heat_source:bool=false
 
 var fiber:int=0
 var collected_fiber_names:Array=[]
+
+var recipes:Dictionary={
+	"armor_leather":{"timber":0,"fiber":8,"meat":0},
+	"boots_swift":{"timber":4,"fiber":4,"meat":0},
+	"torch_extra":{"timber":2,"fiber":2,"meat":0},
+}
 func _process(delta):
 	time_of_day+=(24.0/DAY_LENGTH_SECONDS)*delta
 	if time_of_day>=24.0:
@@ -173,3 +181,25 @@ func spend_fiber(amount:int):
 		fiber-=amount
 		return true
 	return false
+
+func can_craft(item_id:String):
+	var cost=recipes[item_id]
+	return timber >= cost["timber"] and fiber >= cost["fiber"] and _count_meat() >= cost["meat"]
+func _count_meat():
+	var count=0
+	for item in inventory:
+		if item=="raw_meat_bundle":
+			count+=1
+	return count
+	
+	
+func craft_item(item_id:String):
+	if not can_craft(item_id):
+		return false
+	var cost=recipes[item_id]
+	timber-=cost["timber"]
+	fiber-=cost["fiber"]
+	for i in range(cost["meat"]):
+		inventory.erase("raw_meat_bundle")
+	add_item(item_id)
+	return true

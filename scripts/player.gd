@@ -56,7 +56,7 @@ func _attack():
 	lunge_tween.tween_property(mesh,"position",original_pos+Vector3(0,0,-0.3),0.05)
 	lunge_tween.tween_property(mesh,"position",original_pos,0.1)
 	for body in attack_zone.get_overlapping_bodies():
-		if body.is_in_group("enemy"):
+		if body.is_in_group("enemy") or body.is_in_group("huntable"):
 			body.take_damage(ATTACK_DAMAGE,global_position)
 			
 func _physics_process(delta):
