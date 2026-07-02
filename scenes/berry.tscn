@@ -1,14 +1,7 @@
 [gd_scene format=3 uid="uid://b55rj2nqj8mdq"]
 
 [ext_resource type="Script" uid="uid://bo4mhn14bfph" path="res://scripts/berry.gd" id="1_q3b2i"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yhnjn"]
-albedo_color = Color(0.9999996, 0.065308735, 0.028186522, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_o561r"]
-material = SubResource("StandardMaterial3D_yhnjn")
-radius = 0.25
-height = 0.5
+[ext_resource type="PackedScene" uid="uid://dnhflv5nne28v" path="res://assests/models/raspberry.glb" id="2_1kxkh"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_dc6c3"]
 radius = 0.25
@@ -16,10 +9,10 @@ radius = 0.25
 [node name="Berry" type="Area3D" unique_id=122451337]
 script = ExtResource("1_q3b2i")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=767760441]
-mesh = SubResource("SphereMesh_o561r")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=6025047]
 shape = SubResource("SphereShape3D_dc6c3")
+
+[node name="raspberry" parent="." unique_id=717828493 instance=ExtResource("2_1kxkh")]
+transform = Transform3D(0.17, 0, 0, 0, 0.17, 0, 0, 0, 0.17, 0.044525117, 0.019654453, 0.030770421)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

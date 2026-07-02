@@ -1,29 +1,25 @@
 [gd_scene format=3 uid="uid://br37vam35068a"]
 
 [ext_resource type="Script" uid="uid://bhrw1wkol3eay" path="res://scripts/ember.gd" id="1_fyqlq"]
+[ext_resource type="PackedScene" uid="uid://cndiaqgd23165" path="res://assests/models/Copilot3D-70156708-f8a2-44b1-bef6-979f90b885b2.glb" id="2_abljo"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fyqlq"]
-albedo_color = Color(1, 1, 0.42745098, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_3p0h1"]
-material = SubResource("StandardMaterial3D_fyqlq")
-radius = 0.2
-height = 0.4
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_fyqlq"]
-radius = 0.2
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0k42s"]
+radius = 0.1928711
+height = 0.5840454
 
 [node name="Ember" type="Area3D" unique_id=421441933]
 script = ExtResource("1_fyqlq")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1908495712]
-mesh = SubResource("SphereMesh_3p0h1")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=770397825]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.014936775, -0.0121154785, 0)
+shape = SubResource("CapsuleShape3D_0k42s")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="MeshInstance3D" unique_id=1672068219]
+[node name="Copilot3D-70156708-f8a2-44b1-bef6-979f90b885b2" parent="." unique_id=1192645570 instance=ExtResource("2_abljo")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.004969999, 0, -0.013599873)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Copilot3D-70156708-f8a2-44b1-bef6-979f90b885b2" unique_id=1672068219]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.23594081, 0, -0.36266208)
 light_color = Color(0.31857762, 0.31685385, 0, 1)
 light_energy = 2.0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=770397825]
-shape = SubResource("SphereShape3D_fyqlq")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

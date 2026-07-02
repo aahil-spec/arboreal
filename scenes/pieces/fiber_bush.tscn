@@ -1,24 +1,20 @@
 [gd_scene format=3 uid="uid://k8i7dio5qci6"]
 
 [ext_resource type="Script" uid="uid://c4ixvmsqw8pui" path="res://scripts/fiber_bush.gd" id="1_5rsgt"]
+[ext_resource type="PackedScene" uid="uid://du0cxhr1vt58n" path="res://assests/models/sunchoke_jerusalem_artichoke.glb" id="2_mntf4"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6ql4j"]
-albedo_color = Color(0.47843137, 1, 0.3882353, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_dc6c3"]
-material = SubResource("StandardMaterial3D_6ql4j")
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_o561r"]
-radius = 0.48517138
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o561r"]
+radius = 0.16796875
+height = 1.2449951
 
 [node name="FiberBush" type="Area3D" unique_id=490642316]
 script = ExtResource("1_5rsgt")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1066572597]
-transform = Transform3D(0.8395474, 0, 0, 0, 0.46647406, 0, 0, 0, 0.76076937, -0.053734183, -0.050795555, 0)
-mesh = SubResource("SphereMesh_dc6c3")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=401498575]
-shape = SubResource("SphereShape3D_o561r")
+transform = Transform3D(0.07448582, -0.9118247, -0.403767, 0.99553347, 0.09154512, -0.023082588, 0.05801017, -0.40024418, 0.9145706, 0.02805937, 0.036224984, 0.03361452)
+shape = SubResource("CapsuleShape3D_o561r")
+
+[node name="Sketchfab_Scene" parent="." unique_id=121723934 instance=ExtResource("2_mntf4")]
+transform = Transform3D(0.9505878, -0.3104558, 0, 0.3104558, 0.9505878, 0, 0, 0, 1, 0, 0, 0)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

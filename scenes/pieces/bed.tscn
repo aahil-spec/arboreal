@@ -1,19 +1,29 @@
 [gd_scene format=3 uid="uid://cotmdf73dj8yn"]
 
+[ext_resource type="Script" uid="uid://b8so20fkb5anj" path="res://scripts/sleep_zone.gd" id="1_gjkpu"]
+[ext_resource type="PackedScene" uid="uid://dybqm5376tt3r" path="res://assests/kenleys/survival kit/bedroll.glb" id="1_nw6yi"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_t1qn1"]
-size = Vector3(1.5, 0.5, 2)
+size = Vector3(1.8608398, 0.6958008, 3.6496582)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t1qn1"]
-albedo_color = Color(0.30588236, 0.38039216, 1, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_t1qn1"]
-material = SubResource("StandardMaterial3D_t1qn1")
-size = Vector3(1.5, 0.5, 2)
+[sub_resource type="BoxShape3D" id="BoxShape3D_o561r"]
+size = Vector3(2.2783356, 1.1679688, 4.0040436)
 
 [node name="Bed" type="StaticBody3D" unique_id=342625551]
 
+[node name="bed" parent="." unique_id=504389139 instance=ExtResource("1_nw6yi")]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0.0071237087, 0.3, -0.021877915)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=912823472]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.531311e-05, 0.3944838, 0.008910656)
 shape = SubResource("BoxShape3D_t1qn1")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=6661621]
-mesh = SubResource("BoxMesh_t1qn1")
+[node name="SleepZone" type="Area3D" parent="." unique_id=2045928776]
+script = ExtResource("1_gjkpu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SleepZone" unique_id=1178917452]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02091217, 0.5195414, -0.09983063)
+shape = SubResource("BoxShape3D_o561r")
+
+[connection signal="body_entered" from="SleepZone" to="SleepZone" method="_on_body_entered"]
+[connection signal="body_exited" from="SleepZone" to="SleepZone" method="_on_body_exited"]

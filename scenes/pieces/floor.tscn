@@ -1,19 +1,15 @@
 [gd_scene format=3 uid="uid://brflei46p7j5x"]
 
+[ext_resource type="PackedScene" uid="uid://d4m4qqs551qqj" path="res://assests/kenleys/survival kit/floor.glb" id="1_myttg"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_mkyl2"]
-size = Vector3(2, 0.2, 2)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qlikk"]
-albedo_color = Color(0.37751254, 0.14770296, 0.015516223, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_tymhp"]
-material = SubResource("StandardMaterial3D_qlikk")
-size = Vector3(2, 0.2, 2)
+size = Vector3(2, 0.2, 1.9953613)
 
 [node name="Floor" type="StaticBody3D" unique_id=425356631]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=715277688]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.018268168, 0.10249877, 0.002319336)
 shape = SubResource("BoxShape3D_mkyl2")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1737386645]
-mesh = SubResource("BoxMesh_tymhp")
+[node name="floor2" parent="." unique_id=1248359476 instance=ExtResource("1_myttg")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0.044636607, 0, -0.026517987)

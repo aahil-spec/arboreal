@@ -1,22 +1,23 @@
 [gd_scene format=3 uid="uid://bcb0lapesgbyd"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3h4w2"]
-albedo_color = Color(0.19506672, 0.19506672, 0.19506669, 1)
+[ext_resource type="PackedScene" uid="uid://syxrvb4leu62" path="res://assests/kenleys/survival kit/campfire-pit.glb" id="1_s6d8u"]
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_3h4w2"]
-material = SubResource("StandardMaterial3D_3h4w2")
-top_radius = 0.3
-bottom_radius = 0.3
-height = 0.4
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_s6d8u"]
-height = 0.4
-radius = 0.3
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_os58n"]
+height = 0.3059616
+radius = 0.4399414
 
 [node name="Campfire" type="StaticBody3D" unique_id=1047583019]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1129124117]
-mesh = SubResource("CylinderMesh_3h4w2")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1110081511]
-shape = SubResource("CylinderShape3D_s6d8u")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.025596082, 0.17163718, 0.015437841)
+shape = SubResource("CylinderShape3D_os58n")
+
+[node name="campfre-pit2" parent="." unique_id=1950319991 instance=ExtResource("1_s6d8u")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.027537405, 0, 0.034843743)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1306037172]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.27343267, 0)
+light_color = Color(0.8156863, 0.34901962, 0, 1)
+light_energy = 12.775
+light_size = 0.287
+omni_range = 65.335

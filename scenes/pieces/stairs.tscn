@@ -1,19 +1,15 @@
 [gd_scene format=3 uid="uid://bmm3vk73bb7uf"]
 
+[ext_resource type="PackedScene" uid="uid://qq4ok12psvlp" path="res://assests/kenleys/building kit/stairs-center-short.glb" id="1_ryoug"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_hmmio"]
-size = Vector3(2, 0.5, 2)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hmmio"]
-albedo_color = Color(0.63153017, 0.20481667, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_ryoug"]
-material = SubResource("StandardMaterial3D_hmmio")
-size = Vector3(2, 0.5, 2)
+size = Vector3(1.2784424, 0.32281494, 2.203064)
 
 [node name="Stairs" type="StaticBody3D" unique_id=1398750500]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=253303450]
+transform = Transform3D(1, 0, 0, 0, 0.85347545, 0.5211329, 0, -0.5211329, 0.85347545, 0.0413208, 0.42069557, -0.032669395)
 shape = SubResource("BoxShape3D_hmmio")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=840388624]
-mesh = SubResource("BoxMesh_ryoug")
+[node name="stairs-center-short2" parent="." unique_id=860493046 instance=ExtResource("1_ryoug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.049435258, -0.38516676, 0.9530351)

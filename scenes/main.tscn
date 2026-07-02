@@ -505,19 +505,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.707794, 1.0314441, 101.067
 [node name="Spring2" parent="." unique_id=1016730345 instance=ExtResource("15_gqmmt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 166.10228, 1.0314441, 101.067215)
 
-[node name="Fiber1" parent="." unique_id=490642316 instance=ExtResource("20_gqmmt")]
+[node name="Fiber1" parent="." unique_id=490642316 groups=["fiber"] instance=ExtResource("20_gqmmt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.562038, 0.53194076, 257.7382)
 
-[node name="Fiber2" parent="." unique_id=56853775 instance=ExtResource("20_gqmmt")]
+[node name="Fiber2" parent="." unique_id=56853775 groups=["fiber"] instance=ExtResource("20_gqmmt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.421545, 0.53194076, 257.7382)
 
-[node name="Fiber3" parent="." unique_id=615004052 instance=ExtResource("20_gqmmt")]
+[node name="Fiber3" parent="." unique_id=615004052 groups=["fiber"] instance=ExtResource("20_gqmmt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.47728, 0.53194076, 257.7382)
 
-[node name="Fiber4" parent="." unique_id=336035852 instance=ExtResource("20_gqmmt")]
+[node name="Fiber4" parent="." unique_id=336035852 groups=["fiber"] instance=ExtResource("20_gqmmt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.295202, 0.53194076, 257.7382)
 
-[node name="Fiber5" parent="." unique_id=851348367 instance=ExtResource("20_gqmmt")]
+[node name="Fiber5" parent="." unique_id=851348367 groups=["fiber"] instance=ExtResource("20_gqmmt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.328746, 0.53194076, 257.7382)
 
 [node name="Deer1" parent="." unique_id=1703654575 instance=ExtResource("21_yc10j")]

@@ -1,19 +1,15 @@
 [gd_scene format=3 uid="uid://duwk4m1akv7il"]
 
+[ext_resource type="PackedScene" uid="uid://gql81ceheccs" path="res://assests/kenleys/building kit/roof-flat-patch-large.glb" id="1_os58n"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_4h2v6"]
-size = Vector3(2, 0.2, 2)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_os58n"]
-albedo_color = Color(0.4673599, 0, 0.06142924, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_rrcs7"]
-material = SubResource("StandardMaterial3D_os58n")
-size = Vector3(2, 0.2, 2)
+size = Vector3(1.9248047, 0.2, 1.9246826)
 
 [node name="Roof" type="StaticBody3D" unique_id=453607494]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2096439389]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.019042969, 0, -0.03765869)
 shape = SubResource("BoxShape3D_4h2v6")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=782685386]
-mesh = SubResource("BoxMesh_rrcs7")
+[node name="roof-flat-patch-large2" parent="." unique_id=1700908008 instance=ExtResource("1_os58n")]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0.016730845, 0.100000024, -0.041603923)

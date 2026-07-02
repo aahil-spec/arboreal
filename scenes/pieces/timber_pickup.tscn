@@ -1,24 +1,19 @@
 [gd_scene format=3 uid="uid://djqjs32ycfet3"]
 
 [ext_resource type="Script" uid="uid://cf8bbsuufh1uk" path="res://scripts/timber_pickup.gd" id="1_mioir"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rd1mw"]
-albedo_color = Color(0.2777152, 0.11375605, 0.06970488, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_mioir"]
-material = SubResource("StandardMaterial3D_rd1mw")
-size = Vector3(0.4, 0.4, 0.4)
+[ext_resource type="PackedScene" uid="uid://dclbgfc1tt3pw" path="res://assests/models/low_poly_chopped_logs__164_tris__game_ready.glb" id="2_i637q"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i637q"]
-size = Vector3(0.4, 0.4, 0.4)
+size = Vector3(0.632959, 0.33818358, 0.8353516)
 
 [node name="TimberPickup" type="Area3D" unique_id=1129366448]
 script = ExtResource("1_mioir")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=462763526]
-mesh = SubResource("BoxMesh_mioir")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1641846800]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0015381053, 0.1806914, 0.13837892)
 shape = SubResource("BoxShape3D_i637q")
+
+[node name="Sketchfab_Scene" parent="." unique_id=434431255 instance=ExtResource("2_i637q")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.16510773, 0, 0.080225706)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
