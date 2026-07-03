@@ -9,7 +9,6 @@
 [ext_resource type="Script" uid="uid://c5keim0asarpo" path="res://scripts/canvas_layer.gd" id="10_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://bklnhvs8jobm3" path="res://scenes/hermit.tscn" id="10_choun"]
 [ext_resource type="PackedScene" uid="uid://dqyq1ar5ir2fm" path="res://scenes/shrine.tscn" id="11_ya4ey"]
-[ext_resource type="PackedScene" uid="uid://cw34rjbuckyvy" path="res://scenes/hollow.tscn" id="12_eb6dy"]
 [ext_resource type="Terrain3DMaterial" uid="uid://cx7gnxhe3chl4" path="res://new_terrain_3d_material.res" id="15_0ld40"]
 [ext_resource type="PackedScene" uid="uid://c2kl0vguqn4c6" path="res://scenes/spring.tscn" id="15_gqmmt"]
 [ext_resource type="Script" uid="uid://ccbkosgmduvu0" path="res://scripts/threshold_marker.gd" id="15_jkv2x"]
@@ -19,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://b55rj2nqj8mdq" path="res://scenes/berry.tscn" id="18_0ld40"]
 [ext_resource type="FastNoiseLite" uid="uid://bcigb5d2j40vy" path="res://1.tres" id="18_dp3eg"]
 [ext_resource type="PackedScene" uid="uid://k8i7dio5qci6" path="res://scenes/pieces/fiber_bush.tscn" id="20_gqmmt"]
+[ext_resource type="PackedScene" uid="uid://deqwijb7cr184" path="res://scenes/hollow_spawner.tscn" id="20_yc10j"]
 [ext_resource type="PackedScene" uid="uid://dltodfw2o6pxm" path="res://scenes/deer_1.tscn" id="21_yc10j"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a8y0u"]
@@ -367,25 +367,6 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 0.20392157, 0.12156863, 0)
 
-[node name="InventoryPanel" type="Panel" parent="CanvasLayer" unique_id=716773866]
-visible = false
-anchors_preset = -1
-anchor_left = 0.25260416
-anchor_top = 0.2669753
-anchor_right = 0.7508681
-anchor_bottom = 0.7268519
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/InventoryPanel" unique_id=530401250]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
 [node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer" unique_id=2052616215]
 offset_left = 1105.0
 offset_right = 1145.0
@@ -403,24 +384,116 @@ layout_mode = 2
 [node name="WarmthBar" type="ProgressBar" parent="CanvasLayer/VBoxContainer2" unique_id=2053241501]
 layout_mode = 2
 
-[node name="CraftingPanel" type="Panel" parent="CanvasLayer" unique_id=2122719640]
-anchors_preset = -1
-anchor_left = 0.22569445
-anchor_top = 0.22376543
-anchor_right = 0.8107639
-anchor_bottom = 0.77160496
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+[node name="MasterInventoryUI" type="HBoxContainer" parent="CanvasLayer" unique_id=89666381]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -418.0
+offset_top = -202.5
+offset_right = 418.0
+offset_bottom = 202.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 15
+alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CraftingPanel" unique_id=1689207070]
-layout_mode = 0
-offset_right = 708.0
-offset_bottom = 389.0
+[node name="StoragePanel" type="PanelContainer" parent="CanvasLayer/MasterInventoryUI" unique_id=1014559401]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MasterInventoryUI/StoragePanel" unique_id=1194714250]
+layout_mode = 2
+
+[node name="CategoryTabs" type="HBoxContainer" parent="CanvasLayer/MasterInventoryUI/StoragePanel/VBoxContainer" unique_id=1897797802]
+layout_mode = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/MasterInventoryUI/StoragePanel/VBoxContainer/CategoryTabs" unique_id=1465632089]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="CanvasLayer/MasterInventoryUI/StoragePanel/VBoxContainer/CategoryTabs" unique_id=1171702276]
+layout_mode = 2
+
+[node name="Button3" type="Button" parent="CanvasLayer/MasterInventoryUI/StoragePanel/VBoxContainer/CategoryTabs" unique_id=46891137]
+layout_mode = 2
+
+[node name="Button4" type="Button" parent="CanvasLayer/MasterInventoryUI/StoragePanel/VBoxContainer/CategoryTabs" unique_id=1747545790]
+layout_mode = 2
+
+[node name="Button5" type="Button" parent="CanvasLayer/MasterInventoryUI/StoragePanel/VBoxContainer/CategoryTabs" unique_id=178493599]
+layout_mode = 2
+
+[node name="StorageGrid" type="GridContainer" parent="CanvasLayer/MasterInventoryUI/StoragePanel/VBoxContainer" unique_id=999047286]
+layout_mode = 2
+columns = 6
+
+[node name="BottomButtons" type="HBoxContainer" parent="CanvasLayer/MasterInventoryUI/StoragePanel/VBoxContainer" unique_id=279021977]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/MasterInventoryUI/StoragePanel/VBoxContainer/BottomButtons" unique_id=206753389]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="CanvasLayer/MasterInventoryUI/StoragePanel/VBoxContainer/BottomButtons" unique_id=1880540524]
+layout_mode = 2
+
+[node name="CenterPanel" type="PanelContainer" parent="CanvasLayer/MasterInventoryUI" unique_id=906066176]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MasterInventoryUI/CenterPanel" unique_id=967101825]
+layout_mode = 2
+
+[node name="TopSection" type="HBoxContainer" parent="CanvasLayer/MasterInventoryUI/CenterPanel/VBoxContainer" unique_id=1567466953]
+layout_mode = 2
+
+[node name="ArmorSlots" type="VBoxContainer" parent="CanvasLayer/MasterInventoryUI/CenterPanel/VBoxContainer/TopSection" unique_id=1394279849]
+layout_mode = 2
+
+[node name="PlayerPreview" type="TextureRect" parent="CanvasLayer/MasterInventoryUI/CenterPanel/VBoxContainer/TopSection" unique_id=1854498093]
+layout_mode = 2
+
+[node name="MiniCrafting" type="HBoxContainer" parent="CanvasLayer/MasterInventoryUI/CenterPanel/VBoxContainer/TopSection" unique_id=2064439878]
+layout_mode = 2
+
+[node name="MainHotbar" type="GridContainer" parent="CanvasLayer/MasterInventoryUI/CenterPanel/VBoxContainer" unique_id=596118762]
+layout_mode = 2
+columns = 9
+
+[node name="Tooltipbox" type="PanelContainer" parent="CanvasLayer/MasterInventoryUI/CenterPanel/VBoxContainer" unique_id=286784137]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/MasterInventoryUI/CenterPanel/VBoxContainer/Tooltipbox" unique_id=2078338693]
+layout_mode = 2
+
+[node name="CraftingPanel" type="PanelContainer" parent="CanvasLayer/MasterInventoryUI" unique_id=864122005]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MasterInventoryUI/CraftingPanel" unique_id=1860530175]
+layout_mode = 2
+
+[node name="RecipeScroll" type="ScrollContainer" parent="CanvasLayer/MasterInventoryUI/CraftingPanel/VBoxContainer" unique_id=823855586]
+visible = false
+layout_mode = 2
+
+[node name="RecipeList" type="VBoxContainer" parent="CanvasLayer/MasterInventoryUI/CraftingPanel/VBoxContainer/RecipeScroll" unique_id=1889339606]
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="CanvasLayer/MasterInventoryUI/CraftingPanel/VBoxContainer" unique_id=473994828]
+layout_mode = 2
+current_tab = 0
+
+[node name="Quick-Craft" type="Control" parent="CanvasLayer/MasterInventoryUI/CraftingPanel/VBoxContainer/TabContainer" unique_id=441771021]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Recycle" type="Control" parent="CanvasLayer/MasterInventoryUI/CraftingPanel/VBoxContainer/TabContainer" unique_id=1457990715]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
 
 [node name="Ember" type="Node3D" parent="." unique_id=876940045]
 
@@ -444,9 +517,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130.64526, 0.03433132, 297.4
 
 [node name="Shrine3" parent="." unique_id=422829047 instance=ExtResource("11_ya4ey")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146.73611, 0.03433132, 284.13904)
-
-[node name="Hollow" parent="." unique_id=1014640091 instance=ExtResource("12_eb6dy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.808056, 2.0749745, 250.97394)
 
 [node name="PlayerSpawnPoint" type="Marker3D" parent="." unique_id=830485578]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.781977, 2.1736474, 201.35796)
@@ -530,5 +600,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.34225, 0.8270289, 264.533
 
 [node name="Deer3" parent="." unique_id=830831654 instance=ExtResource("21_yc10j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70.025955, 0.8270289, 226.8033)
+
+[node name="HollowSpawner" parent="." unique_id=544521723 instance=ExtResource("20_yc10j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1.0437281, 255.01968)
 
 [connection signal="body_entered" from="ThresholdMarker" to="ThresholdMarker" method="_on_body_entered"]

@@ -1,3 +1,6 @@
 [gd_scene format=3 uid="uid://deqwijb7cr184"]
 
+[ext_resource type="Script" uid="uid://ckd67b1es1vtk" path="res://scripts/hollow_spawner.gd" id="1_jc2k4"]
+
 [node name="HollowSpawner" type="Node3D" unique_id=544521723]
+script = ExtResource("1_jc2k4")

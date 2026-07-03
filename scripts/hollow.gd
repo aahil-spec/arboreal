@@ -15,9 +15,10 @@ var health:int=MAX_HEALTH
 var alert_timer:float=0.0
 var is_alert:bool=false
 var was_detecting:bool=false
+var is_dead:bool=false
 
-@onready var mesh=$EnemyModel
-@onready var anim_player:AnimationPlayer=$EnemyModel/AnimationPlayer
+@onready var mesh=$ModelWrapper/EnemyModel
+@onready var anim_player:AnimationPlayer=$ModelWrapper/EnemyModel/AnimationPlayer
 @onready var nav_agent:NavigationAgent3D=$NavigationAgent3D
 
 func _ready():
@@ -25,17 +26,25 @@ func _ready():
 	add_to_group("enemy")
 	
 func take_damage(amount:int,attacker_position:Vector3=Vector3.ZERO):
+	if is_dead:
+		return
 	health-=amount
-	_flash()
-	if attacker_position !=Vector3.ZERO:
-		var knockback_dir=global_position-attacker_position
-		knockback_dir.y=0
-		knockback_dir=knockback_dir.normalized()
-		velocity.x=knockback_dir.x*KNOCKBACK_FORCE
-		velocity.z=knockback_dir.z*KNOCKBACK_FORCE
-		knockback_timer=KNOCKBACK_DURATION
 	if health<=0:
+		is_dead=true
+		$CollisionShape3D.set_deferred("disabled",true)
+		anim_player.play("Dies")
+		
+		await anim_player.animation_finished
 		queue_free()
+	else:
+		_flash()
+		if attacker_position !=Vector3.ZERO:
+			var knockback_dir=global_position-attacker_position
+			knockback_dir.y=0
+			knockback_dir=knockback_dir.normalized()
+			velocity.x=knockback_dir.x*KNOCKBACK_FORCE
+			velocity.z=knockback_dir.z*KNOCKBACK_FORCE
+			knockback_timer=KNOCKBACK_DURATION
 	
 func _flash():
 	var tween=create_tween()
@@ -43,6 +52,8 @@ func _flash():
 	tween.tween_property(mesh,"scale",Vector3(1.0,1.0,1.0),0.1)
 func _physics_process(delta):
 	if not is_on_floor():
+		if is_dead:
+			return
 		velocity.y-=ProjectSettings.get_setting("physics/3d/default_gravity")*delta
 		
 	if knockback_timer>0.0:

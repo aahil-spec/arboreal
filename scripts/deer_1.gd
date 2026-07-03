@@ -25,6 +25,7 @@ func _pick_new_wander_target():
 	var offset=Vector3(randf_range(-WANDER_RADIUS,WANDER_RADIUS),0,randf_range(-WANDER_RADIUS,WANDER_RADIUS))
 	wander_target=home_position+offset
 	
+@warning_ignore("unused_parameter")
 func take_damage(amount:int,attacker_position:Vector3=Vector3.ZERO):
 	health-=amount
 	_flash()

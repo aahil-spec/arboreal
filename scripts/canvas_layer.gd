@@ -1,14 +1,16 @@
 extends CanvasLayer
 
+const INVENTORY_SLOT=preload("res://scenes/ui/inventory_slot.tscn")
+const MAX_STORAGE_SLOTS=30.0
+
 @onready var help_panel:Control=$HelpPanel
-@onready var inventory_panel:Control=$InventoryPanel
-@onready var inventory_list:VBoxContainer=$InventoryPanel/VBoxContainer
-@onready var crafting_panel:Control=$CraftingPanel
-@onready var crafting_list:VBoxContainer=$CraftingPanel/VBoxContainer
+@onready var master_ui:HBoxContainer=$MasterInventoryUI
+@onready var storage_grid:GridContainer=$MasterInventoryUI/StoragePanel/VBoxContainer/StorageGrid
+@onready var crafting_list:VBoxContainer=$MasterInventoryUI/CraftingPanel/VBoxContainer/RecipeScroll/RecipeList
 func _ready():
 	help_panel.visible=false
-	inventory_panel.visible=false
-	crafting_panel.visible=false
+	master_ui.visible=false
+	_build_storage_grid()
 func _unhandled_input(event):
 	if event.is_action_pressed("toggle_help"):
 		help_panel.visible=!help_panel.visible
