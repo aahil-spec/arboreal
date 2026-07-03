@@ -16,7 +16,8 @@ var alert_timer:float=0.0
 var is_alert:bool=false
 var was_detecting:bool=false
 
-@onready var mesh:MeshInstance3D=$MeshInstance3D
+@onready var mesh=$EnemyModel
+@onready var anim_player:AnimationPlayer=$EnemyModel/AnimationPlayer
 @onready var nav_agent:NavigationAgent3D=$NavigationAgent3D
 
 func _ready():
@@ -37,11 +38,9 @@ func take_damage(amount:int,attacker_position:Vector3=Vector3.ZERO):
 		queue_free()
 	
 func _flash():
-	var flash_mat=StandardMaterial3D.new()
-	flash_mat.albedo_color=Color(1,1,1)
-	mesh.material_override=flash_mat
-	await get_tree().create_timer(0.1).timeout
-	mesh.material_override=null
+	var tween=create_tween()
+	tween.tween_property(mesh,"scale",Vector3(1.2,1.2,1.2),0.05)
+	tween.tween_property(mesh,"scale",Vector3(1.0,1.0,1.0),0.1)
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y-=ProjectSettings.get_setting("physics/3d/default_gravity")*delta
@@ -91,4 +90,10 @@ func _physics_process(delta):
 	else:
 		velocity.x=move_toward(velocity.x,0,SPEED)
 		velocity.z=move_toward(velocity.z,0,SPEED)
+		
+	var is_moving=velocity.length()>0.5
+	if is_moving:
+		anim_player.play("Run")
+	else:
+		anim_player.play("Idle")
 	move_and_slide()

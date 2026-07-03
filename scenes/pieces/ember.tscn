@@ -18,8 +18,8 @@ shape = SubResource("CapsuleShape3D_0k42s")
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.004969999, 0, -0.013599873)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Copilot3D-70156708-f8a2-44b1-bef6-979f90b885b2" unique_id=1672068219]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.23594081, 0, -0.36266208)
-light_color = Color(0.31857762, 0.31685385, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01564902, 0.489792, 0.01766023)
+light_color = Color(0.042825133, 0.31512034, 0.51553804, 1)
 light_energy = 2.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

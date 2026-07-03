@@ -16,16 +16,13 @@ script = ExtResource("1_3vyb7")
 shape = SubResource("CapsuleShape3D_u8vuu")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=96636483]
+cast_shadow = 3
 mesh = SubResource("CapsuleMesh_3vyb7")
 
 [node name="CameraPivot" type="Node3D" parent="." unique_id=1646304438]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.088429, -1.9030747)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2248803, -0.3839699)
 
-[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot" unique_id=822289622]
-spring_length = 4.0
-
-[node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D" unique_id=1552363647]
-transform = Transform3D(1, 0, 0, 0, 0.986346, 0.16468611, 0, -0.16468611, 0.986346, 0, -0.37635434, 1.6312145)
+[node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=1552363647]
 
 [node name="AttackZone" type="Area3D" parent="." unique_id=900674039]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.070044875, 0.30360365, -0.57341254)

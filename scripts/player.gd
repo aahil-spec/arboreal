@@ -7,7 +7,7 @@ const MOUSE_SENSITIVITY:float=0.003
 const ATTACK_DAMAGE:int=15
 const FOOTSTEP_INTERVAL:float=0.4
 const SPRINT_MULTIPLIER:float=1.6
-
+const HIT_SPARK=preload("res://scenes/effects/hit_spark.tscn")
 @onready var camera_pivot:Node3D=$CameraPivot
 @onready var attack_zone:Area3D=$AttackZone
 var footstep_timer:float=0.0
@@ -37,9 +37,9 @@ func _flash_vignette():
 		tween.tween_property(damage_vignette,"color:a",0.0,0.4)
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
-		rotate_y(-event.relative.x*MOUSE_SENSITIVITY)
-		camera_pivot.rotate_x(-event.relative.y*MOUSE_SENSITIVITY)
-		camera_pivot.rotation.x=clamp(camera_pivot.rotation.x,-1.2,1.2)
+		rotate_y(-event.relative.x*0.005)
+		$CameraPivot.rotate_x(-event.relative.y*0.005)
+		$CameraPivot.rotation.x=clamp($CameraPivot.rotation.x,deg_to_rad(-80),deg_to_rad(80))
 		
 	if event.is_action_pressed("ui_cancel"):
 		if Input.mouse_mode==Input.MOUSE_MODE_CAPTURED:
@@ -57,7 +57,10 @@ func _attack():
 	lunge_tween.tween_property(mesh,"position",original_pos,0.1)
 	for body in attack_zone.get_overlapping_bodies():
 		if body.is_in_group("enemy") or body.is_in_group("huntable"):
-			body.take_damage(ATTACK_DAMAGE,global_position)
+			body.take_damage(GameManager.get_attack_damage(),global_position)
+			var spark=HIT_SPARK.instantiate()
+			get_tree().current_scene.add_child(spark)
+			spark.global_position=body.global_position+Vector3(0,1,0)
 			
 func _physics_process(delta):
 	if is_on_floor() and not was_on_floor:

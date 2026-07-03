@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bncynlw465h5h"]
+
+[ext_resource type="Script" uid="uid://bquyjb5wwms4d" path="res://scripts/hit_spark.gd" id="1_3anes"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o561r"]
+emission_shape = 1
+emission_sphere_radius = 0.1
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_min = 3.0
+initial_velocity_max = 3.0
+gravity = Vector3(0, -5, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xiduv"]
+albedo_color = Color(0.93733215, 0.5742694, 0.28383443, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dc6c3"]
+material = SubResource("StandardMaterial3D_xiduv")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="HitSpark" type="GPUParticles3D" unique_id=1781266498]
+emitting = false
+amount = 12
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.9
+trail_lifetime = 0.4
+process_material = SubResource("ParticleProcessMaterial_o561r")
+draw_pass_1 = SubResource("BoxMesh_dc6c3")
+script = ExtResource("1_3anes")

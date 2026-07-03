@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dltodfw2o6pxm"]
 
 [ext_resource type="Script" uid="uid://03xx05p5kto5" path="res://scripts/deer_1.gd" id="1_gg8fw"]
+[ext_resource type="PackedScene" uid="uid://dc11n6rbnf80a" path="res://assests/models/deer_animation.glb" id="2_4wpnq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pl26e"]
 albedo_color = Color(0.37507248, 0.21643949, 0, 1)
@@ -22,3 +23,7 @@ transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0
 shape = SubResource("CapsuleShape3D_pl26e")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1388861260]
+
+[node name="deer_animation" parent="." unique_id=1583140836 instance=ExtResource("2_4wpnq")]
+
+[editable path="deer_animation"]
