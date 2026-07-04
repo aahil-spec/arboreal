@@ -27,10 +27,13 @@ var items:Dictionary={
 	"boots_swift":{"name":"Swift Boots","type":"boots","bonus_key":"speed_bonus","bonus_value":1.0},
 	"raw_meat_bundle":{"name":"Raw Meat","type":"ingredient","bonus_key":"none","bonus_value":0},
 	"torch_extra":{"name":"Spare Torch","type":"ingredient","bonus_key":"none","bonus_value":0},
+	"helmet_leather":{"name":"Leather Helmet","type":"helmet","bonus_key":"defense","bonus_value":3},
+	"leggings_leather":{"name":"Leather Leggings","type":"leggings","bonus_key":"defense","bonus_value":4},
+	"shield_wood":{"name":"Wooden Shield","type":"offhand","bonus_key":"defense","bonus_value":6},
 }
 
 var inventory:Array=[]
-var equipped:Dictionary={"weapon":"","armor":"","boots":""}
+var equipped:Dictionary={"weapon":"","offhand":"","armor":"","leggings":"","helmet":"","boots":""}
 
 var hunger:float=100.0
 var thirst:float=100.0
@@ -62,7 +65,22 @@ var recipes:Dictionary={
 	"armor_leather":{"timber":0,"fiber":8,"meat":0},
 	"boots_swift":{"timber":4,"fiber":4,"meat":0},
 	"torch_extra":{"timber":2,"fiber":2,"meat":0},
+	"helmet_leather":{"timber":0,"fiber":5,"meat":0},
+	"leggings_leather":{"timber":0,"fiber":5,"meat":0},
+	"shield_wood":{"timber":4,"fiber":2,"meat":0}
+	
 }
+
+var item_icons: Dictionary = {
+	"sword_iron": "res://assets/icons/sword_iron.png",
+	"sword_ember": "res://assets/icons/sword_ember.png",
+	"armor_leather": "res://assets/icons/armor_leather.png",
+	"boots_swift": "res://assets/icons/boots_swift.png",
+	"raw_meat_bundle": "res://assets/icons/raw_meat.png",
+	"torch_extra": "res://assets/icons/torch.png",
+	"helmet_leather":"res://assets/icons/shield_wood.png"
+   }
+
 func _process(delta):
 	time_of_day+=(24.0/DAY_LENGTH_SECONDS)*delta
 	if time_of_day>=24.0:
@@ -153,8 +171,10 @@ func get_attack_damage():
 		
 func get_defense():
 	var defense=0
-	if equipped["armor"]!=""and items[equipped["armor"]]["bonus_key"]=="defense":
-		defense+=items[equipped["armor"]]["bonus_value"]
+	for slot in ["armor","leggings","helmet","offhand"]:
+		var item_id=equipped[slot]
+		if item_id!="" and items[item_id]["bonus_key"]=="defense":
+			defense+=items[item_id]["bonus_value"]
 	return defense
 		
 func get_speed_bonus():

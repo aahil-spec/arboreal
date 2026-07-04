@@ -63,7 +63,10 @@ func load_game():
 	GameManager.shrine_lit=data["shrine_lit"]
 	GameManager.husk_defeated=data["husk_defeated"]
 	GameManager.inventory=data["inventory"]
-	GameManager.equipped=data["equipped"]
+	var loaded_equipped=data["equipped"]
+	for slot in GameManager.equipped.keys():
+		if loaded_equipped.has(slot):
+			GameManager.equipped[slot]=loaded_equipped[slot]
 	GameManager.collected_item_pickup_names=data["collected_item_pickup_names"]
 	GameManager.hunger=data["hunger"]
 	GameManager.thirst=data["thirst"]
@@ -80,7 +83,7 @@ func load_game():
 		var piece=load(scene_path).instantiate()
 		piece.add_to_group("placed_piece")
 		piece.add_to_group("navmesh_source")
-		if entry["name"]=="Campfire"or entry["name"=="Torch"]:
+		if entry["name"]=="Campfire" or entry["name"]=="Torch":
 			piece.add_to_group("heat_source")
 		get_tree().current_scene.add_child(piece)
 		var pos =entry["position"]

@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://djqjs32ycfet3" path="res://scenes/pieces/timber_pickup.tscn" id="7_o6xl0"]
 [ext_resource type="Script" uid="uid://bi4ph4oxxsuim" path="res://scripts/rain.gd" id="8_muem4"]
 [ext_resource type="Script" uid="uid://8elj0g83qa4h" path="res://scripts/build_system.gd" id="8_tipki"]
+[ext_resource type="PackedScene" uid="uid://cuk3g3ba0nnpa" path="res://scenes/ui/inventory_screen.tscn" id="8_yc10j"]
 [ext_resource type="PackedScene" uid="uid://br37vam35068a" path="res://scenes/pieces/ember.tscn" id="9_85g3d"]
 [ext_resource type="Script" uid="uid://c5keim0asarpo" path="res://scripts/canvas_layer.gd" id="10_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://bklnhvs8jobm3" path="res://scenes/hermit.tscn" id="10_choun"]
@@ -180,6 +181,15 @@ shader_parameter/uv2_offset = Vector3(0, 0, 0)
 [sub_resource type="BoxMesh" id="BoxMesh_dp3eg"]
 material = SubResource("ShaderMaterial_yc10j")
 size = Vector3(0.02, 0.4, 0.02)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jscy8"]
+bg_color = Color(0.18431373, 0.18431373, 0.18431373, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pm3ni"]
+bg_color = Color(0.18431373, 0.18431373, 0.18431373, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y6deb"]
+bg_color = Color(0.18431373, 0.18431373, 0.18431373, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a8y0u"]
 size = Vector3(1, 9.643311, 341.62634)
@@ -384,116 +394,66 @@ layout_mode = 2
 [node name="WarmthBar" type="ProgressBar" parent="CanvasLayer/VBoxContainer2" unique_id=2053241501]
 layout_mode = 2
 
-[node name="MasterInventoryUI" type="HBoxContainer" parent="CanvasLayer" unique_id=89666381]
+[node name="InventoryScreen" parent="CanvasLayer" unique_id=1346969529 instance=ExtResource("8_yc10j")]
+visible = true
+
+[node name="MainLayout" type="HBoxContainer" parent="CanvasLayer/InventoryScreen" unique_id=1593262936]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -418.0
-offset_top = -202.5
-offset_right = 418.0
-offset_bottom = 202.5
+offset_left = -424.0
+offset_top = -254.0
+offset_right = 424.0
+offset_bottom = 254.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 15
-alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="StoragePanel" type="PanelContainer" parent="CanvasLayer/MasterInventoryUI" unique_id=1014559401]
+[node name="LeftPanel" type="Panel" parent="CanvasLayer/InventoryScreen/MainLayout" unique_id=1698560931]
+custom_minimum_size = Vector2(340, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_jscy8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MasterInventoryUI/StoragePanel" unique_id=1194714250]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/InventoryScreen/MainLayout/LeftPanel" unique_id=572510443]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/VBoxContainer" unique_id=550752461]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
+theme_override_font_sizes/font_size = 14
+text = "Inventory"
+
+[node name="InventoryGrid" type="GridContainer" parent="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/VBoxContainer" unique_id=1151970002]
+layout_mode = 2
+columns = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/VBoxContainer" unique_id=463622463]
 layout_mode = 2
 
-[node name="CategoryTabs" type="HBoxContainer" parent="CanvasLayer/MasterInventoryUI/StoragePanel/VBoxContainer" unique_id=1897797802]
+[node name="SortButton" type="Button" parent="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/VBoxContainer/HBoxContainer" unique_id=1560267187]
 layout_mode = 2
-alignment = 1
+text = "Sort By Type"
 
-[node name="Button" type="Button" parent="CanvasLayer/MasterInventoryUI/StoragePanel/VBoxContainer/CategoryTabs" unique_id=1465632089]
+[node name="EmptyOnlyButton" type="Button" parent="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/VBoxContainer/HBoxContainer" unique_id=1949023472]
 layout_mode = 2
+text = "Empty Only"
 
-[node name="Button2" type="Button" parent="CanvasLayer/MasterInventoryUI/StoragePanel/VBoxContainer/CategoryTabs" unique_id=1171702276]
+[node name="CenterPanel" type="Panel" parent="CanvasLayer/InventoryScreen/MainLayout" unique_id=595693983]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pm3ni")
 
-[node name="Button3" type="Button" parent="CanvasLayer/MasterInventoryUI/StoragePanel/VBoxContainer/CategoryTabs" unique_id=46891137]
-layout_mode = 2
-
-[node name="Button4" type="Button" parent="CanvasLayer/MasterInventoryUI/StoragePanel/VBoxContainer/CategoryTabs" unique_id=1747545790]
-layout_mode = 2
-
-[node name="Button5" type="Button" parent="CanvasLayer/MasterInventoryUI/StoragePanel/VBoxContainer/CategoryTabs" unique_id=178493599]
-layout_mode = 2
-
-[node name="StorageGrid" type="GridContainer" parent="CanvasLayer/MasterInventoryUI/StoragePanel/VBoxContainer" unique_id=999047286]
-layout_mode = 2
-columns = 6
-
-[node name="BottomButtons" type="HBoxContainer" parent="CanvasLayer/MasterInventoryUI/StoragePanel/VBoxContainer" unique_id=279021977]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="CanvasLayer/MasterInventoryUI/StoragePanel/VBoxContainer/BottomButtons" unique_id=206753389]
-layout_mode = 2
-
-[node name="Button2" type="Button" parent="CanvasLayer/MasterInventoryUI/StoragePanel/VBoxContainer/BottomButtons" unique_id=1880540524]
-layout_mode = 2
-
-[node name="CenterPanel" type="PanelContainer" parent="CanvasLayer/MasterInventoryUI" unique_id=906066176]
+[node name="RightPanel" type="Panel" parent="CanvasLayer/InventoryScreen/MainLayout" unique_id=125819658]
+custom_minimum_size = Vector2(290, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MasterInventoryUI/CenterPanel" unique_id=967101825]
-layout_mode = 2
-
-[node name="TopSection" type="HBoxContainer" parent="CanvasLayer/MasterInventoryUI/CenterPanel/VBoxContainer" unique_id=1567466953]
-layout_mode = 2
-
-[node name="ArmorSlots" type="VBoxContainer" parent="CanvasLayer/MasterInventoryUI/CenterPanel/VBoxContainer/TopSection" unique_id=1394279849]
-layout_mode = 2
-
-[node name="PlayerPreview" type="TextureRect" parent="CanvasLayer/MasterInventoryUI/CenterPanel/VBoxContainer/TopSection" unique_id=1854498093]
-layout_mode = 2
-
-[node name="MiniCrafting" type="HBoxContainer" parent="CanvasLayer/MasterInventoryUI/CenterPanel/VBoxContainer/TopSection" unique_id=2064439878]
-layout_mode = 2
-
-[node name="MainHotbar" type="GridContainer" parent="CanvasLayer/MasterInventoryUI/CenterPanel/VBoxContainer" unique_id=596118762]
-layout_mode = 2
-columns = 9
-
-[node name="Tooltipbox" type="PanelContainer" parent="CanvasLayer/MasterInventoryUI/CenterPanel/VBoxContainer" unique_id=286784137]
-layout_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/MasterInventoryUI/CenterPanel/VBoxContainer/Tooltipbox" unique_id=2078338693]
-layout_mode = 2
-
-[node name="CraftingPanel" type="PanelContainer" parent="CanvasLayer/MasterInventoryUI" unique_id=864122005]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MasterInventoryUI/CraftingPanel" unique_id=1860530175]
-layout_mode = 2
-
-[node name="RecipeScroll" type="ScrollContainer" parent="CanvasLayer/MasterInventoryUI/CraftingPanel/VBoxContainer" unique_id=823855586]
-visible = false
-layout_mode = 2
-
-[node name="RecipeList" type="VBoxContainer" parent="CanvasLayer/MasterInventoryUI/CraftingPanel/VBoxContainer/RecipeScroll" unique_id=1889339606]
-layout_mode = 2
-
-[node name="TabContainer" type="TabContainer" parent="CanvasLayer/MasterInventoryUI/CraftingPanel/VBoxContainer" unique_id=473994828]
-layout_mode = 2
-current_tab = 0
-
-[node name="Quick-Craft" type="Control" parent="CanvasLayer/MasterInventoryUI/CraftingPanel/VBoxContainer/TabContainer" unique_id=441771021]
-layout_mode = 2
-metadata/_tab_index = 0
-
-[node name="Recycle" type="Control" parent="CanvasLayer/MasterInventoryUI/CraftingPanel/VBoxContainer/TabContainer" unique_id=1457990715]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_y6deb")
 
 [node name="Ember" type="Node3D" parent="." unique_id=876940045]
 

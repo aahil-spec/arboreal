@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://cuk3g3ba0nnpa"]
+
+[ext_resource type="Script" uid="uid://bdvbelmbf6od2" path="res://scripts/inventory_screen.gd" id="1_c2b21"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o561r"]
+bg_color = Color(0.18440372, 0.18440372, 0.18440367, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.627451, 0.627451, 0.627451, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="InventoryScreen" type="Panel" unique_id=1346969529]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -430.0
+offset_top = -260.0
+offset_right = 430.0
+offset_bottom = 260.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_o561r")
+script = ExtResource("1_c2b21")
+metadata/_edit_use_anchors_ = true
