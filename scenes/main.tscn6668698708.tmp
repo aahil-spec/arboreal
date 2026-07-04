@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://8elj0g83qa4h" path="res://scripts/build_system.gd" id="8_tipki"]
 [ext_resource type="PackedScene" uid="uid://cuk3g3ba0nnpa" path="res://scenes/ui/inventory_screen.tscn" id="8_yc10j"]
 [ext_resource type="PackedScene" uid="uid://br37vam35068a" path="res://scenes/pieces/ember.tscn" id="9_85g3d"]
-[ext_resource type="PackedScene" uid="uid://dv3jigrt2ee5g" path="res://scenes/ui/inv_slot.tscn" id="9_jscy8"]
 [ext_resource type="Script" uid="uid://c5keim0asarpo" path="res://scripts/canvas_layer.gd" id="10_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://bklnhvs8jobm3" path="res://scenes/hermit.tscn" id="10_choun"]
 [ext_resource type="PackedScene" uid="uid://dqyq1ar5ir2fm" path="res://scenes/shrine.tscn" id="11_ya4ey"]
@@ -396,6 +395,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="InventoryScreen" parent="CanvasLayer" unique_id=1346969529 instance=ExtResource("8_yc10j")]
+visible = true
 
 [node name="MainLayout" type="HBoxContainer" parent="CanvasLayer/InventoryScreen" unique_id=1593262936]
 layout_mode = 1
@@ -431,7 +431,7 @@ text = "Inventory"
 
 [node name="InventoryGrid" type="GridContainer" parent="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/VBoxContainer" unique_id=1151970002]
 layout_mode = 2
-columns = 6
+columns = 8
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/VBoxContainer" unique_id=463622463]
 layout_mode = 2
@@ -448,88 +448,6 @@ text = "Empty Only"
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_pm3ni")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel" unique_id=1282990480]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label" type="Label" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer" unique_id=367888454]
-layout_mode = 2
-text = "Equipment"
-
-[node name="EquipLayout" type="HBoxContainer" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer" unique_id=1576368671]
-layout_mode = 2
-
-[node name="LeftEquip" type="VBoxContainer" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout" unique_id=1047142714]
-layout_mode = 2
-
-[node name="HelmetSlot" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/LeftEquip" unique_id=1585957867 instance=ExtResource("9_jscy8")]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/LeftEquip/HelmetSlot" unique_id=2046088584]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 9
-text = "Helmet"
-
-[node name="ArmorSlot" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/LeftEquip" unique_id=49438318 instance=ExtResource("9_jscy8")]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/LeftEquip/ArmorSlot" unique_id=1070650772]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 9
-text = "Armor"
-
-[node name="LeggingsSlot" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/LeftEquip" unique_id=711721414 instance=ExtResource("9_jscy8")]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/LeftEquip/LeggingsSlot" unique_id=439813344]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 9
-text = "Leggings"
-
-[node name="CharacterPreview" type="TextureRect" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout" unique_id=112171021]
-custom_minimum_size = Vector2(80, 160)
-layout_mode = 2
-
-[node name="RightEquip" type="VBoxContainer" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout" unique_id=464099583]
-layout_mode = 2
-
-[node name="Bootsslot" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip" unique_id=1757516570 instance=ExtResource("9_jscy8")]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip/Bootsslot" unique_id=1371251839]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 9
-text = "Boots"
-
-[node name="WeaponSlot" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip" unique_id=775162580 instance=ExtResource("9_jscy8")]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip/WeaponSlot" unique_id=209068263]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 9
-text = "Weapon"
-
-[node name="OffhandSlot" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip" unique_id=1547607231 instance=ExtResource("9_jscy8")]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip/OffhandSlot" unique_id=543909352]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 9
-text = "Offhand"
 
 [node name="RightPanel" type="Panel" parent="CanvasLayer/InventoryScreen/MainLayout" unique_id=125819658]
 custom_minimum_size = Vector2(290, 0)

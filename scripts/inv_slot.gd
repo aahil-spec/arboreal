@@ -11,8 +11,8 @@ func _gui_input(event: InputEvent):
 	if event is InputEventMouseButton and event.pressed:
 		slot_clicked.emit(slot_index,event.button_index)
 		
-func _on_mouse_entered():
+func _mouse_entered():
 	slot_hovered.emit(slot_index)
 	
-func _on_mouse_exited():
+func _mouse_exited():
 	slot_unhovered.emit()
