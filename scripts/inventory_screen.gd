@@ -7,6 +7,16 @@ extends Panel
 @onready var weapon_slot:Panel=$MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip/WeaponSlot
 @onready var offhand_slot:Panel=$MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip/OffhandSlot
 
+
+@onready var crafting_grid:GridContainer=$MainLayout/RightPanel/VBoxContainer/CraftingGrind
+@onready var craft_output_slot:Panel=$MainLayout/RightPanel/VBoxContainer/CraftOutputSlot
+@onready var held_display:Panel=$HeldItemDisplay
+@onready var tooltip_label:label=$ToolTipLabel
+@onready var inventory_grid:GridContainer=$MainLayout/LeftPanel/VBoxContainer/InventoryGrid
+
+var craft_grid_items:Array=["","","","","","","",""]
+var craft_result:String=""
+
 var equip_slot_map:Dictionary={}
 
 
@@ -21,14 +31,23 @@ var held_item:String=""
 var held_item_source:String=""
 var held_item_source_index:int=-1
 
-@onready var inventory_grid:GridContainer=$MainLayout/LeftPanel/VBoxContainer/InventoryGrid
-@onready var tooltip_label:Label=$MainLayout/LeftPanel/VBoxContainer/ToolTipLabel
+
 
 func _ready():
 	_build_inventory_grid()
 	_build_equip_slot_map()
-	
+	_build_crafting_grid()
 
+func _process(delta):
+	if held_item!="":
+		held_display.visible=true
+		held_display.global_position=get_viewport().get_mouse_position()-Vector2(28,28)
+		var icon=held_display.get_node("Icon")
+		if GameManager.item_icons.has(held_item):
+			icon.texture=load(GameManager.item_icons[held_item])
+	else:
+		held_display.visible=false
+	
 func _build_inventory_grid():
 	for i in range(MAX_INV_SLOTS):
 		var slot = INV_SLOT.instantiate()
@@ -60,4 +79,61 @@ func _build_equip_slot_map():
 		var slot_node=equip_slot_map[slot_type]
 		slot_node.slot_clicked.connect(_on_equip_slot_clicked.bind(slot_type))
 		slot_node.slot_hovered.connect(_on_equip_slot_hovered.bind(slot_type))
-		slot_node.slot_unhovered.connect(_on_slot_unhovered
+		slot_node.slot_unhovered.connect(_on_slot_unhovered)
+
+func refresh_equipment():
+	for slot_type in equip_slot_map:
+		var slot_node = equip_slot_map[slot_type]
+		var icon_node = slot_node.get_node("Icon")
+		icon_node.texture = null
+		var item_id = GameManager.equipped[slot_type]
+		if item_id!="" and GameManager.item_icons.has(item_id):
+			icon_node.texture = load(GameManager.item_icons[item_id])
+		_set_slot_border(slot_node,item_id!="")
+	
+	
+@warning_ignore("unused_parameter")
+func _on_equip_slot_clicked(button:int,slot_type:String):
+	var item_id=GameManager.equipped[slot_type]
+	if item_id!="":
+		GameManager.equipped[slot_type]=""
+		GameManager.inventory.append(item_id)
+		refresh_all()
+	
+func _on_equip_slot_hovered(slot_type:String):
+	var item_id=GameManager.equipped[slot_type]
+	if item_id!="":
+		_show_tooltip(item_id)
+		
+func _set_slot_border(slot:Panel,active:bool):
+	var style=StyleBoxFlat.new()
+	style.bg_color=Color(0.22,0.22,0.22)
+	style.set_corner_radius_all(2)
+	if active:
+		style.border_color=Color(1,0.85,0.1)
+		style.set_border_width_all(3)
+	else:
+		style.border_color=Color(0.4,0.4,0.4)
+		style.set_border_width_all(2)
+	slot.add_theme_stylebox_override("panel",style)
+	
+func refresh_all():
+	refresh_equipment()
+	
+@warning_ignore("unused_parameter")
+func _show_tooltip(item_id:String):
+	pass
+	
+	
+func _build_crafting_grid():
+	for i in range(9):
+		var slot=CRAFT_SLOT.instantiate()
+		slot.slot_index=i
+		slot.slot_clicked.connect(_on_craft_slot_clicked)
+		slot.slot_hovered.connect(_on_craft_slot_hovered)
+		slot.slot_unhovered.connect(_on_slot_unhovered)
+		crafting_grid.add_child(slot)
+		craft_grid_slots.append(slot)
+	craft_output_slot_clicked.connect(_on_output_slot_clicked)
+	craft_output_slot.slot_hovered.connect(_on_output_slot_hovered)
+	craft_output_slot.slot_unhovered.connect(_on_slot_hovered)

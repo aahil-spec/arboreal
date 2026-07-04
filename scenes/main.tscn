@@ -192,6 +192,9 @@ bg_color = Color(0.18431373, 0.18431373, 0.18431373, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y6deb"]
 bg_color = Color(0.18431373, 0.18431373, 0.18431373, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o561r"]
+bg_color = Color(1, 1, 1, 0.5058824)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_a8y0u"]
 size = Vector3(1, 9.643311, 341.62634)
 
@@ -536,6 +539,71 @@ custom_minimum_size = Vector2(290, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_y6deb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel" unique_id=1736722884]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/VBoxContainer" unique_id=508914489]
+layout_mode = 2
+
+[node name="QuickCraftTab" type="Button" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/VBoxContainer/HBoxContainer" unique_id=1090791449]
+layout_mode = 2
+text = "Quick Craft"
+
+[node name="RecycleTab" type="Button" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/VBoxContainer/HBoxContainer" unique_id=2087200797]
+layout_mode = 2
+text = "Recycle"
+
+[node name="Label" type="Label" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/VBoxContainer" unique_id=985002664]
+layout_mode = 2
+text = "Crafting"
+
+[node name="CraftingGrind" type="GridContainer" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/VBoxContainer" unique_id=644423428]
+layout_mode = 2
+columns = 3
+
+[node name="Label2" type="Label" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/VBoxContainer" unique_id=2059166454]
+layout_mode = 2
+text = "→"
+
+[node name="CraftOutputSlot" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/VBoxContainer" unique_id=1653103468 instance=ExtResource("9_jscy8")]
+layout_mode = 2
+
+[node name="CraftButton" type="Button" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/VBoxContainer" unique_id=1103925795]
+layout_mode = 2
+text = "Craft"
+
+[node name="HeldItemDisplay" type="Panel" parent="CanvasLayer/InventoryScreen" unique_id=1811148125]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/InventoryScreen/HeldItemDisplay" unique_id=1908967623]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ToolTipLabel" type="Label" parent="CanvasLayer/InventoryScreen" unique_id=1246281960]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_o561r")
 
 [node name="Ember" type="Node3D" parent="." unique_id=876940045]
 
