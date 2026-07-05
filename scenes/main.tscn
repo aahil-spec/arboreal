@@ -426,12 +426,6 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="ToolTipLabel" type="Label" parent="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/VBoxContainer" unique_id=550752461]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
-theme_override_font_sizes/font_size = 14
-text = "Inventory"
-
 [node name="InventoryGrid" type="GridContainer" parent="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/VBoxContainer" unique_id=1151970002]
 layout_mode = 2
 columns = 6
@@ -504,10 +498,10 @@ layout_mode = 2
 [node name="RightEquip" type="VBoxContainer" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout" unique_id=464099583]
 layout_mode = 2
 
-[node name="Bootsslot" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip" unique_id=1757516570 instance=ExtResource("9_jscy8")]
+[node name="BootsSlot" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip" unique_id=1757516570 instance=ExtResource("9_jscy8")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip/Bootsslot" unique_id=1371251839]
+[node name="Label" type="Label" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip/BootsSlot" unique_id=1371251839]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
@@ -560,7 +554,7 @@ text = "Recycle"
 layout_mode = 2
 text = "Crafting"
 
-[node name="CraftingGrind" type="GridContainer" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/VBoxContainer" unique_id=644423428]
+[node name="CraftingGrid" type="GridContainer" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/VBoxContainer" unique_id=644423428]
 layout_mode = 2
 columns = 3
 
