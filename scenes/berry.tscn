@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b55rj2nqj8mdq"]
 
 [ext_resource type="Script" uid="uid://bo4mhn14bfph" path="res://scripts/berry.gd" id="1_q3b2i"]
-[ext_resource type="PackedScene" uid="uid://dnhflv5nne28v" path="res://assests/models/raspberry.glb" id="2_1kxkh"]
+[ext_resource type="PackedScene" uid="uid://dnhflv5nne28v" path="res://assets/models/raspberry.glb" id="2_1kxkh"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_dc6c3"]
 radius = 0.25

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://djqjs32ycfet3"]
 
 [ext_resource type="Script" uid="uid://cf8bbsuufh1uk" path="res://scripts/timber_pickup.gd" id="1_mioir"]
-[ext_resource type="PackedScene" uid="uid://dclbgfc1tt3pw" path="res://assests/models/low_poly_chopped_logs__164_tris__game_ready.glb" id="2_i637q"]
+[ext_resource type="PackedScene" uid="uid://dclbgfc1tt3pw" path="res://assets/models/low_poly_chopped_logs__164_tris__game_ready.glb" id="2_i637q"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i637q"]
 size = Vector3(0.632959, 0.33818358, 0.8353516)

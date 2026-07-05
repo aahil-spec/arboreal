@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bmm3vk73bb7uf"]
 
-[ext_resource type="PackedScene" uid="uid://qq4ok12psvlp" path="res://assests/kenleys/building kit/stairs-center-short.glb" id="1_ryoug"]
+[ext_resource type="PackedScene" uid="uid://qq4ok12psvlp" path="res://assets/kenleys/building kit/stairs-center-short.glb" id="1_ryoug"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hmmio"]
 size = Vector3(1.2784424, 0.32281494, 2.203064)

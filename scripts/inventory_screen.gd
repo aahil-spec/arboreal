@@ -14,7 +14,7 @@ extends Panel
 @onready var tooltip_label:Label=$ToolTipLabel
 @onready var inventory_grid:GridContainer=$MainLayout/LeftPanel/VBoxContainer/InventoryGrid
 
-var craft_grid_items:Array=["","","","","","","",""]
+var craft_grid_items:Array=["","","","","","","","",""]
 var craft_result:String=""
 var equip_slot_map:Dictionary={}
 
@@ -32,10 +32,12 @@ var held_item_source_index:int=-1
 
 
 func _ready():
+	inventory_grid.columns=6
+	
 	_build_inventory_grid()
 	_build_equip_slot_map()
 	_build_crafting_grid()
-
+	call_deferred("refresh_all")
 @warning_ignore("unused_parameter")
 func _process(delta):
 	if held_item!="":
@@ -43,11 +45,15 @@ func _process(delta):
 		held_display.global_position=get_viewport().get_mouse_position()-Vector2(28,28)
 		var icon=held_display.get_node("Icon")
 		if GameManager.item_icons.has(held_item):
-			icon.texture=load(GameManager.item_icons[held_item])
+			var path=GameManager.item_icons[held_item]
+			if ResourceLoader.exists(path):
+				icon.texture=load(path)
 	else:
 		held_display.visible=false
-	
+	if tooltip_label.visible:
+		tooltip_label.global_position=get_viewport().get_mouse_position()+Vector2(15,15)
 func _build_inventory_grid():
+	inventory_grid.columns=6
 	for i in range(MAX_INV_SLOTS):
 		var slot = INV_SLOT.instantiate()
 		slot.slot_index=i
@@ -69,21 +75,19 @@ func _on_inv_slot_clicked(index: int, button: int):
 				GameManager.inventory.remove_at(index)
 				refresh_inventory()
 		else:
-			var item_type=GameManager.items[held_item]["type"]
-			if GameManager.equipped.has(item_type) and index>=GameManager.inventory.size():
+			var item_type = GameManager.items[held_item]["type"]
+			if GameManager.equipped.has(item_type) and index >= GameManager.inventory.size():
 				GameManager.equip_item(held_item)
 			else:
-				GameManager.inventory.insert(index,held_item)
-			held_item=""
-			held_item_source=""
-			held_item_source_index=-1
+				if index >= GameManager.inventory.size():
+					GameManager.inventory.append(held_item)
+				else:
+					GameManager.inventory.insert(index, held_item)
+			held_item = ""
+			held_item_source = ""
+			held_item_source_index = -1
 			refresh_all()
-			
-@warning_ignore("unused_parameter")
-func _on_slot_hovered(index: int):
-	pass
-func _on_slot_unhovered():
-	pass
+		
 
 func _build_equip_slot_map():
 	equip_slot_map={
@@ -143,8 +147,13 @@ func refresh_all():
 	refresh_crafting()
 @warning_ignore("unused_parameter")
 func _show_tooltip(item_id:String):
-	pass
-	
+	var item=GameManager.items[item_id]
+	var text=item["name"]+"\n"
+	if item["bonus_key"] !="none":
+		text+=item["bonus_key"].capitalize()+":+"+str(item["bonus_value"])
+	tooltip_label.text=text
+	tooltip_label.visible=true
+	tooltip_label.global_position=get_viewport().get_mouse_position()+Vector2(14,-40)
 	
 func _build_crafting_grid():
 	for i in range(9):
@@ -269,7 +278,9 @@ func refresh_inventory():
 		if i<GameManager.inventory.size():
 			var item_id=GameManager.inventory[i]
 			if GameManager.item_icons.has(item_id):
-				icon_node.texture=load(GameManager.item_icons[item_id])
+				var path=GameManager.item_icons[item_id]
+				if ResourceLoader.exists(path):
+					icon_node.texture=load(path)
 				
 func refresh_crafting():
 	for i in range(9):
@@ -279,16 +290,25 @@ func refresh_crafting():
 		if craft_grid_items[i] !="":
 			var item_id=craft_grid_items[i]
 			if GameManager.item_icons.has(item_id):
-				icon_node.texture=load(GameManager.item_icons[item_id])
+				var path=GameManager.item_icons[item_id]
+				if ResourceLoader.exists(path):
+					icon_node.texture=load(path)
 	var out_icon=craft_output_slot.get_node("Icon")
 	out_icon.texture=null
 	if craft_result != "" and GameManager.item_icons.has(craft_result):
 		out_icon.texture=load(GameManager.item_icons[craft_result])
 		
-@warning_ignore("unused_parameter")
-func _on_craft_slot_hovered(index:int):
-	pass
+func _on_slot_hovered(index:int):
+	if index<GameManager.inventory.size():
+		_show_tooltip(GameManager.inventory[index])
+		
+func _on_slot_unhovered():
+	tooltip_label.visible=false
 	
-@warning_ignore("unused_parameter")
+func _on_craft_slot_hovered(index:int):
+	if craft_grid_items[index] !="":
+		_show_tooltip(craft_grid_items[index])
+		
 func _on_output_slot_hovered(index:int):
-	pass
+	if craft_result!="":
+		_show_tooltip(craft_result)

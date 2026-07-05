@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://brflei46p7j5x"]
 
-[ext_resource type="PackedScene" uid="uid://d4m4qqs551qqj" path="res://assests/kenleys/survival kit/floor.glb" id="1_myttg"]
+[ext_resource type="PackedScene" uid="uid://d4m4qqs551qqj" path="res://assets/kenleys/survival kit/floor.glb" id="1_myttg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mkyl2"]
 size = Vector3(2, 0.2, 1.9953613)

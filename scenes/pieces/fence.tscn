@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bffujd84xsnu7"]
 
-[ext_resource type="PackedScene" uid="uid://m0iwgibwrblq" path="res://assests/kenleys/survival kit/fence.glb" id="1_ylomt"]
+[ext_resource type="PackedScene" uid="uid://m0iwgibwrblq" path="res://assets/kenleys/survival kit/fence.glb" id="1_ylomt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_q0c24"]
 size = Vector3(1.0038452, 1.0364075, 0.107940674)

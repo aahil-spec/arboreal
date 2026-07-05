@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://br37vam35068a"]
 
 [ext_resource type="Script" uid="uid://bhrw1wkol3eay" path="res://scripts/ember.gd" id="1_fyqlq"]
-[ext_resource type="PackedScene" uid="uid://cndiaqgd23165" path="res://assests/models/Copilot3D-70156708-f8a2-44b1-bef6-979f90b885b2.glb" id="2_abljo"]
+[ext_resource type="PackedScene" uid="uid://cndiaqgd23165" path="res://assets/models/Copilot3D-70156708-f8a2-44b1-bef6-979f90b885b2.glb" id="2_abljo"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0k42s"]
 radius = 0.1928711

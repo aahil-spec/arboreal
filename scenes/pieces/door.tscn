@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cnajn1qgqp46g"]
 
-[ext_resource type="PackedScene" uid="uid://bi5685n3723ge" path="res://assests/kenleys/building kit/door-rotate-round-b.glb" id="1_2k1vk"]
+[ext_resource type="PackedScene" uid="uid://bi5685n3723ge" path="res://assets/kenleys/building kit/door-rotate-round-b.glb" id="1_2k1vk"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4vxyr"]
 size = Vector3(1.3884277, 2, 0.2)

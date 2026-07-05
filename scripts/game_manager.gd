@@ -30,6 +30,9 @@ var items:Dictionary={
 	"helmet_leather":{"name":"Leather Helmet","type":"helmet","bonus_key":"defense","bonus_value":3},
 	"leggings_leather":{"name":"Leather Leggings","type":"leggings","bonus_key":"defense","bonus_value":4},
 	"shield_wood":{"name":"Wooden Shield","type":"offhand","bonus_key":"defense","bonus_value":6},
+	"bandage": {"name": "Bandage", "type": "consumable", "bonus_key": "health", "bonus_value": 20},
+	"fiber": {"name": "Fiber", "type": "material", "bonus_key": "none", "bonus_value": 0},
+	"timber": {"name": "Timber", "type": "material", "bonus_key": "none", "bonus_value": 0},
 }
 
 var inventory:Array=[]
@@ -73,14 +76,25 @@ var recipes:Dictionary={
 
 var item_icons: Dictionary = {
 	"sword_iron": "res://assets/icons/sword_iron.png",
-	"sword_ember": "res://assets/icons/sword_ember.png",
+	"fiber": "res://assets/icons/fiber.png",
+	"timber": "res://assets/icons/timber.png",
 	"armor_leather": "res://assets/icons/armor_leather.png",
 	"boots_swift": "res://assets/icons/boots_swift.png",
-	"raw_meat_bundle": "res://assets/icons/raw_meat.png",
-	"torch_extra": "res://assets/icons/torch.png",
-	"helmet_leather":"res://assets/icons/shield_wood.png"
-   }
+	"raw_meat_bundle": "res://assets/icons/raw_meat.png", 
+	"torch_extra": "res://assets/icons/torch_extra.png", 
+	"helmet_leather": "res://assets/icons/helmet_leather.png", 
+	"leggings_leather": "res://assets/icons/leggings_leather.png",
+	"shield_wood": "res://assets/icons/shield_wood.png", 
+	"bandage": "res://assets/icons/bandage.png",
+}
 
+func _ready():
+	inventory.append("fiber")
+	inventory.append("fiber")
+	inventory.append("fiber")
+	inventory.append("sword_iron")
+	inventory.append("helmet_leather")
+	
 func _process(delta):
 	time_of_day+=(24.0/DAY_LENGTH_SECONDS)*delta
 	if time_of_day>=24.0:
@@ -126,6 +140,9 @@ func add_timber(amount: int, pickup_name: String = ""):
 	timber += amount
 	if pickup_name != "":
 		collected_timber_names.append(pickup_name)
+	for i in range(amount):
+		inventory.append("timber")
+	print("Timber:",timber)
 	
 	
 func spend_timber(amount:int) ->bool:
@@ -194,6 +211,8 @@ func add_fiber(amount:int,pickup_name:String=""):
 	fiber+=amount
 	if pickup_name!="":
 		collected_fiber_names.append(pickup_name)
+	for i in range(amount):
+		inventory.append("fiber")
 	print("Fiber:",fiber)
 	
 func spend_fiber(amount:int):

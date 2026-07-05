@@ -399,6 +399,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="InventoryScreen" parent="CanvasLayer" unique_id=1346969529 instance=ExtResource("8_yc10j")]
+visible = true
 
 [node name="MainLayout" type="HBoxContainer" parent="CanvasLayer/InventoryScreen" unique_id=1593262936]
 layout_mode = 1
@@ -594,9 +595,16 @@ mouse_filter = 2
 
 [node name="ToolTipLabel" type="Label" parent="CanvasLayer/InventoryScreen" unique_id=1246281960]
 visible = false
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_o561r")
 
 [node name="Ember" type="Node3D" parent="." unique_id=876940045]
@@ -694,6 +702,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.47728, 0.53194076, 257.738
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.295202, 0.53194076, 257.7382)
 
 [node name="Fiber5" parent="." unique_id=851348367 groups=["fiber"] instance=ExtResource("20_gqmmt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.328746, 0.53194076, 257.7382)
+
+[node name="Fiber6" parent="." unique_id=1378596012 groups=["fiber"] instance=ExtResource("20_gqmmt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.328746, 0.53194076, 257.7382)
+
+[node name="Fiber7" parent="." unique_id=1483819446 groups=["fiber"] instance=ExtResource("20_gqmmt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.328746, 0.53194076, 257.7382)
+
+[node name="Fiber8" parent="." unique_id=5864399 groups=["fiber"] instance=ExtResource("20_gqmmt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.328746, 0.53194076, 257.7382)
+
+[node name="Fiber9" parent="." unique_id=1966789670 groups=["fiber"] instance=ExtResource("20_gqmmt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.328746, 0.53194076, 257.7382)
+
+[node name="Fiber10" parent="." unique_id=734104046 groups=["fiber"] instance=ExtResource("20_gqmmt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.328746, 0.53194076, 257.7382)
+
+[node name="Fiber11" parent="." unique_id=799860328 groups=["fiber"] instance=ExtResource("20_gqmmt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.328746, 0.53194076, 257.7382)
+
+[node name="Fiber12" parent="." unique_id=33979713 groups=["fiber"] instance=ExtResource("20_gqmmt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.328746, 0.53194076, 257.7382)
 
 [node name="Deer1" parent="." unique_id=1703654575 instance=ExtResource("21_yc10j")]

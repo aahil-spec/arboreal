@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cotmdf73dj8yn"]
 
 [ext_resource type="Script" uid="uid://b8so20fkb5anj" path="res://scripts/sleep_zone.gd" id="1_gjkpu"]
-[ext_resource type="PackedScene" uid="uid://dybqm5376tt3r" path="res://assests/kenleys/survival kit/bedroll.glb" id="1_nw6yi"]
+[ext_resource type="PackedScene" uid="uid://dybqm5376tt3r" path="res://assets/kenleys/survival kit/bedroll.glb" id="1_nw6yi"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_t1qn1"]
 size = Vector3(1.8608398, 0.6958008, 3.6496582)

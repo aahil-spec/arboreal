@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://k8i7dio5qci6"]
 
 [ext_resource type="Script" uid="uid://c4ixvmsqw8pui" path="res://scripts/fiber_bush.gd" id="1_5rsgt"]
-[ext_resource type="PackedScene" uid="uid://du0cxhr1vt58n" path="res://assests/models/sunchoke_jerusalem_artichoke.glb" id="2_mntf4"]
+[ext_resource type="PackedScene" uid="uid://du0cxhr1vt58n" path="res://assets/models/sunchoke_jerusalem_artichoke.glb" id="2_mntf4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o561r"]
 radius = 0.16796875

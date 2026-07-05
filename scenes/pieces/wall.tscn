@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dunf44ryd06t4"]
 
-[ext_resource type="PackedScene" uid="uid://cmv1ponr6aglg" path="res://assests/kenleys/building kit/wall-low.glb" id="1_r6mnl"]
+[ext_resource type="PackedScene" uid="uid://cmv1ponr6aglg" path="res://assets/kenleys/building kit/wall-low.glb" id="1_r6mnl"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3obgr"]
 size = Vector3(2, 2, 0.2)

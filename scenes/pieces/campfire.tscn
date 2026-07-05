@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bcb0lapesgbyd"]
 
-[ext_resource type="PackedScene" uid="uid://syxrvb4leu62" path="res://assests/kenleys/survival kit/campfire-pit.glb" id="1_s6d8u"]
+[ext_resource type="PackedScene" uid="uid://syxrvb4leu62" path="res://assets/kenleys/survival kit/campfire-pit.glb" id="1_s6d8u"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_os58n"]
 height = 0.3059616
