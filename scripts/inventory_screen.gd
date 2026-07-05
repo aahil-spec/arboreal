@@ -11,12 +11,11 @@ extends Panel
 @onready var crafting_grid:GridContainer=$MainLayout/RightPanel/VBoxContainer/CraftingGrind
 @onready var craft_output_slot:Panel=$MainLayout/RightPanel/VBoxContainer/CraftOutputSlot
 @onready var held_display:Panel=$HeldItemDisplay
-@onready var tooltip_label:label=$ToolTipLabel
+@onready var tooltip_label:Label=$ToolTipLabel
 @onready var inventory_grid:GridContainer=$MainLayout/LeftPanel/VBoxContainer/InventoryGrid
 
 var craft_grid_items:Array=["","","","","","","",""]
 var craft_result:String=""
-
 var equip_slot_map:Dictionary={}
 
 
@@ -26,7 +25,6 @@ const MAX_INV_SLOTS=48
 
 var inv_slot_nodes:Array=[]
 var craft_grid_slots:Array=[]
-var craft_output_slot:Panel=null
 var held_item:String=""
 var held_item_source:String=""
 var held_item_source_index:int=-1
@@ -51,15 +49,35 @@ func _process(delta):
 func _build_inventory_grid():
 	for i in range(MAX_INV_SLOTS):
 		var slot = INV_SLOT.instantiate()
-		slot.slot_index=1
+		slot.slot_index=i
 		slot.slot_clicked.connect(_on_inv_slot_clicked)
 		slot.slot_hovered.connect(_on_slot_hovered)
 		slot.slot_unhovered.connect(_on_slot_unhovered)
 		inventory_grid.add_child(slot)
 		inv_slot_nodes.append(slot)
+		
+		
 @warning_ignore("unused_parameter")
 func _on_inv_slot_clicked(index: int, button: int):
-	pass
+	if button==MOUSE_BUTTON_LEFT:
+		if held_item=="":
+			if index<GameManager.inventory.size():
+				held_item=GameManager.inventory[index]
+				held_item_source="inventory"
+				held_item_source_index=index
+				GameManager.inventory.remove_at(index)
+				refresh_inventory()
+		else:
+			var item_type=GameManager.items[held_item]["type"]
+			if GameManager.equipped.has(item_type) and index>=GameManager.inventory.size():
+				GameManager.equip_item(held_item)
+			else:
+				GameManager.inventory.insert(index,held_item)
+			held_item=""
+			held_item_source=""
+			held_item_source_index=-1
+			refresh_all()
+			
 @warning_ignore("unused_parameter")
 func _on_slot_hovered(index: int):
 	pass
@@ -119,7 +137,8 @@ func _set_slot_border(slot:Panel,active:bool):
 	
 func refresh_all():
 	refresh_equipment()
-	
+	refresh_equipment()
+	refresh_crafting()
 @warning_ignore("unused_parameter")
 func _show_tooltip(item_id:String):
 	pass
@@ -137,3 +156,61 @@ func _build_crafting_grid():
 	craft_output_slot_clicked.connect(_on_output_slot_clicked)
 	craft_output_slot.slot_hovered.connect(_on_output_slot_hovered)
 	craft_output_slot.slot_unhovered.connect(_on_slot_hovered)
+
+func _on_craft_slot_clicked(index:int,button:int):
+	if button==MOUSE_BUTTON_LEFT:
+		if held_item=="":
+			if craft_grid_items[index] !="":
+				held_item=craft_grid_items[index]
+				held_item_source="craft"
+				held_item_source_index=index
+				craft_grid_items[index]=""
+				_check_craft_recipe()
+				refresh_crafting()
+		else:
+			if craft_grid_items[index]!="":
+				var swapped=craft_grid_items[index]
+				craft_grid_items[index]=held_item
+				held_item=swapped
+			else:
+				if craft_grid_items[index]!="":
+					var swapped=craft_grid_items[index]
+					craft_grid_items[index]=held_item
+					held_item=swapped
+				else:
+					craft_grid_items[index]=held_item
+					held_item=""
+					held_item_source=""
+					held_item_source_index=-1
+				_check_craft_recipe()
+				refresh_crafting()
+				
+func _on_output_slot_clicked(index:int,button:int):
+	if craft_result !="" and held_item=="":
+		held_item=craft_result
+		held_item_source="output"
+		held_item_source_index=-1
+		for i in range(9):
+			if craft_grid_items[i] !="":
+				craft_grid_items[i]=""
+				break
+		craft_result=""
+		_check_craft_recipe()
+		refresh_crafting()
+	elif held_item !="" and craft_result=="":
+		GameManager.inventory.append(held_item)
+		held_item=""
+		refresh_all()
+		
+var craft_recipes:Dictionary={
+	"armor_leather":[
+		["fiber","fiber","fiber"],
+		["fiber","","fiber"],
+		["fiber","fiber","fiber"]
+	],
+	"boots_swift":[
+		["","",""],
+		["timber","","timber"],
+		["fiber","","fiber"]
+	]
+}
