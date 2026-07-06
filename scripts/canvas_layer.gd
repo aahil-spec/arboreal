@@ -27,7 +27,7 @@ func _unhandled_input(event):
 		_toggle_pause()
 		
 func _return_held_item():
-	if inventory_screen.held_item!="":
+	if not inventory_screen.held_item.is_empty():
 		GameManager.inventory.append(inventory_screen.held_item)
 		inventory_screen.held_item=""
 		inventory_screen.held_display.visible=false
