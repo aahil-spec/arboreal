@@ -12,7 +12,7 @@ extends Panel
 @onready var craft_output_slot:Panel=$MainLayout/RightPanel/VBoxContainer/CraftOutputSlot
 @onready var held_display:Panel=$HeldItemDisplay
 @onready var tooltip_label:Label=$ToolTipLabel
-@onready var inventory_grid:GridContainer=$MainLayout/LeftPanel/VBoxContainer/InventoryGrid
+@onready var inventory_grid: GridContainer = $MainLayout/LeftPanel/InvScrollContainer/InventoryGrid
 
 var craft_grid_items:Array=["","","","","","","","",""]
 var craft_result:String=""
@@ -153,7 +153,7 @@ func _show_tooltip(item_id:String):
 		text+=item["bonus_key"].capitalize()+":+"+str(item["bonus_value"])
 	tooltip_label.text=text
 	tooltip_label.visible=true
-	tooltip_label.global_position=get_viewport().get_mouse_position()+Vector2(14,-40)
+	tooltip_label.global_position = get_viewport().get_mouse_position() + Vector2(14, -40)
 	
 func _build_crafting_grid():
 	for i in range(9):
@@ -309,6 +309,31 @@ func _on_craft_slot_hovered(index:int):
 	if craft_grid_items[index] !="":
 		_show_tooltip(craft_grid_items[index])
 		
+@warning_ignore("unused_parameter")
 func _on_output_slot_hovered(index:int):
 	if craft_result!="":
 		_show_tooltip(craft_result)
+
+func _on_sort_button_pressed():
+	GameManager.inventory.sort_custom(func(a,b):
+		return GameManager.items[a]["type"]<GameManager.items[b]["type"]
+	)
+	refresh_inventory()
+
+func _on_quick_craft_tab_pressed():
+	$MainLayout/RightPanel/VBoxContainer/CraftingGrid.visible=false
+	$MainLayout/RightPanel/QuickCraftPanel.visible=true
+
+func _on_recycle_tab_pressed():
+	$MainLayout/RightPanel/QuickCraftPanel.visible=false
+	$MainLayout/RightPanel/QuickCraftPanel.visible=true
+
+
+func _on_craft_torch_btn_pressed():
+	if GameManager.craft_item("torch_extra"):
+		refresh_all()
+
+
+func _on_craft_bandage_btn_pressed():
+	if GameManager.craft_item("bandage"):
+		refresh_all()

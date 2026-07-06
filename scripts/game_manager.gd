@@ -140,9 +140,6 @@ func add_timber(amount: int, pickup_name: String = ""):
 	timber += amount
 	if pickup_name != "":
 		collected_timber_names.append(pickup_name)
-	for i in range(amount):
-		inventory.append("timber")
-	print("Timber:",timber)
 	
 	
 func spend_timber(amount:int) ->bool:
@@ -211,10 +208,7 @@ func add_fiber(amount:int,pickup_name:String=""):
 	fiber+=amount
 	if pickup_name!="":
 		collected_fiber_names.append(pickup_name)
-	for i in range(amount):
-		inventory.append("fiber")
-	print("Fiber:",fiber)
-	
+
 func spend_fiber(amount:int):
 	if fiber>=amount:
 		fiber-=amount

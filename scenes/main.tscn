@@ -193,6 +193,10 @@ bg_color = Color(0.18431373, 0.18431373, 0.18431373, 1)
 bg_color = Color(0.18431373, 0.18431373, 0.18431373, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o561r"]
+content_margin_left = 6.0
+content_margin_top = 6.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
 bg_color = Color(1, 1, 1, 0.5058824)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a8y0u"]
@@ -400,36 +404,41 @@ layout_mode = 2
 
 [node name="InventoryScreen" parent="CanvasLayer" unique_id=1346969529 instance=ExtResource("8_yc10j")]
 visible = true
+anchors_preset = -1
+anchor_left = 0.4262153
+anchor_top = 0.47067901
+anchor_right = 0.6197917
+anchor_bottom = 0.52623457
+offset_left = -458.0
+offset_right = 402.0
+offset_transform_enabled = true
 
-[node name="MainLayout" type="HBoxContainer" parent="CanvasLayer/InventoryScreen" unique_id=1593262936]
+[node name="MainLayout" type="Control" parent="CanvasLayer/InventoryScreen" unique_id=1919588213]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_left = 0.4007387
+anchor_top = 0.47482014
+anchor_right = 0.5687904
+anchor_bottom = 0.5143885
 offset_left = -424.0
 offset_top = -254.0
-offset_right = 424.0
+offset_right = 454.0
 offset_bottom = 254.0
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="LeftPanel" type="Panel" parent="CanvasLayer/InventoryScreen/MainLayout" unique_id=1698560931]
-custom_minimum_size = Vector2(340, 0)
-layout_mode = 2
+custom_minimum_size = Vector2(380, 0)
+layout_mode = 0
+offset_right = 414.0
+offset_bottom = 532.0
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_jscy8")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/InventoryScreen/MainLayout/LeftPanel" unique_id=572510443]
 layout_mode = 0
-offset_right = 40.0
+offset_right = 207.0
 offset_bottom = 40.0
-
-[node name="InventoryGrid" type="GridContainer" parent="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/VBoxContainer" unique_id=1151970002]
-layout_mode = 2
-columns = 6
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/VBoxContainer" unique_id=463622463]
 layout_mode = 2
@@ -442,9 +451,25 @@ text = "Sort By Type"
 layout_mode = 2
 text = "Empty Only"
 
+[node name="InvScrollContainer" type="ScrollContainer" parent="CanvasLayer/InventoryScreen/MainLayout/LeftPanel" unique_id=1520840945]
+custom_minimum_size = Vector2(340, 400)
+layout_mode = 0
+offset_top = 4.0
+offset_right = 207.0
+offset_bottom = 4.0
+
+[node name="InventoryGrid" type="GridContainer" parent="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/InvScrollContainer" unique_id=1151970002]
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 6
+
 [node name="CenterPanel" type="Panel" parent="CanvasLayer/InventoryScreen/MainLayout" unique_id=595693983]
 custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
+layout_mode = 0
+offset_left = 443.0
+offset_top = -3.0
+offset_right = 643.0
+offset_bottom = 521.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_pm3ni")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel" unique_id=1282990480]
@@ -531,7 +556,10 @@ text = "Offhand"
 
 [node name="RightPanel" type="Panel" parent="CanvasLayer/InventoryScreen/MainLayout" unique_id=125819658]
 custom_minimum_size = Vector2(290, 0)
-layout_mode = 2
+layout_mode = 0
+offset_left = 678.0
+offset_right = 1063.0
+offset_bottom = 524.0
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_y6deb")
 
@@ -539,17 +567,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_y6deb")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/VBoxContainer" unique_id=508914489]
-layout_mode = 2
-
-[node name="QuickCraftTab" type="Button" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/VBoxContainer/HBoxContainer" unique_id=1090791449]
-layout_mode = 2
-text = "Quick Craft"
-
-[node name="RecycleTab" type="Button" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/VBoxContainer/HBoxContainer" unique_id=2087200797]
-layout_mode = 2
-text = "Recycle"
 
 [node name="Label" type="Label" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/VBoxContainer" unique_id=985002664]
 layout_mode = 2
@@ -569,6 +586,25 @@ layout_mode = 2
 [node name="CraftButton" type="Button" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/VBoxContainer" unique_id=1103925795]
 layout_mode = 2
 text = "Craft"
+
+[node name="QuickCraftPanel" type="Panel" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel" unique_id=40410716]
+layout_mode = 0
+offset_left = 310.0
+offset_right = 350.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/QuickCraftPanel" unique_id=1446515657]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CraftBandageBtn" type="Button" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/QuickCraftPanel/VBoxContainer" unique_id=1722668277]
+layout_mode = 2
+text = "Bandage"
+
+[node name="CraftTorchBtn" type="Button" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/QuickCraftPanel/VBoxContainer" unique_id=1075370863]
+layout_mode = 2
+text = "Torch"
 
 [node name="HeldItemDisplay" type="Panel" parent="CanvasLayer/InventoryScreen" unique_id=1811148125]
 custom_minimum_size = Vector2(56, 56)
@@ -594,7 +630,6 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="ToolTipLabel" type="Label" parent="CanvasLayer/InventoryScreen" unique_id=1246281960]
-visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -605,7 +640,30 @@ offset_left = -40.0
 offset_top = -23.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_colors/font_color = Color(0.040268797, 0.040268805, 0.040268797, 1)
+theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = SubResource("StyleBoxFlat_o561r")
+
+[node name="PausePanel" type="Panel" parent="CanvasLayer" unique_id=47330283]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -386.0
+offset_top = -215.5
+offset_right = 386.0
+offset_bottom = 215.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/PausePanel" unique_id=2114613177]
+process_mode = 3
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "PAUSED"
 
 [node name="Ember" type="Node3D" parent="." unique_id=876940045]
 
@@ -737,4 +795,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70.025955, 0.8270289, 226.80
 [node name="HollowSpawner" parent="." unique_id=544521723 instance=ExtResource("20_yc10j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1.0437281, 255.01968)
 
+[connection signal="pressed" from="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/VBoxContainer/HBoxContainer/SortButton" to="CanvasLayer/InventoryScreen" method="_on_sort_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/InventoryScreen/MainLayout/RightPanel/QuickCraftPanel/VBoxContainer/CraftBandageBtn" to="CanvasLayer/InventoryScreen" method="_on_craft_bandage_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/InventoryScreen/MainLayout/RightPanel/QuickCraftPanel/VBoxContainer/CraftTorchBtn" to="CanvasLayer/InventoryScreen" method="_on_craft_torch_btn_pressed"]
 [connection signal="body_entered" from="ThresholdMarker" to="ThresholdMarker" method="_on_body_entered"]
