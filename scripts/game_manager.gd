@@ -70,8 +70,8 @@ var recipes:Dictionary={
 	"torch_extra":{"timber":2,"fiber":2,"meat":0},
 	"helmet_leather":{"timber":0,"fiber":5,"meat":0},
 	"leggings_leather":{"timber":0,"fiber":5,"meat":0},
-	"shield_wood":{"timber":4,"fiber":2,"meat":0}
-	
+	"shield_wood":{"timber":4,"fiber":2,"meat":0},
+	"bandage":{"timber":0,"fiber":3,"meat":0},
 }
 
 var item_icons: Dictionary = {
@@ -89,11 +89,10 @@ var item_icons: Dictionary = {
 }
 
 func _ready():
-	inventory.append("fiber")
-	inventory.append("fiber")
-	inventory.append("fiber")
-	inventory.append("sword_iron")
-	inventory.append("helmet_leather")
+	inventory.clear()
+	add_to_inventory("fiber",3)
+	add_to_inventory("sword_iron",1)
+	add_to_inventory("helmet_leather",1)
 	
 func _process(delta):
 	time_of_day+=(24.0/DAY_LENGTH_SECONDS)*delta
@@ -140,6 +139,7 @@ func add_timber(amount: int, pickup_name: String = ""):
 	timber += amount
 	if pickup_name != "":
 		collected_timber_names.append(pickup_name)
+	add_to_inventory("timber",amount)
 	
 	
 func spend_timber(amount:int) ->bool:
@@ -167,7 +167,7 @@ func heal_player(amount:int):
 	player_health=min(player_health+amount,MAX_PLAYER_HEALTH)
 	
 func add_item(item_id:String,pickup_name:String=""):
-	inventory.append(item_id)
+	add_to_inventory(item_id,1)
 	if pickup_name!="":
 		collected_item_pickup_names.append(pickup_name)
 	print("Picked up: ", items[item_id]["name"])
@@ -208,6 +208,7 @@ func add_fiber(amount:int,pickup_name:String=""):
 	fiber+=amount
 	if pickup_name!="":
 		collected_fiber_names.append(pickup_name)
+	add_to_inventory("fiber",amount)
 
 func spend_fiber(amount:int):
 	if fiber>=amount:
@@ -232,7 +233,47 @@ func craft_item(item_id:String):
 	var cost=recipes[item_id]
 	timber-=cost["timber"]
 	fiber-=cost["fiber"]
+	
+	remove_from_inventory("timber",cost["timber"])
+	remove_from_inventory("fiber",cost["fiber"])
+	
 	for i in range(cost["meat"]):
-		inventory.erase("raw_meat_bundle")
-	add_item(item_id)
+		remove_from_inventory("raw_meat_bundle",1)
+	add_to_inventory(item_id,1)
 	return true
+func add_to_inventory(item_id:String,amount:int=1):
+	var max_stack=80
+	if items[item_id]["type"] in ["weapon","helmet","armor","leggings","boots","offhand"]:
+		max_stack=1
+		
+	var remaining =amount
+	
+	for i in range(inventory.size()):
+		if inventory[i] is Dictionary and inventory[i]["id"]==item_id and inventory[i]["count"] <max_stack:
+			var space=max_stack-inventory[i]["count"]
+			if remaining<=space:
+				inventory[i]["count"]+=remaining
+				remaining=0
+				break
+			else:
+				inventory[i]["count"]=max_stack
+				remaining-=space
+	while remaining>0:
+		var chunk=min(remaining,max_stack)
+		inventory.append({"id":item_id,"count":chunk})
+		remaining-=chunk
+		
+func remove_from_inventory(item_id:String,amount:int):
+	var remaining=amount
+	for i in range(inventory.size()-1,-1,-1):
+		if inventory[i] is Dictionary and inventory[i]["id"]==item_id:
+			if inventory[i]["count"]>remaining:
+				inventory[i]["count"]-=remaining
+				remaining=0
+				break
+			else:
+				remaining-=inventory[i]["count"]
+				inventory.remove_at(i)
+		if remaining<=0:
+			break
+			

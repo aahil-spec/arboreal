@@ -75,14 +75,10 @@ func _on_inv_slot_clicked(index: int, button: int):
 				GameManager.inventory.remove_at(index)
 				refresh_inventory()
 		else:
-			var item_type = GameManager.items[held_item]["type"]
-			if GameManager.equipped.has(item_type) and index >= GameManager.inventory.size():
-				GameManager.equip_item(held_item)
+			if index>=GameManager.inventory.size():
+				GameManager.inventory.append(held_item)
 			else:
-				if index >= GameManager.inventory.size():
-					GameManager.inventory.append(held_item)
-				else:
-					GameManager.inventory.insert(index, held_item)
+				GameManager.inventory.insert(index, held_item)
 			held_item = ""
 			held_item_source = ""
 			held_item_source_index = -1
@@ -117,12 +113,29 @@ func refresh_equipment():
 	
 @warning_ignore("unused_parameter")
 func _on_equip_slot_clicked(index:int,button:int,slot_type:String):
-	var item_id=GameManager.equipped[slot_type]
-	if item_id!="":
-		GameManager.equipped[slot_type]=""
-		GameManager.inventory.append(item_id)
-		refresh_all()
-	
+	if button==MOUSE_BUTTON_LEFT:
+		if held_item=="":
+			var item_id=GameManager.equipped[slot_type]
+			if item_id!="":
+				GameManager.equipped[slot_type]=""
+				GameManager.inventory.append(item_id)
+				refresh_all()
+		else:
+			var item_type=GameManager.items[held_item]["type"]
+			
+			if item_type==slot_type:
+				var old_item=GameManager.equipped[slot_type]
+				
+				GameManager.equip_item(held_item)
+				
+				if old_item !="":
+					held_item=old_item
+				else:
+					held_item=""
+					held_item_source=""
+					held_item_source_index=-1
+				refresh_all()
+				
 @warning_ignore("unused_parameter")
 func _on_equip_slot_hovered(index:int,slot_type:String):
 	var item_id=GameManager.equipped[slot_type]
@@ -151,6 +164,7 @@ func _show_tooltip(item_id:String):
 	var text=item["name"]+"\n"
 	if item["bonus_key"] !="none":
 		text+=item["bonus_key"].capitalize()+":+"+str(item["bonus_value"])
+	print("HOVERING: ", text)
 	tooltip_label.text=text
 	tooltip_label.visible=true
 	tooltip_label.global_position = get_viewport().get_mouse_position() + Vector2(14, -40)
@@ -199,7 +213,6 @@ func _on_output_slot_clicked(index:int,button:int):
 		for i in range(9):
 			if craft_grid_items[i] !="":
 				craft_grid_items[i]=""
-				break
 		craft_result=""
 		_check_craft_recipe()
 		refresh_crafting()
