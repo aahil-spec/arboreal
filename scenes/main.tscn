@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://deqwijb7cr184" path="res://scenes/hollow_spawner.tscn" id="20_yc10j"]
 [ext_resource type="PackedScene" uid="uid://dltodfw2o6pxm" path="res://scenes/deer_1.tscn" id="21_yc10j"]
 [ext_resource type="Material" uid="uid://brp8y5j07cybn" path="res://ocean.tres" id="23_pm3ni"]
+[ext_resource type="PackedScene" uid="uid://csfxojklpjft" path="res://scenes/boat.tscn" id="24_y6deb"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a8y0u"]
 
@@ -819,6 +820,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1.0437281, 255.01968)
 [node name="Ocean" type="MeshInstance3D" parent="." unique_id=2084440862]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -51.273956, -1445.672)
 mesh = SubResource("BoxMesh_dc6c3")
+
+[node name="Boat" parent="." unique_id=1965323774 instance=ExtResource("24_y6deb")]
+transform = Transform3D(0.06285498, 0, -0.9980228, 0, 1, 0, 0.9980228, 0, 0.06285498, -24.424, 3.3951957, -502.52097)
 
 [connection signal="pressed" from="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/VBoxContainer/HBoxContainer/SortButton" to="CanvasLayer/InventoryScreen" method="_on_sort_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/InventoryScreen/MainLayout/RightPanel/QuickCraftPanel/VBoxContainer/CraftBandageBtn" to="CanvasLayer/InventoryScreen" method="_on_craft_bandage_btn_pressed"]

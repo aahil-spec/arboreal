@@ -50,7 +50,7 @@ func _unhandled_input(event):
 		else:
 			Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
 			
-	if event.is_action_pressed("attack") and not GameManager.build_mode:
+	if event.is_action_pressed("attack") and not GameManager.build_mode and not GameManager.in_water:
 		_attack()
 func _attack():
 	var mesh=$MeshInstance3D
@@ -73,12 +73,21 @@ func _physics_process(delta):
 	_update_shelter_status()
 	_update_heat_status()
 	
+	var input_dir :Vector2= Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	var direction :Vector3= (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
+	if GameManager.in_water:
+		var float_pressure=(GameManager.water_y_level-global_position.y)*2.0
+		velocity.y=clamp(velocity.y+float_pressure*delta,-4.0,4.0)
+		if Input.is_action_pressed("ui_accept"):
+			velocity.y=SWIM_SPEED
+		velocity.x=direction.x*SWIM_SPEED
+		velocity.x=direction.z*SWIM_SPEED
 	if not is_on_floor():
 		velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity")* delta
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-	var input_dir :Vector2= Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var direction :Vector3= (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
 	var current_speed=SPEED+GameManager.get_speed_bonus()
 	
 	var wants_to_sprint=Input.is_action_pressed("sprint") and direction.length()>0.1 and GameManager.stamina>0.0

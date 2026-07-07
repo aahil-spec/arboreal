@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://csfxojklpjft"]
+
+[ext_resource type="PackedScene" uid="uid://ckb8i1s1anvcc" path="res://assets/models/weathered_wooden_boat__low_poly_game_ready.glb" id="1_0063d"]
+[ext_resource type="Script" uid="uid://cs37pxtngvy03" path="res://scripts/boat.gd" id="1_qyrje"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yhnjn"]
+size = Vector3(0.43225098, 2.5178223, 0.7304077)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dc6c3"]
+size = Vector3(2.8013306, 0.84228516, 1.128479)
+
+[node name="Boat" type="RigidBody3D" unique_id=1965323774]
+script = ExtResource("1_qyrje")
+
+[node name="Sketchfab_Scene" parent="." unique_id=926494190 instance=ExtResource("1_0063d")]
+transform = Transform3D(1, 0, 0, 0, 0.9334803, -0.35862842, 0, 0.35862842, 0.9334803, -0.4537574, 0, 0.43504333)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1602010016]
+transform = Transform3D(-0.023998886, -0.999712, 0, 0.999712, -0.023998886, 0, 0, 0, 1, -0.4425972, 0.30948997, 0.4418276)
+shape = SubResource("BoxShape3D_yhnjn")
+
+[node name="BoardingPoint" type="Marker3D" parent="." unique_id=1859222674]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1668725, 0.39269394, 0.38750273)
+
+[node name="BoardZone" type="Area3D" parent="." unique_id=590759096]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BoardZone" unique_id=1909361107]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4376526, 0.2832117, 0.44414878)
+shape = SubResource("BoxShape3D_dc6c3")
+
+[connection signal="body_entered" from="BoardZone" to="." method="_on_board_zone_body_entered"]
+[connection signal="body_exited" from="BoardZone" to="." method="_on_board_zone_body_exited"]
