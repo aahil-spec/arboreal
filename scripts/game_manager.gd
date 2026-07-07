@@ -73,6 +73,9 @@ const MAX_BREATH:float=100.0
 const BREATH_DRAIN_PER_SECOND:float=100.0/30.0
 const BREATH_REGEN_PER_SECOND:float=100.0/8.0
 var drown_timer:float=1.0
+
+var active_hotbar_slot:int=0
+signal hotbar_changed
 var recipes:Dictionary={
 	"armor_leather":{"timber":0,"fiber":8,"meat":0},
 	"boots_swift":{"timber":4,"fiber":4,"meat":0},
@@ -97,6 +100,11 @@ var item_icons: Dictionary = {
 	"bandage": "res://assets/icons/bandage.png",
 }
 
+var item_models:Dictionary={
+	"sword_iron":"res://scenes/pieces/sword_iron_3d.tscn",
+	"timber_pickup": "res://scenes/pieces/timber_3d.tscn",
+	"torch_extra": "res://scenes/pieces/torch_3d.tscn"
+}
 func _ready():
 	inventory.clear()
 	add_to_inventory("fiber",3)
@@ -296,3 +304,10 @@ func remove_from_inventory(item_id:String,amount:int):
 		if remaining<=0:
 			break
 			
+
+func get_acitve_hotbar_item()-> Dictionary:
+	if active_hotbar_slot<inventory.size():
+		var item=inventory[active_hotbar_slot]
+		if item is Dictionary:
+			return item
+	return{}

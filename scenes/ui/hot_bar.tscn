@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://430jfnkbhp22"]
+
+[ext_resource type="Script" uid="uid://58jh5ouj5l1" path="res://scripts/hot_bar.gd" id="1_kpecg"]
+
+[node name="HotBar" type="Control" unique_id=1764538260]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_kpecg")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=661765942]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 4

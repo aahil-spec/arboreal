@@ -38,7 +38,7 @@ func _unhandled_input(event):
 		SaveSystem.save_game()
 	if event.is_action_pressed("load_game"):
 		SaveSystem.load_game()
-	if event.is_action_pressed("toggle_build"):
+	if event.is_action_pressed("toggle_build") and not GameManager.in_water:
 		build_mode=!build_mode
 		GameManager.build_mode=build_mode
 		if build_mode:
@@ -65,6 +65,7 @@ func _unhandled_input(event):
 		if event.is_action_pressed("place_piece"):
 			if has_hit:
 				_place_piece()
+				
 
 
 @warning_ignore("unused_parameter")
@@ -79,6 +80,7 @@ func _process(delta):
 	warmth_bar.value=GameManager.warmth
 	breath_bar.value=GameManager.breath
 	breath_bar.visible=GameManager.in_water
+	get_tree().current_scene.get_node("CanvasLayer/UnderwaterOverlay").visible=GameManager.in_water
 	var weapon_name="None"
 	if GameManager.equipped["weapon"]!="":
 		weapon_name=GameManager.items[GameManager.equipped["weapon"]]["name"]

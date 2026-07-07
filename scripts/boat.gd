@@ -1,7 +1,7 @@
 extends RigidBody3D
 
-const BOAT_SPEED:float=8.0
-const BOAT_TURN_SPEED:float=1.2
+const BOAT_SPEED:float=40.0
+const BOAT_TURN_SPEED:float=3.0
 const BUOYANCY_FORCE:float=18.0
 const WAVE_BOB_AMOUNT:float=0.15
 const WAVE_BOB_SPEED:float=1.5
@@ -39,6 +39,8 @@ func _unhandled_input(event):
 			
 func _board_player():
 	player_aboard=true
+	player_ref.get_node("CollisionShape3D").disabled=true
+	
 	player_ref.get_parent().remove_child(player_ref)
 	add_child(player_ref)
 	player_ref.global_position=boarding_point.global_position
@@ -52,12 +54,15 @@ func _disembark_player():
 	get_tree().current_scene.add_child(player_ref)
 	player_ref.global_position=world_pos
 	player_ref.set_physics_process(true)
+	player_ref.get_node("CollisionShape3D").disabled=false
 	print("Disembarked")
 	
 func _physics_process(delta):
 	var water_y=GameManager.water_y_level
 	var boat_y=global_position.y
-	var depth_below_surface=water_y-boat_y
+	var float_offset=1.7
+	
+	var depth_below_surface=(water_y+float_offset)-boat_y
 	
 	var bouyancy=depth_below_surface*BUOYANCY_FORCE
 	apply_central_force(Vector3(0,bouyancy,0))
@@ -81,11 +86,3 @@ func _physics_process(delta):
 			apply_central_force(-forward*BOAT_SPEED*0.5)
 	if player_aboard and player_ref:
 		player_ref.global_position=boarding_point.global_position
-
-
-func _on_board_zone_body_entered(body: Node3D) -> void:
-	pass # Replace with function body.
-
-
-func _on_board_zone_body_exited(body: Node3D) -> void:
-	pass # Replace with function body.

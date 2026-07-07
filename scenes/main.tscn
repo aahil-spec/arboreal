@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dv3jigrt2ee5g" path="res://scenes/ui/inv_slot.tscn" id="9_jscy8"]
 [ext_resource type="Script" uid="uid://c5keim0asarpo" path="res://scripts/canvas_layer.gd" id="10_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://bklnhvs8jobm3" path="res://scenes/hermit.tscn" id="10_choun"]
+[ext_resource type="PackedScene" uid="uid://430jfnkbhp22" path="res://scenes/ui/hot_bar.tscn" id="10_og1vs"]
 [ext_resource type="PackedScene" uid="uid://dqyq1ar5ir2fm" path="res://scenes/shrine.tscn" id="11_ya4ey"]
 [ext_resource type="Terrain3DMaterial" uid="uid://cx7gnxhe3chl4" path="res://new_terrain_3d_material.res" id="15_0ld40"]
 [ext_resource type="PackedScene" uid="uid://c2kl0vguqn4c6" path="res://scenes/spring.tscn" id="15_gqmmt"]
@@ -315,6 +316,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.71496, 0.98753095, 188.010
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1112402921]
 script = ExtResource("10_a8y0u")
 
+[node name="HotBar" parent="CanvasLayer" unique_id=1764538260 instance=ExtResource("10_og1vs")]
+
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=2054872510]
 offset_right = 40.0
 offset_bottom = 40.0
@@ -389,6 +392,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 0.20392157, 0.12156863, 0)
+
+[node name="UnderwaterOverlay" type="ColorRect" parent="CanvasLayer" unique_id=1041378123]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.05, 0.2, 0.4, 0.35)
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer" unique_id=2052616215]
 offset_left = 1105.0
@@ -821,8 +834,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1.0437281, 255.01968)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -51.273956, -1445.672)
 mesh = SubResource("BoxMesh_dc6c3")
 
+[node name="OmniLight3D" type="OmniLight3D" parent="Ocean" unique_id=771346251]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 48.718052, 0)
+light_color = Color(0.3, 0.7, 0.8, 1)
+
 [node name="Boat" parent="." unique_id=1965323774 instance=ExtResource("24_y6deb")]
-transform = Transform3D(0.06285498, 0, -0.9980228, 0, 1, 0, 0.9980228, 0, 0.06285498, -24.424, 3.3951957, -502.52097)
+transform = Transform3D(0.999996, 0, 0.0028698333, 0, 1, 0, -0.0028698333, 0, 0.999996, -199.49171, 10.471109, -498.01666)
 
 [connection signal="pressed" from="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/VBoxContainer/HBoxContainer/SortButton" to="CanvasLayer/InventoryScreen" method="_on_sort_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/InventoryScreen/MainLayout/RightPanel/QuickCraftPanel/VBoxContainer/CraftBandageBtn" to="CanvasLayer/InventoryScreen" method="_on_craft_bandage_btn_pressed"]

@@ -19,6 +19,9 @@ shape = SubResource("CapsuleShape3D_u8vuu")
 cast_shadow = 3
 mesh = SubResource("CapsuleMesh_3vyb7")
 
+[node name="RightHand" type="Marker3D" parent="MeshInstance3D" unique_id=1577134651]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0.5, -1.551)
+
 [node name="CameraPivot" type="Node3D" parent="." unique_id=1646304438]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2248803, -0.3839699)
 

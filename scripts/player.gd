@@ -17,10 +17,16 @@ var footstep_timer:float=0.0
 var was_on_floor:bool=true
 @export var damage_vignette:ColorRect
 
+
+@onready var right_hand:Marker3D=$MeshInstance3D/RightHand
+var current_held_model:Node3D=null
+
 func _ready():
 	Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
 	GameManager.player_damaged.connect(_on_player_damaged)
 	
+	GameManager.hotbar_changed.connect(_update_hand_visuals)
+	call_deferred("_update_hand_visuals")
 func _on_player_damaged():
 	_camera_shake()
 	_flash_vignette()
@@ -52,6 +58,23 @@ func _unhandled_input(event):
 			
 	if event.is_action_pressed("attack") and not GameManager.build_mode and not GameManager.in_water:
 		_attack()
+		
+	if event.is_action_pressed("wheel_up"):
+		GameManager.active_hotbar_slot-=1
+		if GameManager.active_hotbar_slot<0:
+			GameManager.active_hotbar_slot=8
+		GameManager.hotbar_changed.emit()
+	elif event.is_action_pressed("wheel_down"):
+		GameManager.active_hotbar_slot+=1
+		if GameManager.active_hotbar_slot>8:
+			GameManager.active_hotbar_slot=0
+		GameManager.hotbar_changed.emit()
+		
+	for i in range(1,10):
+		if event is InputEventKey and event.pressed and event.keycode==(KEY_0+i):
+			GameManager.active_hotbar_slot=i-1
+			GameManager.hotbar_changed.emit()
+			break
 func _attack():
 	var mesh=$MeshInstance3D
 	var original_pos=mesh.position
@@ -141,3 +164,18 @@ func _update_heat_status():
 			near =true
 			break
 	GameManager.near_heat_source=near
+
+func _update_hand_visuals():
+	if current_held_model!=null:
+		current_held_model.queue_free()
+		current_held_model=null
+		
+	var item=GameManager.get_acitve_hotbar_item()
+	if item.is_empty():
+		return
+		
+	var item_id=item["id"]
+	
+	if GameManager.item_models.has(item_id):
+		var model_path=GameManager.item_models[item_id]
+		

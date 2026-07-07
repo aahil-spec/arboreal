@@ -135,7 +135,7 @@ func refresh_equipment():
 		if item_id!="" and GameManager.item_icons.has(item_id):
 			icon_node.texture = load(GameManager.item_icons[item_id])
 		_set_slot_border(slot_node,item_id!="")
-	
+		GameManager.hotbar_changed.emit()
 	
 @warning_ignore("unused_parameter")
 func _on_equip_slot_clicked(index:int,button:int,slot_type:String):
@@ -183,6 +183,7 @@ func refresh_all():
 	refresh_inventory()
 	refresh_equipment()
 	refresh_crafting()
+	GameManager.hotbar_changed.emit()
 @warning_ignore("unused_parameter")
 func _show_tooltip(item_id:String):
 	var item=GameManager.items[item_id]
@@ -339,7 +340,7 @@ func refresh_inventory():
 						icon_node.texture=load(path)
 				if item["count"]>1:
 					count_label.text=str(item["count"])
-				
+	GameManager.hotbar_changed.emit()
 func refresh_crafting():
 	for i in range(9):
 		var slot =craft_grid_slots[i]
@@ -361,7 +362,7 @@ func refresh_crafting():
 	out_icon.texture=null
 	if craft_result != "" and GameManager.item_icons.has(craft_result):
 		out_icon.texture=load(GameManager.item_icons[craft_result])
-		
+	GameManager.hotbar_changed.emit()
 func _on_slot_hovered(index:int):
 	if index<GameManager.inventory.size():
 		var item=GameManager.inventory[index]
