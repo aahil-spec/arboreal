@@ -101,10 +101,10 @@ func _on_inv_slot_clicked(index: int, button: int):
 					
 				var swapped=target_item.duplicate()
 				GameManager.inventory[index]=held_item.duplicate()
-				held_display=swapped
+				held_item=swapped
 				
 			else:
-				GameManager.inventory.append(held_display.duplicate())
+				GameManager.inventory.append(held_item.duplicate())
 				held_item={}
 			held_item_source=""
 			held_item_source_index=-1

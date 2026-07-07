@@ -8,6 +8,9 @@ const ATTACK_DAMAGE:int=15
 const FOOTSTEP_INTERVAL:float=0.4
 const SPRINT_MULTIPLIER:float=1.6
 const HIT_SPARK=preload("res://scenes/effects/hit_spark.tscn")
+const SWIM_SPEED:float=5.0
+const SWIM_UP_SPEED:float=2.0
+
 @onready var camera_pivot:Node3D=$CameraPivot
 @onready var attack_zone:Area3D=$AttackZone
 var footstep_timer:float=0.0
@@ -64,10 +67,12 @@ func _attack():
 			
 func _physics_process(delta):
 	if is_on_floor() and not was_on_floor:
-		_update_shelter_status()
-		_update_heat_status()
 		_squash()
 	was_on_floor=is_on_floor()
+	GameManager.in_water=global_position.y<GameManager.water_y_level+0.5
+	_update_shelter_status()
+	_update_heat_status()
+	
 	if not is_on_floor():
 		velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity")* delta
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():

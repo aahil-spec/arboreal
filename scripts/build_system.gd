@@ -13,6 +13,7 @@ extends Node3D
 @onready var thirst_bar:ProgressBar=get_tree().current_scene.get_node("CanvasLayer/VBoxContainer2/ThirstBar")
 @onready var stamina_bar:ProgressBar=get_tree().current_scene.get_node("CanvasLayer/VBoxContainer2/StaminaBar")
 @onready var warmth_bar:ProgressBar=get_tree().current_scene.get_node("CanvasLayer/VBoxContainer2/WarmthBar")
+@onready var breath_bar:ProgressBar=get_tree().current_scene.get_node("CanvasLayer/VBoxContainer/BreathBar")
 var current_hit_position:Vector3=Vector3.ZERO
 var has_hit:bool=false
 var build_mode:bool=false
@@ -76,6 +77,8 @@ func _process(delta):
 	thirst_bar.value=GameManager.thirst
 	stamina_bar.value=GameManager.stamina
 	warmth_bar.value=GameManager.warmth
+	breath_bar.value=GameManager.breath
+	breath_bar.visible=GameManager.in_water
 	var weapon_name="None"
 	if GameManager.equipped["weapon"]!="":
 		weapon_name=GameManager.items[GameManager.equipped["weapon"]]["name"]

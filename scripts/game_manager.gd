@@ -64,6 +64,15 @@ var near_heat_source:bool=false
 var fiber:int=0
 var collected_fiber_names:Array=[]
 
+
+var in_water:bool=false
+var water_y_level:float=-3.0
+
+var breath:float=100.0
+const MAX_BREATH:float=100.0
+const BREATH_DRAIN_PER_SECOND:float=100.0/30.0
+const BREATH_REGEN_PER_SECOND:float=100.0/8.0
+var drown_timer:float=1.0
 var recipes:Dictionary={
 	"armor_leather":{"timber":0,"fiber":8,"meat":0},
 	"boots_swift":{"timber":4,"fiber":4,"meat":0},
@@ -124,9 +133,19 @@ func _process(delta):
 		if survival_damage_timer<=0.0:
 			survival_damage_timer=1.0
 			damage_player(2)
-			
-			
+	if in_water:
+		print(GameManager.in_water)
+		breath=max(breath-BREATH_DRAIN_PER_SECOND*delta,0.0)
+		if breath<=0.0:
+			drown_timer-=delta
+			if drown_timer<=0.0:
+				drown_timer=1.0
+				damage_player(5)
+	else:
+		breath=min(breath+BREATH_REGEN_PER_SECOND*delta,MAX_BREATH)
+		drown_timer=1.0
 		
+	
 func is_night() ->bool:
 	return time_of_day<6.0 or time_of_day>20.0
 	
