@@ -18,7 +18,7 @@ var was_on_floor:bool=true
 @export var damage_vignette:ColorRect
 
 
-@onready var right_hand:Marker3D=$MeshInstance3D/RightHand
+@onready var right_hand:Marker3D=$CameraPivot/Camera3D/RightHand
 var current_held_model:Node3D=null
 
 func _ready():
@@ -178,4 +178,9 @@ func _update_hand_visuals():
 	
 	if GameManager.item_models.has(item_id):
 		var model_path=GameManager.item_models[item_id]
+		if ResourceLoader.exists(model_path):
+			var model_scene=load(model_path)
+			current_held_model=model_scene.instantiate()
+			right_hand.add_child(current_held_model)
+			current_held_model.transform=Transform3D()
 		

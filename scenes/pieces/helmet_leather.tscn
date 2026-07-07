@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://b2082mwuqvtec"]
+
+[ext_resource type="PackedScene" uid="uid://w2f5yx4xcxvf" path="res://assets/models/helmet.glb" id="1_hnntb"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_o561r"]
+radius = 0.30186433
+
+[node name="StaticBody3D" type="StaticBody3D" unique_id=292897326]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=715753154]
+transform = Transform3D(-0.8782459, 0.17193076, 0.44623294, -0.005441026, 0.9294803, -0.36883163, -0.47817826, -0.32635283, -0.8153769, 0.15292224, 0.17453286, -0.106408)
+shape = SubResource("SphereShape3D_o561r")
+
+[node name="Sketchfab_Scene" parent="." unique_id=480813083 instance=ExtResource("1_hnntb")]
+transform = Transform3D(-0.0026347379, 0.0005157923, 0.0013386989, -1.6323067e-05, 0.0027884408, -0.0011064949, -0.0014345347, -0.0009790584, -0.0024461304, 0.15357128, 0.17820576, -0.095605314)

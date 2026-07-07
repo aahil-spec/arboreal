@@ -1,17 +1,15 @@
-[gd_scene format=3 uid="uid://bkbk16rvy3haq"]
+[gd_scene format=3 uid="uid://uiw1bnikoo0"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_o561r"]
-size = Vector3(2.9223633, 1, 1)
+[ext_resource type="PackedScene" uid="uid://kpqpnly7tcyj" path="res://assets/models/model.gltf" id="1_mc0jj"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_dc6c3"]
-size = Vector3(2.8691406, 1, 1)
+[sub_resource type="BoxShape3D" id="BoxShape3D_jxekr"]
+size = Vector3(0.07763672, 1.3942871, 0.20501709)
 
-[node name="RigidBody3D" type="RigidBody3D" unique_id=670313548]
+[node name="SwordIron" type="StaticBody3D" unique_id=1966479900]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=777265725]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.96118164, 0, 0)
-mesh = SubResource("BoxMesh_o561r")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1535064126]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.006884575, 0.29779014, 0.045016646)
+shape = SubResource("BoxShape3D_jxekr")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2548422]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9345703, 0, 0)
-shape = SubResource("BoxShape3D_dc6c3")
+[node name="blockbench_export" parent="." unique_id=552447365 instance=ExtResource("1_mc0jj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4933712, -0.3434452, -0.45714724)

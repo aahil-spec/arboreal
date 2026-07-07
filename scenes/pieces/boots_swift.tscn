@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://de1fcnah4yocm"]
+
+[ext_resource type="PackedScene" uid="uid://x3ehw2yrfhv2" path="res://assets/models/leather_boots.glb" id="1_dmaw6"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_o561r"]
+radius = 0.39274433
+
+[node name="BootsSwift" type="StaticBody3D" unique_id=1120425172]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1126288434]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26252687, 0.023055613, -0.106796384)
+shape = SubResource("SphereShape3D_o561r")
+
+[node name="Sketchfab_Scene" parent="." unique_id=458968278 instance=ExtResource("1_dmaw6")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 1.5748433, 0.023055613, 0.04242313)
+
+[node name="Sketchfab_Scene2" parent="." unique_id=1863566263 instance=ExtResource("1_dmaw6")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 1.7629648, 0.023055613, 0.04242313)

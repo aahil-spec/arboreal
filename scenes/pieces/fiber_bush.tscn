@@ -11,10 +11,10 @@ height = 1.2449951
 script = ExtResource("1_5rsgt")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=401498575]
-transform = Transform3D(0.07448582, -0.9118247, -0.403767, 0.99553347, 0.09154512, -0.023082588, 0.05801017, -0.40024418, 0.9145706, 0.02805937, 0.036224984, 0.03361452)
+transform = Transform3D(0.023894144, -0.48084328, -0.8764808, 0.7966769, 0.5387968, -0.27386892, 0.60393316, -0.6917282, 0.39595073, 0.01495609, 0.19068807, 0.04495023)
 shape = SubResource("CapsuleShape3D_o561r")
 
 [node name="Sketchfab_Scene" parent="." unique_id=121723934 instance=ExtResource("2_mntf4")]
-transform = Transform3D(0.9505878, -0.3104558, 0, 0.3104558, 0.9505878, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0.7548794, -0.24653871, -0.6077629, -0.04198453, 0.90659523, -0.4199073, 0.65451837, 0.34249604, 0.6740193, 0.013103281, 0.18307397, -0.0113357045)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

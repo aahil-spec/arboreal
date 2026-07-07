@@ -6,4 +6,5 @@ extends Area3D
 func _on_body_entered(body):
 	if body.name=="Player":
 		GameManager.add_item(item_id,name)
+		GameManager.hotbar_changed.emit()
 		queue_free()

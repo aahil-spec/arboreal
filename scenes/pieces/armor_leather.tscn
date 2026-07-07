@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://vobtrnecvlyk"]
+
+[ext_resource type="PackedScene" uid="uid://cyoucn6iu7hxf" path="res://assets/models/leather_armor.glb" id="1_3t17e"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_o561r"]
+radius = 0.3393865
+
+[node name="StaticBody3D" type="StaticBody3D" unique_id=1636468932]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1326385633]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31211197, 0.12862575, 0)
+shape = SubResource("SphereShape3D_o561r")
+
+[node name="Sketchfab_Scene" parent="." unique_id=742687215 instance=ExtResource("1_3t17e")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.31211197, 0.12862575, 0)

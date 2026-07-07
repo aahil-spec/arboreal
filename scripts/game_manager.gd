@@ -101,9 +101,14 @@ var item_icons: Dictionary = {
 }
 
 var item_models:Dictionary={
-	"sword_iron":"res://scenes/pieces/sword_iron_3d.tscn",
-	"timber_pickup": "res://scenes/pieces/timber_3d.tscn",
-	"torch_extra": "res://scenes/pieces/torch_3d.tscn"
+	"sword_iron":"res://scenes/pieces/sword_iron.tscn",
+	"timber": "res://scenes/pieces/timber_pickup.tscn",
+	"torch_extra": "res://scenes/pieces/torch_3d.tscn",
+	"helmet_leather":"res://scenes/pieces/helmet_leather.tscn",
+	"armor_leather":"res://scenes/pieces/armor_leather.tscn",
+	"boots_swift":"res://scenes/pieces/boots_swift.tscn",
+	"leggings_leather":"res://scenes/pieces/leggings_leather.tscn",
+	"fiber":"res://scenes/pieces/fiber_bush.tscn",
 }
 func _ready():
 	inventory.clear()
