@@ -25,6 +25,8 @@
 [ext_resource type="PackedScene" uid="uid://dltodfw2o6pxm" path="res://scenes/deer_1.tscn" id="21_yc10j"]
 [ext_resource type="Material" uid="uid://brp8y5j07cybn" path="res://ocean.tres" id="23_pm3ni"]
 [ext_resource type="PackedScene" uid="uid://csfxojklpjft" path="res://scenes/boat.tscn" id="24_y6deb"]
+[ext_resource type="PackedScene" uid="uid://bftgqe7e7fdbx" path="res://locations/models/village/stylized_adobe_house__tier_i.glb" id="26_2wyq8"]
+[ext_resource type="PackedScene" uid="uid://cdce8qdn3o70m" path="res://locations/models/village/stylized_kasbah_village__tier_i.glb" id="27_vxglm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a8y0u"]
 
@@ -227,7 +229,7 @@ script = ExtResource("1_trceg")
 world_env = NodePath("../WorldEnvironment")
 
 [node name="Player" parent="." unique_id=600792781 node_paths=PackedStringArray("damage_vignette") instance=ExtResource("5_tbgi4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.469774, 1.8409333, 246.45566)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -160.53023, 1.8409333, -134.54434)
 damage_vignette = NodePath("../CanvasLayer/DamageVignette")
 
 [node name="BuildSystem" type="Node3D" parent="Player" unique_id=39023323 node_paths=PackedStringArray("timber_label", "selected_label", "ember_label")]
@@ -754,7 +756,6 @@ metadata/_edit_lock_ = true
 
 [node name="Item1" parent="." unique_id=410712748 groups=["item_pickup"] instance=ExtResource("17_muem4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2532187, 1.4524059, 241.41116)
-item_id = null
 
 [node name="Item2" parent="." unique_id=2137566899 groups=["item_pickup"] instance=ExtResource("17_muem4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2532187, 1.4524059, 248.04219)
@@ -775,12 +776,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.097662, 0.5296154, 237.3421
 
 [node name="Berry4" parent="." unique_id=2143353822 groups=["berry"] instance=ExtResource("18_0ld40")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.7444344, 0.5296154, 237.34215)
-
-[node name="Spring" parent="." unique_id=1327923857 instance=ExtResource("15_gqmmt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.707794, 1.0314441, 101.067215)
-
-[node name="Spring2" parent="." unique_id=1016730345 instance=ExtResource("15_gqmmt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 166.10228, 1.0314441, 101.067215)
 
 [node name="Fiber1" parent="." unique_id=490642316 groups=["fiber"] instance=ExtResource("20_gqmmt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.562038, 0.53194076, 257.7382)
@@ -840,6 +835,29 @@ light_color = Color(0.3, 0.7, 0.8, 1)
 
 [node name="Boat" parent="." unique_id=1965323774 instance=ExtResource("24_y6deb")]
 transform = Transform3D(0.999996, 0, 0.0028698333, 0, 1, 0, -0.0028698333, 0, 0.999996, -199.49171, 10.471109, -498.01666)
+
+[node name="Locations" type="Node3D" parent="." unique_id=1661876594]
+
+[node name="ArborealVillage" type="Marker3D" parent="Locations" unique_id=774919406]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -325.33923, -3.40592, -250.78)
+
+[node name="SmallHouse" parent="Locations/ArborealVillage" unique_id=132234361 instance=ExtResource("26_2wyq8")]
+transform = Transform3D(-59.999996, 0, -5.245366e-06, 0, 60, 0, 5.245366e-06, 0, -59.999996, 243.62526, 4.0014925, 100.67163)
+
+[node name="BigHouse" parent="Locations/ArborealVillage" unique_id=1273295240 instance=ExtResource("27_vxglm")]
+transform = Transform3D(-5.3331594, 0, -79.82204, 0, 80, 0, 79.82204, 0, -5.3331594, 260.68768, 3.40592, 23.434738)
+
+[node name="Spring" parent="Locations/ArborealVillage" unique_id=1327923857 instance=ExtResource("15_gqmmt")]
+transform = Transform3D(1.7815892, 0, -0.2567852, 0, 1.8000001, 0, 0.2567852, 0, 1.7815892, 248.23744, 3.3778918, 64.46184)
+
+[node name="Spring2" parent="Locations/ArborealVillage" unique_id=1016730345 instance=ExtResource("15_gqmmt")]
+transform = Transform3D(-1.7985082, 0, 0.07327005, 0, 1.8, 0, -0.07327005, 0, -1.7985082, 256.77332, 3.722848, 86.85359)
+
+[node name="FishermansDock" type="Marker3D" parent="Locations" unique_id=1011813187]
+
+[node name="BanditCamp" type="Marker3D" parent="Locations" unique_id=1107541668]
+
+[node name="HollowOutpost" type="Marker3D" parent="Locations" unique_id=1455454764]
 
 [connection signal="pressed" from="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/VBoxContainer/HBoxContainer/SortButton" to="CanvasLayer/InventoryScreen" method="_on_sort_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/InventoryScreen/MainLayout/RightPanel/QuickCraftPanel/VBoxContainer/CraftBandageBtn" to="CanvasLayer/InventoryScreen" method="_on_craft_bandage_btn_pressed"]

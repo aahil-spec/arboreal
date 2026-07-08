@@ -4,10 +4,12 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_o561r"]
 
-[node name="StaticBody3D" type="Node3D" unique_id=316605810]
+[node name="StaticBody3D" type="StaticBody3D" unique_id=168750277]
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1746808238]
+transform = Transform3D(-0.88577104, 0.45892245, -0.06928345, 0.46069607, 0.8874858, -0.0113163, 0.056294642, -0.041942235, -0.99753296, -0.10550758, 0.44654274, 0.0027348471)
 shape = SubResource("SphereShape3D_o561r")
 
 [node name="Sketchfab_Scene" parent="." unique_id=790562542 instance=ExtResource("1_837xj")]
-transform = Transform3D(-49.65173, 0, 5.8911567, 0, 50, 0, -5.8911567, 0, -49.65173, -0.13116038, -0.07904309, 0.00070151687)
+transform = Transform3D(26.63292, 13.767666, -1.066904, -13.68461, 26.624567, 1.965542, 1.8488958, -1.2582663, 29.916513, -0.025652789, 0.3159601, -0.0020333303)

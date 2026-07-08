@@ -237,6 +237,21 @@ func _on_craft_slot_clicked(index:int,button:int):
 				held_item={}
 			_check_craft_recipe()
 			refresh_crafting()
+			
+	elif button==MOUSE_BUTTON_RIGHT:
+		if not held_item.is_empty():
+			var target=craft_grid_items[index]
+			
+			if target.is_empty():
+				craft_grid_items[index]={"id":held_item["id"],"count":1}
+				held_item["count"] -=1
+			elif target["id"]==held_item["id"] and target["count"] <80:
+				target["count"]+=1
+				held_item["count"]-=1
+			if held_item["count"]<=0:
+				held_item={}
+			_check_craft_recipe()
+			refresh_crafting()
 				
 @warning_ignore("unused_parameter")
 func _on_output_slot_clicked(index:int,button:int):
