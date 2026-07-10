@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://8hxg2asky3hl" path="res://locations/models/village/pompeii_-_public_water_fountain_06.glb" id="1_6vrsj"]
 [ext_resource type="Script" uid="uid://bglsec4gt5rbr" path="res://scripts/drink_zone.gd" id="1_61klm"]
+[ext_resource type="Material" uid="uid://brp8y5j07cybn" path="res://ocean.tres" id="3_f6w1c"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f6w1c"]
 size = Vector3(2.1859894, 0.8059082, 1.7285309)
@@ -15,6 +16,10 @@ size = Vector3(2.2145996, 1.4805603, 1.0686035)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dc6c3"]
 size = Vector3(0.64453125, 0.4501953, 1.3240967)
+
+[sub_resource type="BoxMesh" id="BoxMesh_o561r"]
+material = ExtResource("3_f6w1c")
+size = Vector3(1.1505127, 0.8208618, 1)
 
 [node name="Spring" type="StaticBody3D" unique_id=1327923857]
 
@@ -38,6 +43,10 @@ shape = SubResource("BoxShape3D_o561r")
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="." unique_id=1928872280]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1465347, 0.5247867, -0.42340088)
 shape = SubResource("BoxShape3D_dc6c3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=524537081]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.07525635, 0.30606627, 0)
+mesh = SubResource("BoxMesh_o561r")
 
 [connection signal="body_entered" from="DrinkZone" to="DrinkZone" method="_on_body_entered"]
 [connection signal="body_exited" from="DrinkZone" to="DrinkZone" method="_on_body_exited"]

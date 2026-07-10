@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://8tqbjfsgd5ya"]
+
+[ext_resource type="PackedScene" uid="uid://c1id8qqqly2oq" path="res://locations/models/village/villagers.npcs/ga_free_801_fantasy_villager_1.0.glb" id="1_m6hh3"]
+[ext_resource type="Script" uid="uid://xt83npr1e3bj" path="res://scripts/trader.gd" id="1_ru27k"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o561r"]
+radius = 0.38232422
+height = 1.8190918
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dc6c3"]
+radius = 0.9291009
+
+[node name="Trader" type="CharacterBody3D" unique_id=1577273347]
+script = ExtResource("1_ru27k")
+
+[node name="Sketchfab_Scene" parent="." unique_id=1909781291 instance=ExtResource("1_m6hh3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1739311169]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.13757324, 0)
+shape = SubResource("CapsuleShape3D_o561r")
+
+[node name="TradeZone" type="Area3D" parent="." unique_id=1850061390]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TradeZone" unique_id=778103239]
+shape = SubResource("SphereShape3D_dc6c3")
+
+[connection signal="body_entered" from="TradeZone" to="." method="_on_trade_zone_body_entered"]
+[connection signal="body_exited" from="TradeZone" to="." method="_on_trade_zone_body_exited"]

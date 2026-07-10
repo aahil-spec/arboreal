@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://c5keim0asarpo" path="res://scripts/canvas_layer.gd" id="10_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://bklnhvs8jobm3" path="res://scenes/hermit.tscn" id="10_choun"]
 [ext_resource type="PackedScene" uid="uid://430jfnkbhp22" path="res://scenes/ui/hot_bar.tscn" id="10_og1vs"]
+[ext_resource type="Script" uid="uid://bb1byua7y0psd" path="res://scripts/shop_panel.gd" id="11_5q0nq"]
 [ext_resource type="PackedScene" uid="uid://dqyq1ar5ir2fm" path="res://scenes/shrine.tscn" id="11_ya4ey"]
 [ext_resource type="Terrain3DMaterial" uid="uid://cx7gnxhe3chl4" path="res://new_terrain_3d_material.res" id="15_0ld40"]
 [ext_resource type="PackedScene" uid="uid://c2kl0vguqn4c6" path="res://scenes/spring.tscn" id="15_gqmmt"]
@@ -27,6 +28,11 @@
 [ext_resource type="PackedScene" uid="uid://csfxojklpjft" path="res://scenes/boat.tscn" id="24_y6deb"]
 [ext_resource type="PackedScene" uid="uid://bftgqe7e7fdbx" path="res://locations/models/village/stylized_adobe_house__tier_i.glb" id="26_2wyq8"]
 [ext_resource type="PackedScene" uid="uid://cdce8qdn3o70m" path="res://locations/models/village/stylized_kasbah_village__tier_i.glb" id="27_vxglm"]
+[ext_resource type="PackedScene" uid="uid://phy8xpxlu7em" path="res://locations/models/village/villagers.npcs/village_head.glb" id="28_2f3dj"]
+[ext_resource type="PackedScene" uid="uid://dwv3ywmv3pkmv" path="res://locations/models/village/tripo_pbr_model_38199847-2bf5-4033-a766-f606314ed20d.glb" id="30_fv21b"]
+[ext_resource type="PackedScene" uid="uid://8tqbjfsgd5ya" path="res://scenes/trader.tscn" id="30_qkpxi"]
+[ext_resource type="PackedScene" uid="uid://dfyoscm1nxyud" path="res://locations/models/base/scene.gltf" id="31_qkpxi"]
+[ext_resource type="PackedScene" uid="uid://bc31ek1dvdxw0" path="res://locations/models/outpost/jedi outpost destroyed.glb" id="31_tel4y"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a8y0u"]
 
@@ -702,6 +708,61 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "PAUSED"
 
+[node name="ShopPanel" type="Panel" parent="CanvasLayer" unique_id=1326836441]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -512.0
+offset_top = -279.0
+offset_right = 488.0
+offset_bottom = 221.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_5q0nq")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="CanvasLayer/ShopPanel" unique_id=2114802785]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Shop"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/ShopPanel" unique_id=1113972314]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 122.0
+offset_right = 70.0
+offset_bottom = 162.0
+
+[node name="BuyList" type="VBoxContainer" parent="CanvasLayer/ShopPanel/HBoxContainer" unique_id=818008138]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/ShopPanel/HBoxContainer/BuyList" unique_id=2133898406]
+layout_mode = 2
+text = "Buy"
+
+[node name="SellList" type="VBoxContainer" parent="CanvasLayer/ShopPanel/HBoxContainer" unique_id=1878258151]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/ShopPanel/HBoxContainer/SellList" unique_id=1384110763]
+layout_mode = 2
+text = "Sell"
+
+[node name="TimberDisplay" type="Label" parent="CanvasLayer/ShopPanel" unique_id=1311483078]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
 [node name="Ember" type="Node3D" parent="." unique_id=876940045]
 
 [node name="Ember2" parent="Ember" unique_id=421441933 groups=["ember"] instance=ExtResource("9_85g3d")]
@@ -823,7 +884,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.34225, 0.8270289, 264.533
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70.025955, 0.8270289, 226.8033)
 
 [node name="HollowSpawner" parent="." unique_id=544521723 instance=ExtResource("20_yc10j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1.0437281, 255.01968)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 330.52136, 19.475376, 187.23154)
 
 [node name="Ocean" type="MeshInstance3D" parent="." unique_id=2084440862]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -51.273956, -1445.672)
@@ -839,7 +900,7 @@ transform = Transform3D(0.999996, 0, 0.0028698333, 0, 1, 0, -0.0028698333, 0, 0.
 [node name="Locations" type="Node3D" parent="." unique_id=1661876594]
 
 [node name="ArborealVillage" type="Marker3D" parent="Locations" unique_id=774919406]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -325.33923, -3.40592, -250.78)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -325.34726, -3.4295673, -250.74539)
 
 [node name="SmallHouse" parent="Locations/ArborealVillage" unique_id=132234361 instance=ExtResource("26_2wyq8")]
 transform = Transform3D(-59.999996, 0, -5.245366e-06, 0, 60, 0, 5.245366e-06, 0, -59.999996, 243.62526, 4.0014925, 100.67163)
@@ -853,11 +914,32 @@ transform = Transform3D(1.7815892, 0, -0.2567852, 0, 1.8000001, 0, 0.2567852, 0,
 [node name="Spring2" parent="Locations/ArborealVillage" unique_id=1016730345 instance=ExtResource("15_gqmmt")]
 transform = Transform3D(-1.7985082, 0, 0.07327005, 0, 1.8, 0, -0.07327005, 0, -1.7985082, 256.77332, 3.722848, 86.85359)
 
+[node name="NPC1" parent="Locations/ArborealVillage" unique_id=1500155490 instance=ExtResource("28_2f3dj")]
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 230.58653, 3.4295654, 9.325439)
+
+[node name="House3" parent="Locations/ArborealVillage" unique_id=1376574458 instance=ExtResource("30_fv21b")]
+transform = Transform3D(60, 0, 0, 0, 60, 0, 0, 0, 60, -41.89563, 21.245523, 103.11279)
+
+[node name="Trader" parent="Locations/ArborealVillage" unique_id=1577273347 instance=ExtResource("30_qkpxi")]
+transform = Transform3D(-2, 0, -3.019916e-07, 0, 2, 0, 3.019916e-07, 0, -2, 250.05762, 6.1552873, 80.32942)
+
 [node name="FishermansDock" type="Marker3D" parent="Locations" unique_id=1011813187]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -195.21289, 3.6353183, -472.95096)
 
 [node name="BanditCamp" type="Marker3D" parent="Locations" unique_id=1107541668]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -921.63116, 4.5078697, -2711.43)
+
+[node name="Camp" parent="Locations/BanditCamp" unique_id=210412009 instance=ExtResource("31_qkpxi")]
+transform = Transform3D(-1.7484556e-06, 0, -40, 0, 40, 0, 40, 0, -1.7484556e-06, 735.3411, -6.725918, -790.99805)
 
 [node name="HollowOutpost" type="Marker3D" parent="Locations" unique_id=1455454764]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 386.6684, 8.076035, 176.12231)
+
+[node name="jedi outpost destroyed" parent="Locations/HollowOutpost" unique_id=1947318468 instance=ExtResource("31_tel4y")]
+transform = Transform3D(-0.14507289, 0, -0.37276515, -0.002575107, 0.39999044, 0.0010021811, 0.37275627, 0.0027632487, -0.14506944, -0.5180664, -7.0760345, 2.4605255)
+visible = false
+
+[node name="LocationNames" type="Node3D" parent="Locations" unique_id=825607987]
 
 [connection signal="pressed" from="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/VBoxContainer/HBoxContainer/SortButton" to="CanvasLayer/InventoryScreen" method="_on_sort_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/InventoryScreen/MainLayout/RightPanel/QuickCraftPanel/VBoxContainer/CraftBandageBtn" to="CanvasLayer/InventoryScreen" method="_on_craft_bandage_btn_pressed"]

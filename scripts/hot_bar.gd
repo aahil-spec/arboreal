@@ -31,7 +31,7 @@ func refresh_hotbar():
 		
 		if i <GameManager.inventory.size():
 			var item=GameManager.inventory[i]
-			if item is Dictionary:
+			if item is Dictionary and item.has("id"):
 				var item_id=item["id"]
 				if GameManager.item_icons.has(item_id):
 					var path=GameManager.item_icons[item_id]

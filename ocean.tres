@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://brp8y5j07cybn"]
 
-[ext_resource type="Shader" uid="uid://ewt3i7t1uole" path="res://shaders/ocean.gdshader" id="1_8dmnu"]
+[ext_resource type="Shader" uid="uid://ch31hb11kigvf" path="res://spring.tres" id="1_8dmnu"]
 
 [resource]
 render_priority = 0

@@ -75,6 +75,9 @@ const BREATH_REGEN_PER_SECOND:float=100.0/8.0
 var drown_timer:float=1.0
 
 var active_hotbar_slot:int=0
+
+var shop_open:bool=false
+@warning_ignore("unused_signal")
 signal hotbar_changed
 var recipes:Dictionary={
 	"armor_leather":{"timber":0,"fiber":8,"meat":0},
@@ -281,7 +284,7 @@ func add_to_inventory(item_id:String,amount:int=1):
 	var remaining =amount
 	
 	for i in range(inventory.size()):
-		if inventory[i] is Dictionary and inventory[i]["id"]==item_id and inventory[i]["count"] <max_stack:
+		if inventory[i] is Dictionary and inventory[i].has("id") and inventory[i]["id"]==item_id and inventory[i]["count"] <max_stack:
 			var space=max_stack-inventory[i]["count"]
 			if remaining<=space:
 				inventory[i]["count"]+=remaining
@@ -313,6 +316,6 @@ func remove_from_inventory(item_id:String,amount:int):
 func get_acitve_hotbar_item()-> Dictionary:
 	if active_hotbar_slot<inventory.size():
 		var item=inventory[active_hotbar_slot]
-		if item is Dictionary:
+		if item is Dictionary and item.has("id"):
 			return item
 	return{}
