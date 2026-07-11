@@ -77,6 +77,8 @@ var drown_timer:float=1.0
 var active_hotbar_slot:int=0
 
 var shop_open:bool=false
+
+var discovered_locations:Array=[]
 @warning_ignore("unused_signal")
 signal hotbar_changed
 var recipes:Dictionary={

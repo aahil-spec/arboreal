@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://6tdy0ttim4oa"]
+
+[ext_resource type="Script" uid="uid://rm35w2o1etcn" path="res://scripts/villager.gd" id="1_kufqh"]
+[ext_resource type="PackedScene" uid="uid://ce5vlclsiejas" path="res://locations/models/village/villagers.npcs/cac-1783774371286.glb" id="2_bjpa3"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kufqh"]
+height = 2.0947266
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bjpa3"]
+radius = 1.3028171
+
+[node name="Villager" type="CharacterBody3D" unique_id=1152919175]
+script = ExtResource("1_kufqh")
+
+[node name="Model" parent="." unique_id=270526002 instance=ExtResource("2_bjpa3")]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, -0.006751418, 0.2026074, -0.050918818)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2088344077]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04736328, 0)
+shape = SubResource("CapsuleShape3D_kufqh")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1776245695]
+
+[node name="TalkZone" type="Area3D" parent="." unique_id=588501606]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TalkZone" unique_id=860043925]
+shape = SubResource("SphereShape3D_bjpa3")
+
+[connection signal="body_entered" from="TalkZone" to="." method="_on_talk_zone_body_entered"]
+[connection signal="body_exited" from="TalkZone" to="." method="_on_talk_zone_body_exited"]

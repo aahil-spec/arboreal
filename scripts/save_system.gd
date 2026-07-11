@@ -38,7 +38,8 @@ func save_game():
 		"stamina":GameManager.stamina,
 		"warmth":GameManager.warmth,
 		"collected_berry_names":GameManager.collected_berry_names,
-		"breath":GameManager.breath
+		"breath":GameManager.breath,
+		"discovered_locations":GameManager.discovered_locations,
 	}
 	
 	var file=FileAccess.open(SAVE_PATH,FileAccess.WRITE)
@@ -77,6 +78,7 @@ func load_game():
 	GameManager.fiber=data["fiber"]
 	GameManager.collected_fiber_names=data["collected_fiber_names"]
 	GameManager.breath=data["breath"]
+	GameManager.discovered_locations=data.get("discovered_locations",[])
 	for node in get_tree().get_nodes_in_group("placed_piece"):
 		node.queue_free()
 		

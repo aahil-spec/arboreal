@@ -5,8 +5,8 @@ var current_trader=null
 
 func populate(stock:Array,price_multiplier:float,trader):
 	current_trader=trader
-	var buy_list=$HBoxContainer/BuyList
-	var sell_list=$HBoxContainer/SellList
+	var buy_list=$MarginContainer/VBoxContainer/HBoxContainer/BuyList
+	var sell_list=$MarginContainer/VBoxContainer/HBoxContainer/SellList
 	
 	for child in buy_list.get_children():
 		if child is Button:

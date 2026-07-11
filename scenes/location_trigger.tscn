@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dgr7ga6vl78yl"]
+
+[ext_resource type="Script" uid="uid://d4iw025pvng4e" path="res://scripts/location_trigger.gd" id="1_rucoa"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o561r"]
+
+[node name="LocationTrigger" type="Area3D" unique_id=886422849]
+script = ExtResource("1_rucoa")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=691789795]
+transform = Transform3D(1000, 0, 0, 0, 1000, 0, 0, 0, 1000, 0, 0, 0)
+shape = SubResource("BoxShape3D_o561r")

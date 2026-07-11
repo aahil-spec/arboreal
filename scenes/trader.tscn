@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://8tqbjfsgd5ya"]
 
-[ext_resource type="PackedScene" uid="uid://c1id8qqqly2oq" path="res://locations/models/village/villagers.npcs/ga_free_801_fantasy_villager_1.0.glb" id="1_m6hh3"]
+[ext_resource type="PackedScene" uid="uid://c1id8qqqly2oq" path="res://locations/models/village/villagers.npcs/NPC/ga_free_801_fantasy_villager_1.0.glb" id="1_m6hh3"]
 [ext_resource type="Script" uid="uid://xt83npr1e3bj" path="res://scripts/trader.gd" id="1_ru27k"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o561r"]
