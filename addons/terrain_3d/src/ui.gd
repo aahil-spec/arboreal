@@ -1,8 +1,5 @@
-
 extends Node
 
-
-# Includes
 const TerrainMenu: Script = preload("res://addons/terrain_3d/menu/terrain_menu.gd")
 const Toolbar: Script = preload("res://addons/terrain_3d/src/toolbar.gd")
 const ToolSettings: Script = preload("res://addons/terrain_3d/src/tool_settings.gd")

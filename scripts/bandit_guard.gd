@@ -25,6 +25,7 @@ func _ready():
 		patrol_points=[global_position,global_position+Vector3(6,0,0)]
 	nav_agent.target_position=patrol_points[0]
 	
+@warning_ignore("unused_parameter")
 func take_damage(amount:int,attacker_position:Vector3=Vector3.ZERO):
 	health-=amount
 	
@@ -84,5 +85,6 @@ func _physics_process(delta):
 	move_and_slide()
 
 
+@warning_ignore("unused_parameter")
 func _on_hit_zone_body_entered(body: Node3D) -> void:
 	pass # Replace with function body.
