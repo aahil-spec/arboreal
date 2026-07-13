@@ -55,3 +55,8 @@ func _physics_process(delta):
 		velocity.z=dir.z*1.5
 		
 	move_and_slide()
+
+func _offer_quests():
+	if "clear_bandits" not in GameManager.active_quests and "clear_bandits" not in GameManager.completed_quests:
+		GameManager.start_quest("clear_bandits")
+		print("Village Elder:Please,deal with those bandits.")

@@ -47,3 +47,11 @@ func _unhandled_input(event):
 		current_line+=1
 		if current_line>=lines.size():
 			current_line=0
+			_offer_quests()
+			
+func _offer_quests():
+	for quest_id in ["find_embers","defeat_husk"]:
+		if quest_id not in GameManager.active_quests and quest_id not in GameManager.completed_quests:
+			GameManager.start_quest(quest_id)
+			print("Hermit gives you a new quest:",GameManager.quest_definitions[quest_id]["title"])
+			break
