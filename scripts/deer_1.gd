@@ -31,6 +31,7 @@ func take_damage(amount:int,attacker_position:Vector3=Vector3.ZERO):
 	_flash()
 	print("Dear health",health)
 	GameManager.add_item("raw_meat_bundle")
+	GameManager.update_quest_progress("hunt_deer")
 	queue_free()
 	
 func _flash():

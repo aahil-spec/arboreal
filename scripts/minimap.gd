@@ -2,7 +2,7 @@ extends Panel
 
 @onready var minimap_texture:TextureRect=$MinimapTexture
 @onready var compass_label:Label=$CompassLabel
-@onready var player_dot:ColorRect=$PlayerDot
+@onready var player_dot:Polygon2D=$PlayerArrow
 
 var viewport:SubViewport=null
 var location_dots:Array=[]
@@ -15,7 +15,7 @@ var location_data:Array=[
 	{"name":"Hollow","world_pos":Vector3(386,4,176),"color":Color(0.6,0.3,0.7)},
 ]
 
-@export var minimap_world_size:float=120.0
+@export var minimap_world_size:float=800.0
 
 func _ready():
 	await get_tree().process_frame
@@ -54,7 +54,11 @@ func _update_location_dots(player:Node3D):
 	for dot in location_dots:
 		var world_pos=dot.get_meta("world_pos")
 		var world_offset=Vector3(world_pos.x-player_world_pos.x,0,world_pos.z-player_world_pos.z)
-		var map_offset=Vector2(world_offset.x,world_offset.z)/minimap_world_size*size.x
+		
+		var map_offset=Vector2(world_offset.x,world_offset.z)
+		map_offset=map_offset.rotated(player.rotation.y)
+		map_offset=map_offset/minimap_world_size*size.x
+		
 		var screen_pos=panel_center+map_offset-Vector2(3,3)
 		dot.position=screen_pos
 		dot.visible=(screen_pos.x>0 and screen_pos.x<size.x and screen_pos.y>0 and screen_pos.y<size.y)

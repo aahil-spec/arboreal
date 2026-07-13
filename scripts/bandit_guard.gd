@@ -40,6 +40,7 @@ func _drop_loot():
 	var loot_options=["bandage","timber","sword_iron"]
 	var drop_id=loot_options[randi()%loot_options.size()]
 	GameManager.add_item(drop_id)
+	GameManager.update_quest_progress("defeat_bandits")
 	print("The bandit dropped:",GameManager.items[drop_id]["name"])
 	
 func _physics_process(delta):

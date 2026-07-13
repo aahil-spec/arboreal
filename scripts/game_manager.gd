@@ -115,6 +115,61 @@ var item_models:Dictionary={
 	"leggings_leather":"res://scenes/pieces/leggings_leather.tscn",
 	"fiber":"res://scenes/pieces/fiber_bush.tscn",
 }
+
+var active_quests:Array=[]
+var completed_quests:Array=[]
+
+var quest_definitions:Dictionary={
+	"find_embers":{
+		"title":"Relight the Shrine",
+		"description":"Find the 3 ancient embers hidden in the ruins.",
+		"objectives":[
+			{"text":"Collect ember 1","type":"collect_ember","target":1},
+			{"text":"Collect ember 2","type":"collect_ember","target":2},
+			{"text":"Collect ember 3","type":"collect_ember","target":3},
+			{"text":"Light the shrine","type":"light_shrine","target":1},
+		],
+		"reward_timber":50,
+		"reward_item":"sword_iron",
+		"giver":"Hermit"
+	},
+	"defeat_husk":{
+		"title":"The Hollow Threat",
+		"description":"Something woke in the Ashen Hollow. Deal with it.",
+		"objectives":[
+			{"text":"Explore the Ashen Hollow","type":"discovery_location","target":"Ashen Hollow"},
+			{"text":"Defeat the Husk","type":"defeat_husk","target":1},
+		],
+		"reward_timber":80,
+		"reward_item":"armor_leather",
+		"giver":"Hermit"
+	},
+	"clear_bandits":{
+		"title":"Bandit Trouble",
+		"description":"The village has been asking someone to deal with the bandits to the north.",
+		"objectives":[
+			{"text":"Defeat 3 bandit guards","type":"defeat_bandits","target":3},
+			
+		],
+		"reward_timber":60,
+		"reward_item":"boots_swift",
+		"giver":"Village Elder"
+	},
+	"gather_supplies":{
+		"title":"Winter Stores",
+		"description":"Help the fisherman gather supplies before the cold sets in.",
+		"objectives":[
+			{"text":"Collect 10 Timber","type":"have_timber","target":10},
+			{"text":"Collect 5 Fiber","type":"have_fiber","target":5},
+			{"text":"Hunt 2 deer","type":"hunt_deer","target":2},
+		],
+		"reward_timber":40,
+		"reward_item":"bandage",
+		"giver":"Fisherman"
+	},
+}
+
+var quest_progress:Dictionary={}
 func _ready():
 	inventory.clear()
 	add_to_inventory("fiber",3)
@@ -171,7 +226,8 @@ func collect_ember(ember_name:String=""):
 	embers_collected+=1
 	if ember_name!="":
 		collected_ember_names.append(ember_name)
-
+	update_quest_progress("collect_ember")
+	
 func add_timber(amount: int, pickup_name: String = ""):
 	timber += amount
 	if pickup_name != "":
@@ -321,3 +377,40 @@ func get_acitve_hotbar_item()-> Dictionary:
 		if item is Dictionary and item.has("id"):
 			return item
 	return{}
+
+func start_quest(quest_id:String):
+	if quest_id in active_quests or quest_id in completed_quests:
+		return
+	active_quests.append(quest_id)
+	quest_progress[quest_id]={}
+	print("Quest started:",quest_definitions[quest_id]["title"])
+	
+func update_quest_progress(objective_type:String,value=1):
+	for quest_id in active_quests:
+		var quest =quest_definitions[quest_id]
+		for objective in quest["objectives"]:
+			if objective["type"]==objective_type:
+				var current=quest_progress[quest_id].get(objective_type,0)
+				quest_progress[quest_id][objective_type]=current+value
+				_check_quest_completion(quest_id)
+				break
+				
+func _check_quest_completion(quest_id:String):
+	var quest =quest_definitions[quest_id]
+	var progress=quest_progress[quest_id]
+	for objective in quest["objectives"]:
+		var current=progress.get(objective["type"],0)
+		if objective["type"] in ["discover_location"]:
+			if not (objective["target"] in discovered_locations):
+				return
+		elif current<objective["target"]:
+			return
+		_complete_quest(quest_id)
+		
+func _complete_quest(quest_id:String):
+	active_quests.erase(quest_id)
+	completed_quests.append(quest_id)
+	var quest = quest_definitions[quest_id]
+	timber+=quest["reward_timber"]
+	add_item(quest["reward_timber"])
+	print("Quest complete:",quest["title"],"! Rewards given.")
