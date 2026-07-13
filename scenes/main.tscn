@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://dqyq1ar5ir2fm" path="res://scenes/shrine.tscn" id="11_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://b3tsdh0j4yk6k" path="res://assets/ui/world_map.png" id="12_fuf3a"]
 [ext_resource type="Script" uid="uid://1td22dgso257" path="res://scripts/map_panel.gd" id="12_pibwh"]
+[ext_resource type="Script" uid="uid://dom2t7fjxul1s" path="res://scripts/minimap.gd" id="14_c6pm6"]
 [ext_resource type="Terrain3DMaterial" uid="uid://cx7gnxhe3chl4" path="res://new_terrain_3d_material.res" id="15_0ld40"]
 [ext_resource type="PackedScene" uid="uid://c2kl0vguqn4c6" path="res://scenes/spring.tscn" id="15_gqmmt"]
 [ext_resource type="Script" uid="uid://ccbkosgmduvu0" path="res://scripts/threshold_marker.gd" id="15_jkv2x"]
@@ -210,6 +211,18 @@ bg_color = Color(0.18431373, 0.18431373, 0.18431373, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o561r"]
 bg_color = Color(1, 1, 1, 0.5058824)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dc6c3"]
+bg_color = Color(0, 0, 0, 0.5)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.4, 0.4, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a8y0u"]
 size = Vector3(1, 9.643311, 341.62634)
@@ -800,6 +813,7 @@ offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("12_pibwh")
+world_center = Vector2(0, 0)
 metadata/_edit_use_anchors_ = true
 
 [node name="MapImage" type="TextureRect" parent="CanvasLayer/MapPanel" unique_id=198001856]
@@ -838,6 +852,41 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="MinimapPanel" type="Panel" parent="CanvasLayer" unique_id=324526342]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -180.0
+grow_horizontal = 0
+grow_vertical = 0
+offset_transform_enabled = true
+theme_override_styles/panel = SubResource("StyleBoxFlat_dc6c3")
+script = ExtResource("14_c6pm6")
+
+[node name="CompassLabel" type="Label" parent="CanvasLayer/MinimapPanel" unique_id=1270663957]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 9
+
+[node name="MinimapTexture" type="TextureRect" parent="CanvasLayer/MinimapPanel" unique_id=834959027]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerDot" type="ColorRect" parent="CanvasLayer/MinimapPanel" unique_id=1331393759]
+layout_mode = 0
+offset_left = 87.0
+offset_top = 87.0
+offset_right = 93.0
+offset_bottom = 93.0
 
 [node name="Ember" type="Node3D" parent="." unique_id=876940045]
 
@@ -976,56 +1025,56 @@ transform = Transform3D(0.999996, 0, 0.0028698333, 0, 1, 0, -0.0028698333, 0, 0.
 [node name="Locations" type="Node3D" parent="." unique_id=1661876594]
 
 [node name="ArborealVillage" type="Marker3D" parent="Locations" unique_id=774919406]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -325.34726, -3.4295673, -250.74539)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -251.91486, -3.4295673, -173.89888)
 
 [node name="SmallHouse" parent="Locations/ArborealVillage" unique_id=132234361 instance=ExtResource("26_2wyq8")]
-transform = Transform3D(-45, 0, -6.7948113e-06, 0, 45, 0, 6.7948113e-06, 0, -45, 243.62526, 4.0014925, 100.67163)
+transform = Transform3D(-45, 0, -6.7948113e-06, 0, 45, 0, 6.7948113e-06, 0, -45, 158.85274, 4.0014925, -6.072876)
 
 [node name="BigHouse" parent="Locations/ArborealVillage" unique_id=1273295240 instance=ExtResource("27_vxglm")]
-transform = Transform3D(-5.3331594, 0, -79.82204, 0, 80, 0, 79.82204, 0, -5.3331594, 260.68768, 3.40592, 23.434738)
+transform = Transform3D(-5.3331594, 0, -79.82204, 0, 80, 0, 79.82204, 0, -5.3331594, 175.91516, 3.40592, -83.30974)
 
 [node name="Spring" parent="Locations/ArborealVillage" unique_id=1327923857 instance=ExtResource("15_gqmmt")]
-transform = Transform3D(1.7815892, 0, -0.2567852, 0, 1.8000001, 0, 0.2567852, 0, 1.7815892, 248.23744, 3.3778918, 64.46184)
+transform = Transform3D(1.7815892, 0, -0.2567852, 0, 1.8000001, 0, 0.2567852, 0, 1.7815892, 163.46492, 3.3778918, -42.282654)
 
-[node name="Spring2" parent="Locations/ArborealVillage" unique_id=1016730345 instance=ExtResource("15_gqmmt")]
-transform = Transform3D(-1.7985082, 0, 0.07327005, 0, 1.8, 0, -0.07327005, 0, -1.7985082, 256.77332, 3.722848, 86.85359)
+[node name="Spring2" parent="Locations/ArborealVillage" unique_id=1324086285 instance=ExtResource("15_gqmmt")]
+transform = Transform3D(-1.7985082, 0, 0.07327005, 0, 1.8, 0, -0.07327005, 0, -1.7985082, 172.0008, 3.722848, -19.890915)
 
-[node name="NPC1" parent="Locations/ArborealVillage" unique_id=1500155490 instance=ExtResource("28_2f3dj")]
-transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 230.58653, 3.4295654, 9.325439)
+[node name="NPC1" parent="Locations/ArborealVillage" unique_id=527220111 instance=ExtResource("28_2f3dj")]
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 145.81401, 3.4295654, -97.41905)
 
-[node name="House3" parent="Locations/ArborealVillage" unique_id=1376574458 instance=ExtResource("30_fv21b")]
-transform = Transform3D(60, 0, 0, 0, 60, 0, 0, 0, 60, -41.89563, 21.245523, 103.11279)
+[node name="House3" parent="Locations/ArborealVillage" unique_id=1201786215 instance=ExtResource("30_fv21b")]
+transform = Transform3D(60, 0, 0, 0, 60, 0, 0, 0, 60, -126.66815, 21.245523, -3.6317139)
 
 [node name="Trader" parent="Locations/ArborealVillage" unique_id=1577273347 instance=ExtResource("30_qkpxi")]
-transform = Transform3D(-1.7, 0, -2.5669289e-07, 0, 1.7, 0, 2.5669289e-07, 0, -1.7, 250.05762, 6.1552873, 80.32942)
+transform = Transform3D(-1.7, 0, -2.5669289e-07, 0, 1.7, 0, 2.5669289e-07, 0, -1.7, 165.2851, 6.1552873, -26.415085)
 
 [node name="Villager" parent="Locations/ArborealVillage" unique_id=1152919175 instance=ExtResource("32_dgi5k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 154.3296, 8.980027, 72.25746)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.55708, 8.980027, -34.487045)
 
 [node name="LocationTrigger" parent="Locations/ArborealVillage" unique_id=886422849 instance=ExtResource("33_kmb1v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 89.82529, 35.279617, 107.8685)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.052765, 35.279617, 1.1239929)
 location_name = "ArborealVillage"
 
 [node name="FishermansDock" type="Marker3D" parent="Locations" unique_id=1011813187]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -195.21289, 3.6353183, -472.95096)
 
 [node name="BanditCamp" type="Marker3D" parent="Locations" unique_id=1107541668]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -921.63116, 4.5078697, -2711.43)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -330.17914, 4.5078697, -2711.43)
 
 [node name="Camp" parent="Locations/BanditCamp" unique_id=210412009 instance=ExtResource("31_qkpxi")]
-transform = Transform3D(-1.3113416e-07, 0, -3, 0, 3, 0, 3, 0, -1.3113416e-07, 651.23724, -6.725918, 222.78711)
+transform = Transform3D(-1.3113416e-07, 0, -3, 0, 3, 0, 3, 0, -1.3113416e-07, 113.87152, -6.725918, 119.309814)
 
-[node name="Camp2" parent="Locations/BanditCamp" unique_id=1952282795 instance=ExtResource("31_qkpxi")]
-transform = Transform3D(2.9932692, 0, -0.20084725, 0, 3, 0, 0.20084725, 0, 2.9932692, 472.1798, -6.725918, 222.78711)
+[node name="Camp2" parent="Locations/BanditCamp" unique_id=638007786 instance=ExtResource("31_qkpxi")]
+transform = Transform3D(2.9932692, 0, -0.20084725, 0, 3, 0, 0.20084725, 0, 2.9932692, -65.18591, -6.725918, 119.309814)
 
 [node name="BanditGuard" parent="Locations/BanditCamp" unique_id=136398560 instance=ExtResource("34_j8jky")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 633.12524, -2.1531377, 293.28516)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.75952, -2.1531377, 189.80786)
 
-[node name="BanditGuard2" parent="Locations/BanditCamp" unique_id=1015831996 instance=ExtResource("34_j8jky")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 635.83, -2.1531377, 293.28516)
+[node name="BanditGuard2" parent="Locations/BanditCamp" unique_id=1013298617 instance=ExtResource("34_j8jky")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 98.464294, -2.1531377, 189.80786)
 
-[node name="LocationTrigger" parent="Locations/BanditCamp" unique_id=375023693 instance=ExtResource("33_kmb1v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 543.4237, 0, 215.65405)
+[node name="LocationTrigger" parent="Locations/BanditCamp" unique_id=1524225344 instance=ExtResource("33_kmb1v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.0579834, 0, 112.17676)
 location_name = "BanditCamp"
 location_type = "hostile"
 

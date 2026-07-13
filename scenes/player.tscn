@@ -34,3 +34,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.070044875, 0.30360365, -0.5
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AttackZone" unique_id=208011647]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.056071997, -0.5095508)
 shape = SubResource("BoxShape3D_3vyb7")
+
+[node name="MinimapViewport" type="SubViewport" parent="." unique_id=557351942]
+size = Vector2i(256, 256)
+render_target_update_mode = 4
+
+[node name="MinimapCamera" type="Camera3D" parent="MinimapViewport" unique_id=1547216477]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 80, 0)
+projection = 1
+size = 1000.0
+far = 200.0

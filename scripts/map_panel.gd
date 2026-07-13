@@ -42,7 +42,7 @@ func _build_markers():
 			marker_layer.add_child(unknown)
 	
 func _world_to_map(world_pos:Vector3)->Vector2:
-	var map_size=map_image.size
+	var map_size=self.size
 	var normalized=Vector2(
 		(world_pos.x-world_center.x)/world_size.x+0.5,
 		(world_pos.z-world_center.y)/world_size.y+0.5,
