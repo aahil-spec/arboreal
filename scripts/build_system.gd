@@ -72,7 +72,17 @@ func _unhandled_input(event):
 func _process(delta):
 	timber_label.text="Timber:"+str(GameManager.timber)
 	selected_label.text = "Selected: " + pieces[selected_index]["name"] + " (cost " + str(pieces[selected_index]["cost"]) + ")"
-	ember_label.text="Embers:"+str(GameManager.embers_collected)+"/3"
+	
+	if GameManager.husk_defeated:
+		ember_label.text="The village is safe."
+	elif GameManager.shrine_lit:
+		ember_label.text="Find what stirred in the Ashen Hollow"
+	elif not GameManager.active_quests.is_empty():
+		var quest_id=GameManager.active_quests[0]
+		var quest=GameManager.quest_definitions[quest_id]
+		ember_label.text="Quest:"+quest["title"]
+	else:
+		ember_label.text="Embers:"+str(GameManager.embers_collected)+"/3"
 	health_label.text="Health:"+str(GameManager.player_health)+"/"+str(GameManager.MAX_PLAYER_HEALTH)
 	hunger_bar.value=GameManager.hunger
 	thirst_bar.value=GameManager.thirst

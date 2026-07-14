@@ -855,6 +855,16 @@ offset_bottom = 491.0
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="QuestNotification" type="Label" parent="CanvasLayer" unique_id=1173525344]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+
 [node name="Ember" type="Node3D" parent="." unique_id=876940045]
 
 [node name="Ember2" parent="Ember" unique_id=421441933 groups=["ember"] instance=ExtResource("9_85g3d")]

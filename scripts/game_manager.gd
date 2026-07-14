@@ -412,5 +412,14 @@ func _complete_quest(quest_id:String):
 	completed_quests.append(quest_id)
 	var quest = quest_definitions[quest_id]
 	timber+=quest["reward_timber"]
-	add_item(quest["reward_timber"])
+	add_item(quest["reward_item"])
 	print("Quest complete:",quest["title"],"! Rewards given.")
+	var notif=Engine.get_main_loop().current_scene.get_node_or_null("CanvasLayer/QuestNotification")
+	notif.text="Quest Complete:"+quest["title"]+"!"
+	notif.modulate=Color(1,0.85,0.2,1.0)
+	notif.visible=true
+	var tween=notif.create_tween()
+	tween.tween_interval(2.0)
+	tween.tween_property(notif,"modulate:a",0.0,1.0)
+	tween.tween_callback(func(): notif.visible = false)
+	
