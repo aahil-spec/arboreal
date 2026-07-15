@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Arboreal"
 run/main_scene="uid://iki0q6smjk3i"
-config/features=PackedStringArray("4.7", "Forward Plus")
+config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -22,7 +22,7 @@ SaveSystem="*uid://c8742me71offc"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg", "res://addons/terrain_3d/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg", "res://addons/terrain_3d/plugin.cfg", "res://addons/waterways/plugin.cfg")
 
 [global_group]
 

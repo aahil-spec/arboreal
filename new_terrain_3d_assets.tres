@@ -4,8 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://c1ots7w6i0i1q" path="res://demo/assets/textures/ground037_nrm_rgh.png" id="2_h0205"]
 [ext_resource type="Texture2D" uid="uid://c88j3oj0lf6om" path="res://demo/assets/textures/rock023_alb_ht.png" id="3_be6xf"]
 [ext_resource type="Texture2D" uid="uid://c307hdmos4gtm" path="res://demo/assets/textures/rock023_nrm_rgh.png" id="4_bdvu2"]
-[ext_resource type="Texture2D" uid="uid://cke5md5dpipir" path="res://assets/Textures/rocks/gray_rocks_diff_1k.jpg" id="5_be6xf"]
-[ext_resource type="Texture2D" uid="uid://cumwk4j57m24b" path="res://assets/Textures/rocks/gray_rocks_nor_gl_1k.jpg" id="6_bdvu2"]
+[ext_resource type="Texture2D" uid="uid://c4yadeda03sa0" path="res://assets/Textures/forest ground/packed_albedo_height.png" id="5_be6xf"]
+[ext_resource type="Texture2D" uid="uid://cm6d3n8hijm0u" path="res://assets/Textures/forest ground/packed_normal_roughness.png" id="6_bdvu2"]
+[ext_resource type="Texture2D" uid="uid://dymlgmcnxfd16" path="res://assets/Textures/rocks/packed_albedo_height.png" id="7_xyh1j"]
+[ext_resource type="Texture2D" uid="uid://dq6ek85ummbc8" path="res://assets/Textures/rocks/packed_normal_roughness.png" id="8_6f161"]
+[ext_resource type="Texture2D" uid="uid://cs02sndog8e0d" path="res://assets/Textures/rocky terrian/packed_albedo_height.png" id="9_gnejw"]
+[ext_resource type="Texture2D" uid="uid://xikhe8buc1fm" path="res://assets/Textures/rocky terrian/packed_normal_roughness.png" id="10_qk5g0"]
+[ext_resource type="Texture2D" uid="uid://m3svtqmxdg6g" path="res://assets/Textures/rocky trail/packed_albedo_height.png" id="11_senjq"]
+[ext_resource type="Texture2D" uid="uid://cni0ef63p7go" path="res://assets/Textures/rocky trail/packed_normal_roughness.png" id="12_t78h4"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wj2b0"]
 transparency = 4
@@ -37,11 +43,29 @@ albedo_texture = ExtResource("3_be6xf")
 normal_texture = ExtResource("4_bdvu2")
 
 [sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_cf8io"]
-name = "forrest_ground_01_diff_1k"
+name = "forest ground"
 id = 2
 albedo_texture = ExtResource("5_be6xf")
 normal_texture = ExtResource("6_bdvu2")
 
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_6f161"]
+name = "rocks"
+id = 3
+albedo_texture = ExtResource("7_xyh1j")
+normal_texture = ExtResource("8_6f161")
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_cgk4v"]
+name = "rocky terrian"
+id = 4
+albedo_texture = ExtResource("9_gnejw")
+normal_texture = ExtResource("10_qk5g0")
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_vs002"]
+name = "rock trail"
+id = 5
+albedo_texture = ExtResource("11_senjq")
+normal_texture = ExtResource("12_t78h4")
+
 [resource]
 mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_h0205")])
-texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_muem4"), SubResource("Terrain3DTextureAsset_dp3eg"), SubResource("Terrain3DTextureAsset_cf8io")])
+texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_muem4"), SubResource("Terrain3DTextureAsset_dp3eg"), SubResource("Terrain3DTextureAsset_cf8io"), SubResource("Terrain3DTextureAsset_6f161"), SubResource("Terrain3DTextureAsset_cgk4v"), SubResource("Terrain3DTextureAsset_vs002")])

@@ -37,6 +37,10 @@
 [ext_resource type="PackedScene" uid="uid://6tdy0ttim4oa" path="res://scenes/villager.tscn" id="32_dgi5k"]
 [ext_resource type="PackedScene" uid="uid://dgr7ga6vl78yl" path="res://scenes/location_trigger.tscn" id="33_kmb1v"]
 [ext_resource type="PackedScene" uid="uid://cltksjcidc16c" path="res://scenes/bandit_guard.tscn" id="34_j8jky"]
+[ext_resource type="Script" uid="uid://di31oqj63h8vd" path="res://addons/waterways/river_manager.gd" id="38_5poiv"]
+[ext_resource type="Texture2D" uid="uid://b85tlq8wcklbo" path="res://addons/waterways/textures/water1_normal_bump.png" id="39_2cjbq"]
+[ext_resource type="Shader" uid="uid://qm0toov6rmju" path="res://addons/waterways/shaders/river.gdshader" id="40_chjal"]
+[ext_resource type="Texture2D" uid="uid://lx1nyoh45ge8" path="res://addons/waterways/textures/foam_noise.png" id="41_cjqg0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a8y0u"]
 
@@ -237,6 +241,43 @@ agent_max_slope = 60.0
 material = ExtResource("23_pm3ni")
 size = Vector3(2000, 100, 2000)
 
+[sub_resource type="Curve3D" id="Curve3D_vchkt"]
+bake_interval = 0.05
+_data = {
+"points": PackedVector3Array(0, 0, -0.25, 0, 0, 0.25, 0, 0, 0, 15.899193, 53.024612, 51.700012, -15.899193, -53.024612, -51.700012, 0, 0, 1, -27.490772, -11.351112, -161.33582, 27.490772, 11.351112, 161.33582, -34.342068, -97.50972, 283.07867, 29.92334, -13.721344, -241.31763, -29.92334, 13.721344, 241.31763, -110.785446, -113.13695, 731.4284, -13.679291, -49.62024, -11.702637, 13.679291, 49.62024, 11.702637, -201.3492, -103.2305, 821.2817, 11.615883, 13.252031, -32.77125, -11.615883, -13.252031, 32.77125, -192.16496, -90.73727, 1007.3376),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0)
+}
+point_count = 6
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_txyw0"]
+render_priority = 0
+shader = ExtResource("40_chjal")
+shader_parameter/normal_scale = 1.0
+shader_parameter/normal_bump_texture = ExtResource("39_2cjbq")
+shader_parameter/uv_scale = Vector3(1, 1, 1)
+shader_parameter/roughness = 0.2
+shader_parameter/edge_fade = 0.25
+shader_parameter/albedo_color = Projection(0, 0.8, 1, 0, 0.15, 0.2, 0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/albedo_depth = 5.0000002375
+shader_parameter/albedo_depth_curve = 0.25
+shader_parameter/transparency_clarity = 10.0
+shader_parameter/transparency_depth_curve = 0.25
+shader_parameter/transparency_refraction = 0.05
+shader_parameter/flow_speed = 1.0
+shader_parameter/flow_base = 0.0
+shader_parameter/flow_steepness = 2.0
+shader_parameter/flow_distance = 1.0
+shader_parameter/flow_pressure = 1.0
+shader_parameter/flow_max = 4.0
+shader_parameter/foam_color = Color(0.9, 0.9, 0.9, 1)
+shader_parameter/foam_amount = 1.2590000598025
+shader_parameter/foam_steepness = 2.0
+shader_parameter/foam_smoothness = 0.59600002831
+shader_parameter/i_lod0_distance = 50.0
+shader_parameter/i_texture_foam_noise = ExtResource("41_cjqg0")
+shader_parameter/i_valid_flowmap = false
+shader_parameter/i_uv2_sides = 0
+
 [node name="Main" type="Node3D" unique_id=661294341]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=216505139]
@@ -249,7 +290,7 @@ script = ExtResource("1_trceg")
 world_env = NodePath("../WorldEnvironment")
 
 [node name="Player" parent="." unique_id=600792781 node_paths=PackedStringArray("damage_vignette") instance=ExtResource("5_tbgi4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -160.53023, 1.8409333, -134.54434)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1018.1351, 83.250786, -200.07552)
 damage_vignette = NodePath("../CanvasLayer/DamageVignette")
 
 [node name="BuildSystem" type="Node3D" parent="Player" unique_id=39023323 node_paths=PackedStringArray("timber_label", "selected_label", "ember_label")]
@@ -451,7 +492,6 @@ anchor_right = 0.6197917
 anchor_bottom = 0.52623457
 offset_left = -458.0
 offset_right = 402.0
-offset_transform_enabled = true
 
 [node name="MainLayout" type="Control" parent="CanvasLayer/InventoryScreen" unique_id=1919588213]
 layout_mode = 1
@@ -807,7 +847,6 @@ offset_left = -180.0
 offset_top = -180.0
 grow_horizontal = 0
 grow_vertical = 0
-offset_transform_enabled = true
 theme_override_styles/panel = SubResource("StyleBoxFlat_dc6c3")
 script = ExtResource("14_c6pm6")
 
@@ -1068,6 +1107,54 @@ location_name = "HollowOutpost"
 location_type = "hostile"
 
 [node name="LocationNames" type="Node3D" parent="Locations" unique_id=825607987]
+
+[node name="River" type="Node3D" parent="." unique_id=1820378521]
+transform = Transform3D(-0.047664385, 0, 0.99886346, 0, 1, 0, -0.99886346, 0, -0.047664385, 764.996, 85.13577, -11.34758)
+script = ExtResource("38_5poiv")
+shape_step_length_divs = 1
+shape_step_width_divs = 1
+shape_smoothness = 0.5
+mat_shader_type = 0
+mat_custom_shader = null
+mat_normal_scale = 1.0
+mat_normal_bump_texture = ExtResource("39_2cjbq")
+mat_uv_scale = Vector3(1, 1, 1)
+mat_roughness = 0.2
+mat_edge_fade = 0.25
+mat_albedo_color = Projection(0, 0.8, 1, 0, 0.15, 0.2, 0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+mat_albedo_depth = 5.0000002375
+mat_albedo_depth_curve = 0.25
+mat_transparency_clarity = 10.0
+mat_transparency_depth_curve = 0.25
+mat_transparency_refraction = 0.05
+mat_flow_speed = 1.0
+mat_flow_base = 0.0
+mat_flow_steepness = 2.0
+mat_flow_distance = 1.0
+mat_flow_pressure = 1.0
+mat_flow_max = 4.0
+mat_foam_color = Color(0.9, 0.9, 0.9, 1)
+mat_foam_amount = 1.2590000598025
+mat_foam_steepness = 2.0
+mat_foam_smoothness = 0.59600002831
+lod_lod0_distance = 50.0
+baking_resolution = 2
+baking_raycast_distance = 10.0
+baking_raycast_layers = 1
+baking_dilate = 0.6
+baking_flowmap_blur = 0.04
+baking_foam_cutoff = 0.9
+baking_foam_offset = 0.1
+baking_foam_blur = 0.02
+curve = SubResource("Curve3D_vchkt")
+widths = Array[float]([1.0, 113.156075, 185.9501823377609, 135.55635299205778, 97.92732467174528, 135.55635299205778])
+valid_flowmap = false
+flow_foam_noise = null
+dist_pressure = null
+_material = SubResource("ShaderMaterial_txyw0")
+_selected_shader = 0
+_uv2_sides = 0
+metadata/_custom_type_script = "uid://di31oqj63h8vd"
 
 [connection signal="pressed" from="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/VBoxContainer/HBoxContainer/SortButton" to="CanvasLayer/InventoryScreen" method="_on_sort_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/InventoryScreen/MainLayout/RightPanel/QuickCraftPanel/VBoxContainer/CraftBandageBtn" to="CanvasLayer/InventoryScreen" method="_on_craft_bandage_btn_pressed"]
