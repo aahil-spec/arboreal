@@ -22,7 +22,7 @@ SaveSystem="*uid://c8742me71offc"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg", "res://addons/terrain_3d/plugin.cfg", "res://addons/waterways/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg", "res://addons/proton_scatter/plugin.cfg", "res://addons/terrain_3d/plugin.cfg", "res://addons/waterways/plugin.cfg")
 
 [global_group]
 

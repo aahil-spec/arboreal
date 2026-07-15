@@ -41,6 +41,16 @@
 [ext_resource type="Texture2D" uid="uid://b85tlq8wcklbo" path="res://addons/waterways/textures/water1_normal_bump.png" id="39_2cjbq"]
 [ext_resource type="Shader" uid="uid://qm0toov6rmju" path="res://addons/waterways/shaders/river.gdshader" id="40_chjal"]
 [ext_resource type="Texture2D" uid="uid://lx1nyoh45ge8" path="res://addons/waterways/textures/foam_noise.png" id="41_cjqg0"]
+[ext_resource type="Script" uid="uid://0fjsu3460pe5" path="res://addons/proton_scatter/src/scatter.gd" id="42_bjg73"]
+[ext_resource type="Script" uid="uid://dywtggk2m322d" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="43_bu4jf"]
+[ext_resource type="Script" uid="uid://bidsyikbq4o1d" path="res://addons/proton_scatter/src/modifiers/base_modifier.gd" id="44_o7ddy"]
+[ext_resource type="Script" uid="uid://bujgthtygmn6d" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="45_0loja"]
+[ext_resource type="Script" uid="uid://cwb6xlnvopuwl" path="res://addons/proton_scatter/src/modifiers/randomize_transforms.gd" id="46_ids8r"]
+[ext_resource type="Script" uid="uid://8ekgkawma4s" path="res://addons/proton_scatter/src/modifiers/relax.gd" id="47_dnhof"]
+[ext_resource type="Script" uid="uid://ddjvhfsot0blh" path="res://addons/proton_scatter/src/modifiers/project_on_geometry.gd" id="48_1v6qk"]
+[ext_resource type="Script" uid="uid://ch341lrb3pwpa" path="res://addons/proton_scatter/src/scatter_item.gd" id="49_augu2"]
+[ext_resource type="Script" uid="uid://d1w2rl4k0t5rn" path="res://addons/proton_scatter/src/scatter_shape.gd" id="50_tm6hj"]
+[ext_resource type="Script" uid="uid://dd285ag2iqbf4" path="res://addons/proton_scatter/src/shapes/box_shape.gd" id="51_kf5aa"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a8y0u"]
 
@@ -277,6 +287,39 @@ shader_parameter/i_lod0_distance = 50.0
 shader_parameter/i_texture_foam_noise = ExtResource("41_cjqg0")
 shader_parameter/i_valid_flowmap = false
 shader_parameter/i_uv2_sides = 0
+
+[sub_resource type="Resource" id="Resource_t5ykj"]
+script = ExtResource("45_0loja")
+amount = 75
+restrict_height = true
+reference_frame = 1
+
+[sub_resource type="Resource" id="Resource_e755i"]
+script = ExtResource("46_ids8r")
+position = Vector3(0.15, 0.15, 0.15)
+rotation = Vector3(20, 360, 20)
+scale = Vector3(0.1, 0.1, 0.1)
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_ro3en"]
+script = ExtResource("47_dnhof")
+offset_step = 0.2
+consecutive_step_multiplier = 0.75
+restrict_height = true
+
+[sub_resource type="Resource" id="Resource_od4ux"]
+script = ExtResource("48_1v6qk")
+ray_length = 5.0
+ray_offset = 5.0
+remove_points_on_miss = false
+
+[sub_resource type="Resource" id="Resource_xhfw6"]
+script = ExtResource("43_bu4jf")
+stack = Array[ExtResource("44_o7ddy")]([SubResource("Resource_t5ykj"), SubResource("Resource_e755i"), SubResource("Resource_ro3en"), SubResource("Resource_od4ux")])
+
+[sub_resource type="Resource" id="Resource_1epgm"]
+script = ExtResource("51_kf5aa")
+metadata/_custom_type_script = "uid://dd285ag2iqbf4"
 
 [node name="Main" type="Node3D" unique_id=661294341]
 
@@ -1155,6 +1198,23 @@ _material = SubResource("ShaderMaterial_txyw0")
 _selected_shader = 0
 _uv2_sides = 0
 metadata/_custom_type_script = "uid://di31oqj63h8vd"
+
+[node name="ProtonScatter" type="Node3D" parent="." unique_id=1872577647]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 997.2766, 1.8801446, 277.90936)
+script = ExtResource("42_bjg73")
+modifier_stack = SubResource("Resource_xhfw6")
+Performance/use_chunks = true
+Performance/chunk_dimensions = Vector3(15, 15, 15)
+metadata/_custom_type_script = "uid://0fjsu3460pe5"
+
+[node name="ScatterItem" type="Node3D" parent="ProtonScatter" unique_id=277734285]
+script = ExtResource("49_augu2")
+path = "uid://caqxfqurbp3ku"
+
+[node name="ScatterShape" type="Node3D" parent="ProtonScatter" unique_id=1844718686]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
+script = ExtResource("50_tm6hj")
+shape = SubResource("Resource_1epgm")
 
 [connection signal="pressed" from="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/VBoxContainer/HBoxContainer/SortButton" to="CanvasLayer/InventoryScreen" method="_on_sort_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/InventoryScreen/MainLayout/RightPanel/QuickCraftPanel/VBoxContainer/CraftBandageBtn" to="CanvasLayer/InventoryScreen" method="_on_craft_bandage_btn_pressed"]

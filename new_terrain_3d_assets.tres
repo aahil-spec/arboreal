@@ -53,6 +53,7 @@ name = "rocks"
 id = 3
 albedo_texture = ExtResource("7_xyh1j")
 normal_texture = ExtResource("8_6f161")
+uv_scale = 1.5
 
 [sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_cgk4v"]
 name = "rocky terrian"
@@ -65,6 +66,7 @@ name = "rock trail"
 id = 5
 albedo_texture = ExtResource("11_senjq")
 normal_texture = ExtResource("12_t78h4")
+uv_scale = 1.5
 
 [resource]
 mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_h0205")])
