@@ -347,7 +347,7 @@ func _get(property : StringName):
 	if str(property).begins_with("mat_"):
 		var param_name = str(property).replace("mat_", "")
 		return _material.get_shader_parameter(param_name)
-
+	return
 
 func _property_can_revert(property : StringName) -> bool:
 	if str(property).begins_with("mat_"):
@@ -369,7 +369,8 @@ func _property_get_revert(property : StringName):
 	
 	if DEFAULT_PARAMETERS.has(property):
 		return DEFAULT_PARAMETERS[property]
-
+	
+	return null
 
 func _init() -> void:
 	_st = SurfaceTool.new()

@@ -1,0 +1,1112 @@
+[gd_scene format=3 uid="uid://iki0q6smjk3i"]
+
+[ext_resource type="Script" uid="uid://lwqi8x0tjcia" path="res://scripts/sun.gd" id="1_trceg"]
+[ext_resource type="PackedScene" uid="uid://cayivor226ewb" path="res://scenes/player.tscn" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://djqjs32ycfet3" path="res://scenes/pieces/timber_pickup.tscn" id="7_o6xl0"]
+[ext_resource type="Script" uid="uid://bi4ph4oxxsuim" path="res://scripts/rain.gd" id="8_muem4"]
+[ext_resource type="Script" uid="uid://8elj0g83qa4h" path="res://scripts/build_system.gd" id="8_tipki"]
+[ext_resource type="PackedScene" uid="uid://cuk3g3ba0nnpa" path="res://scenes/ui/inventory_screen.tscn" id="8_yc10j"]
+[ext_resource type="PackedScene" uid="uid://br37vam35068a" path="res://scenes/pieces/ember.tscn" id="9_85g3d"]
+[ext_resource type="PackedScene" uid="uid://dv3jigrt2ee5g" path="res://scenes/ui/inv_slot.tscn" id="9_jscy8"]
+[ext_resource type="Script" uid="uid://c5keim0asarpo" path="res://scripts/canvas_layer.gd" id="10_a8y0u"]
+[ext_resource type="PackedScene" uid="uid://bklnhvs8jobm3" path="res://scenes/hermit.tscn" id="10_choun"]
+[ext_resource type="PackedScene" uid="uid://430jfnkbhp22" path="res://scenes/ui/hot_bar.tscn" id="10_og1vs"]
+[ext_resource type="Script" uid="uid://bb1byua7y0psd" path="res://scripts/shop_panel.gd" id="11_5q0nq"]
+[ext_resource type="PackedScene" uid="uid://dqyq1ar5ir2fm" path="res://scenes/shrine.tscn" id="11_ya4ey"]
+[ext_resource type="Script" uid="uid://qu5bnyot82mq" path="res://scripts/quest_log_panel.gd" id="13_pibwh"]
+[ext_resource type="Script" uid="uid://dom2t7fjxul1s" path="res://scripts/minimap.gd" id="14_c6pm6"]
+[ext_resource type="Terrain3DMaterial" uid="uid://cx7gnxhe3chl4" path="res://new_terrain_3d_material.res" id="15_0ld40"]
+[ext_resource type="PackedScene" uid="uid://c2kl0vguqn4c6" path="res://scenes/spring.tscn" id="15_gqmmt"]
+[ext_resource type="Script" uid="uid://ccbkosgmduvu0" path="res://scripts/threshold_marker.gd" id="15_jkv2x"]
+[ext_resource type="PackedScene" uid="uid://ykj4sthu66lt" path="res://scenes/husk.tscn" id="16_jbj1t"]
+[ext_resource type="Terrain3DAssets" uid="uid://dkgj7jcnrmc0j" path="res://new_terrain_3d_assets.tres" id="17_dp3eg"]
+[ext_resource type="PackedScene" uid="uid://cwe66jl187s1i" path="res://scenes/pieces/item_pickup.tscn" id="17_muem4"]
+[ext_resource type="PackedScene" uid="uid://b55rj2nqj8mdq" path="res://scenes/berry.tscn" id="18_0ld40"]
+[ext_resource type="FastNoiseLite" uid="uid://bcigb5d2j40vy" path="res://1.tres" id="18_dp3eg"]
+[ext_resource type="PackedScene" uid="uid://k8i7dio5qci6" path="res://scenes/pieces/fiber_bush.tscn" id="20_gqmmt"]
+[ext_resource type="PackedScene" uid="uid://deqwijb7cr184" path="res://scenes/hollow_spawner.tscn" id="20_yc10j"]
+[ext_resource type="PackedScene" uid="uid://dltodfw2o6pxm" path="res://scenes/deer_1.tscn" id="21_yc10j"]
+[ext_resource type="Material" uid="uid://brp8y5j07cybn" path="res://ocean.tres" id="23_pm3ni"]
+[ext_resource type="PackedScene" uid="uid://csfxojklpjft" path="res://scenes/boat.tscn" id="24_y6deb"]
+[ext_resource type="PackedScene" uid="uid://bftgqe7e7fdbx" path="res://locations/models/village/stylized_adobe_house__tier_i.glb" id="26_2wyq8"]
+[ext_resource type="PackedScene" uid="uid://cdce8qdn3o70m" path="res://locations/models/village/stylized_kasbah_village__tier_i.glb" id="27_vxglm"]
+[ext_resource type="PackedScene" uid="uid://dwv3ywmv3pkmv" path="res://locations/models/village/tripo_pbr_model_38199847-2bf5-4033-a766-f606314ed20d.glb" id="30_fv21b"]
+[ext_resource type="PackedScene" uid="uid://8tqbjfsgd5ya" path="res://scenes/trader.tscn" id="30_qkpxi"]
+[ext_resource type="PackedScene" uid="uid://dfyoscm1nxyud" path="res://locations/models/base/scene.gltf" id="31_qkpxi"]
+[ext_resource type="PackedScene" uid="uid://bc31ek1dvdxw0" path="res://locations/models/outpost/jedi outpost destroyed.glb" id="31_tel4y"]
+[ext_resource type="PackedScene" uid="uid://6tdy0ttim4oa" path="res://scenes/villager.tscn" id="32_dgi5k"]
+[ext_resource type="PackedScene" uid="uid://dgr7ga6vl78yl" path="res://scenes/location_trigger.tscn" id="33_kmb1v"]
+[ext_resource type="PackedScene" uid="uid://cltksjcidc16c" path="res://scenes/bandit_guard.tscn" id="34_j8jky"]
+[ext_resource type="Script" uid="uid://di31oqj63h8vd" path="res://addons/waterways/river_manager.gd" id="38_5poiv"]
+[ext_resource type="Script" uid="uid://culpyf8ew71w8" path="res://scripts/gravity_zone.gd" id="42_2cjbq"]
+[ext_resource type="PackedScene" uid="uid://dyejvv3hjyefc" path="res://assets/models/pine_tree.glb" id="43_chjal"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a8y0u"]
+
+[sub_resource type="Sky" id="Sky_jkv2x"]
+sky_material = SubResource("ProceduralSkyMaterial_a8y0u")
+
+[sub_resource type="Environment" id="Environment_choun"]
+background_mode = 2
+sky = SubResource("Sky_jkv2x")
+tonemap_mode = 2
+glow_enabled = true
+glow_intensity = 0.4
+glow_bloom = 0.4
+adjustment_enabled = true
+adjustment_brightness = 1.05
+adjustment_contrast = 1.1
+adjustment_saturation = 1.1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jbj1t"]
+emission_shape = 3
+emission_box_extents = Vector3(10, 1, 10)
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+
+[sub_resource type="Shader" id="Shader_0ld40"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.6.1.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_always, cull_back, diffuse_burley, specular_schlick_ggx;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform ivec2 albedo_texture_size;
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+
+uniform float roughness : hint_range(0.0, 1.0);
+uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01);
+
+uniform sampler2D texture_refraction : filter_linear_mipmap, repeat_enable;
+uniform float refraction : hint_range(-1.0, 1.0, 0.001);
+uniform vec4 refraction_texture_channel;
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_linear_mipmap;
+uniform sampler2D depth_texture : hint_depth_texture, repeat_disable, filter_nearest;
+
+uniform sampler2D texture_normal : hint_roughness_normal, filter_linear_mipmap, repeat_enable;
+uniform float normal_scale : hint_range(-16.0, 16.0);
+varying vec3 uv1_triplanar_pos;
+
+uniform float uv1_blend_sharpness : hint_range(0.0, 150.0, 0.001);
+varying vec3 uv1_power_normal;
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+void vertex() {
+	vec3 normal = MODEL_NORMAL_MATRIX * NORMAL;
+
+	TANGENT = vec3(0.0, 0.0, -1.0) * abs(normal.x);
+	TANGENT += vec3(1.0, 0.0, 0.0) * abs(normal.y);
+	TANGENT += vec3(1.0, 0.0, 0.0) * abs(normal.z);
+	TANGENT = inverse(MODEL_NORMAL_MATRIX) * normalize(TANGENT);
+
+	BINORMAL = vec3(0.0, 1.0, 0.0) * abs(normal.x);
+	BINORMAL += vec3(0.0, 0.0, -1.0) * abs(normal.y);
+	BINORMAL += vec3(0.0, 1.0, 0.0) * abs(normal.z);
+	BINORMAL = inverse(MODEL_NORMAL_MATRIX) * normalize(BINORMAL);
+
+	// UV1 Triplanar: Enabled (with World Triplanar)
+	uv1_power_normal = pow(abs(normal), vec3(uv1_blend_sharpness));
+	uv1_triplanar_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz * uv1_scale + uv1_offset+TIME*0.01;
+	uv1_power_normal /= dot(uv1_power_normal, vec3(1.0));
+	uv1_triplanar_pos *= vec3(1.0, -1.0, 1.0);
+}
+
+vec4 triplanar_texture(sampler2D p_sampler, vec3 p_weights, vec3 p_triplanar_pos) {
+	vec4 samp = vec4(0.0);
+	samp += texture(p_sampler, p_triplanar_pos.xy) * p_weights.z;
+	samp += texture(p_sampler, p_triplanar_pos.xz) * p_weights.y;
+	samp += texture(p_sampler, p_triplanar_pos.zy * vec2(-1.0, 1.0)) * p_weights.x;
+	return samp;
+}
+
+void fragment() {
+	vec4 albedo_tex = triplanar_texture(texture_albedo, uv1_power_normal, uv1_triplanar_pos);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+	float metallic_tex = dot(triplanar_texture(texture_metallic, uv1_power_normal, uv1_triplanar_pos), metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	SPECULAR = specular;
+
+	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	float roughness_tex = dot(triplanar_texture(texture_roughness, uv1_power_normal, uv1_triplanar_pos), roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+
+	// Normal Map: Enabled
+	NORMAL_MAP = triplanar_texture(texture_normal, uv1_power_normal, uv1_triplanar_pos).rgb;
+	NORMAL_MAP_DEPTH = normal_scale;
+
+	// Refraction: Enabled (with normal map texture)
+	vec3 unpacked_normal = NORMAL_MAP;
+	unpacked_normal.xy = unpacked_normal.xy * 2.0 - 1.0;
+	unpacked_normal.z = sqrt(max(0.0, 1.0 - dot(unpacked_normal.xy, unpacked_normal.xy)));
+	vec3 ref_normal = normalize(mix(
+			NORMAL,
+			TANGENT * unpacked_normal.x + BINORMAL * unpacked_normal.y + NORMAL * unpacked_normal.z,
+			NORMAL_MAP_DEPTH));
+	vec2 ref_ofs = SCREEN_UV - ref_normal.xy * dot(triplanar_texture(texture_refraction, uv1_power_normal, uv1_triplanar_pos), refraction_texture_channel) * refraction;
+
+	float ref_amount = 1.0 - albedo.a * albedo_tex.a;
+
+	float refraction_depth_tex = textureLod(depth_texture, ref_ofs, 0.0).r;
+	vec4 ndc = OUTPUT_IS_SRGB ? vec4(vec3(SCREEN_UV, refraction_depth_tex) * 2.0 - 1.0, 1.0) : vec4(SCREEN_UV * 2.0 - 1.0, refraction_depth_tex, 1.0);
+	vec4 refraction_view_pos = INV_PROJECTION_MATRIX * ndc;
+	refraction_view_pos.xyz /= refraction_view_pos.w;
+
+	// If the depth buffer is lower then the model's Z position, use the refracted UV, otherwise use the normal screen UV.
+	// At low depth differences, decrease refraction intensity to avoid sudden discontinuities.
+	EMISSION += textureLod(screen_texture, mix(SCREEN_UV, ref_ofs, smoothstep(0.0, 1.0, VERTEX.z - refraction_view_pos.z)), ROUGHNESS * 8.0).rgb * ref_amount * EXPOSURE;
+	ALBEDO *= 1.0 - ref_amount;
+	// Force transparency on the material (required for refraction).
+	ALPHA = 1.0;
+}
+"
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gqmmt"]
+noise = ExtResource("18_dp3eg")
+seamless = true
+as_normal_map = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yc10j"]
+render_priority = 0
+shader = SubResource("Shader_0ld40")
+shader_parameter/albedo = Color(0.047058824, 0.31764707, 0.46666667, 0.5058824)
+shader_parameter/albedo_texture_size = Vector2i(0, 0)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 0.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/refraction = 0.05
+shader_parameter/refraction_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/texture_normal = SubResource("NoiseTexture2D_gqmmt")
+shader_parameter/normal_scale = 1.0
+shader_parameter/uv1_blend_sharpness = 1.0
+shader_parameter/uv1_scale = Vector3(0.04, 0.04, 0.04)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dp3eg"]
+material = SubResource("ShaderMaterial_yc10j")
+size = Vector3(0.02, 0.4, 0.02)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jscy8"]
+bg_color = Color(0.18431373, 0.18431373, 0.18431373, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pm3ni"]
+bg_color = Color(0.18431373, 0.18431373, 0.18431373, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y6deb"]
+bg_color = Color(0.18431373, 0.18431373, 0.18431373, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o561r"]
+bg_color = Color(1, 1, 1, 0.5058824)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dc6c3"]
+bg_color = Color(0, 0, 0, 0.5)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.4, 0.4, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a8y0u"]
+size = Vector3(1, 9.643311, 341.62634)
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_jbj1t"]
+geometry_parsed_geometry_type = 1
+geometry_source_geometry_mode = 2
+geometry_source_group_name = &"navmesh_source"
+cell_size = 0.5
+agent_max_climb = 1.0
+agent_max_slope = 60.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_dc6c3"]
+material = ExtResource("23_pm3ni")
+size = Vector3(2000, 100, 2000)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5poiv"]
+radius = 135.59204
+
+[node name="Main" type="Node3D" unique_id=661294341]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=216505139]
+environment = SubResource("Environment_choun")
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=1082465412 node_paths=PackedStringArray("world_env")]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+script = ExtResource("1_trceg")
+world_env = NodePath("../WorldEnvironment")
+
+[node name="Player" parent="." unique_id=600792781 node_paths=PackedStringArray("damage_vignette") instance=ExtResource("5_tbgi4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1018.1351, 8.516875, -200.07552)
+damage_vignette = NodePath("../CanvasLayer/DamageVignette")
+
+[node name="BuildSystem" type="Node3D" parent="Player" unique_id=39023323 node_paths=PackedStringArray("timber_label", "selected_label", "ember_label")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.66801, -1.8409333, -201.2784)
+script = ExtResource("8_tipki")
+timber_label = NodePath("../../CanvasLayer/VBoxContainer/TimberLabel")
+selected_label = NodePath("../../CanvasLayer/VBoxContainer/SelectedLabel")
+ember_label = NodePath("../../CanvasLayer/VBoxContainer/EmberLabel")
+
+[node name="Rain" type="GPUParticles3D" parent="Player" unique_id=388917736]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.5747066, 0)
+amount = 200
+lifetime = 1.5
+process_material = SubResource("ParticleProcessMaterial_jbj1t")
+draw_pass_1 = SubResource("BoxMesh_dp3eg")
+script = ExtResource("8_muem4")
+
+[node name="Timber" type="Node3D" parent="." unique_id=2100848730]
+
+[node name="TimberPickup" parent="Timber" unique_id=1129366448 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.510658, 0.98753095, 193.42516)
+
+[node name="TimberPickup5" parent="Timber" unique_id=366021784 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.299217, 0.98753095, 191.03366)
+
+[node name="TimberPickup6" parent="Timber" unique_id=118955161 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.23201, 0.98753095, 196.11023)
+
+[node name="TimberPickup10" parent="Timber" unique_id=2103880990 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.084993, 0.98753095, 196.11023)
+
+[node name="TimberPickup11" parent="Timber" unique_id=1218636057 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.73725, 0.98753095, 196.11023)
+
+[node name="TimberPickup12" parent="Timber" unique_id=1076474287 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.73725, 0.98753095, 195.33267)
+
+[node name="TimberPickup13" parent="Timber" unique_id=931035081 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.212957, 0.98753095, 195.33267)
+
+[node name="TimberPickup14" parent="Timber" unique_id=1313327373 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.212957, 0.98753095, 194.2778)
+
+[node name="TimberPickup15" parent="Timber" unique_id=1676350059 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.292486, 0.98753095, 194.2778)
+
+[node name="TimberPickup16" parent="Timber" unique_id=265024163 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.292486, 0.98753095, 193.41795)
+
+[node name="TimberPickup17" parent="Timber" unique_id=1217227466 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.961725, 0.98753095, 193.41795)
+
+[node name="TimberPickup18" parent="Timber" unique_id=590682266 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.961725, 0.98753095, 192.26375)
+
+[node name="TimberPickup19" parent="Timber" unique_id=1931089873 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.011889, 0.98753095, 192.26375)
+
+[node name="TimberPickup20" parent="Timber" unique_id=72413448 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.011889, 0.98753095, 191.00754)
+
+[node name="TimberPickup21" parent="Timber" unique_id=1249152043 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.87078, 0.98753095, 191.00754)
+
+[node name="TimberPickup22" parent="Timber" unique_id=1598795814 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.87078, 0.98753095, 191.00754)
+
+[node name="TimberPickup7" parent="Timber" unique_id=162104606 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.78349, 0.98753095, 196.11023)
+
+[node name="TimberPickup8" parent="Timber" unique_id=1750751429 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.510658, 0.98753095, 194.92784)
+
+[node name="TimberPickup9" parent="Timber" unique_id=1434675728 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.510658, 0.98753095, 190.47266)
+
+[node name="TimberPickup2" parent="Timber" unique_id=1283855593 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.510658, 0.98753095, 192.13374)
+
+[node name="TimberPickup3" parent="Timber" unique_id=932948179 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.041132, 0.98753095, 188.01007)
+
+[node name="TimberPickup4" parent="Timber" unique_id=1414104541 instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.71496, 0.98753095, 188.01007)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1112402921]
+script = ExtResource("10_a8y0u")
+
+[node name="HotBar" parent="CanvasLayer" unique_id=1764538260 instance=ExtResource("10_og1vs")]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=2054872510]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HealthLabel" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=1006817353]
+layout_mode = 2
+
+[node name="TimberLabel" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=504403259]
+layout_mode = 2
+
+[node name="SelectedLabel" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=52370947]
+layout_mode = 2
+
+[node name="EmberLabel" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=1172841620]
+layout_mode = 2
+
+[node name="DialogueLabel" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=1676583652]
+layout_mode = 2
+
+[node name="EquippedLabel" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=961130736]
+layout_mode = 2
+
+[node name="BreathBar" type="ProgressBar" parent="CanvasLayer/VBoxContainer" unique_id=688915601]
+layout_mode = 2
+
+[node name="CrosshairH" type="ColorRect" parent="CanvasLayer" unique_id=1473656833]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3.0
+offset_top = -16.0
+offset_right = 3.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CrosshairV" type="ColorRect" parent="CanvasLayer" unique_id=1488608308]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -17.0
+offset_top = -3.0
+offset_right = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HelpPanel" type="Panel" parent="CanvasLayer" unique_id=1523565768]
+offset_left = 666.0
+offset_top = 2.0
+offset_right = 1150.0
+offset_bottom = 82.0
+
+[node name="Label" type="Label" parent="CanvasLayer/HelpPanel" unique_id=24797634]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "WASD - Move      Space - Jump      Mouse - Look
+   B - Build Mode   1-6 - Select Piece   Q/E - Rotate   Click - Place
+   E - Interact      F5 - Save   F9 - Load   H - This menu"
+
+[node name="DamageVignette" type="ColorRect" parent="CanvasLayer" unique_id=1776418004]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0.20392157, 0.12156863, 0)
+
+[node name="UnderwaterOverlay" type="ColorRect" parent="CanvasLayer" unique_id=1041378123]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.05, 0.2, 0.4, 0.35)
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer" unique_id=2052616215]
+offset_left = 1105.0
+offset_right = 1145.0
+offset_bottom = 120.0
+
+[node name="HungerBar" type="ProgressBar" parent="CanvasLayer/VBoxContainer2" unique_id=593549254]
+layout_mode = 2
+
+[node name="ThirstBar" type="ProgressBar" parent="CanvasLayer/VBoxContainer2" unique_id=123026543]
+layout_mode = 2
+
+[node name="StaminaBar" type="ProgressBar" parent="CanvasLayer/VBoxContainer2" unique_id=926812499]
+layout_mode = 2
+
+[node name="WarmthBar" type="ProgressBar" parent="CanvasLayer/VBoxContainer2" unique_id=2053241501]
+layout_mode = 2
+
+[node name="InventoryScreen" parent="CanvasLayer" unique_id=1346969529 instance=ExtResource("8_yc10j")]
+visible = true
+anchors_preset = -1
+anchor_left = 0.4262153
+anchor_top = 0.47067901
+anchor_right = 0.6197917
+anchor_bottom = 0.52623457
+offset_left = -458.0
+offset_right = 402.0
+
+[node name="MainLayout" type="Control" parent="CanvasLayer/InventoryScreen" unique_id=1919588213]
+layout_mode = 1
+anchor_left = 0.4007387
+anchor_top = 0.47482014
+anchor_right = 0.5687904
+anchor_bottom = 0.5143885
+offset_left = -424.0
+offset_top = -254.0
+offset_right = 454.0
+offset_bottom = 254.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="LeftPanel" type="Panel" parent="CanvasLayer/InventoryScreen/MainLayout" unique_id=1698560931]
+custom_minimum_size = Vector2(380, 0)
+layout_mode = 0
+offset_right = 414.0
+offset_bottom = 532.0
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_jscy8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/InventoryScreen/MainLayout/LeftPanel" unique_id=572510443]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 507.0
+offset_right = 209.0
+offset_bottom = 577.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/VBoxContainer" unique_id=463622463]
+layout_mode = 2
+
+[node name="SortButton" type="Button" parent="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/VBoxContainer/HBoxContainer" unique_id=1560267187]
+layout_mode = 2
+text = "Sort By Type"
+
+[node name="EmptyOnlyButton" type="Button" parent="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/VBoxContainer/HBoxContainer" unique_id=1949023472]
+layout_mode = 2
+text = "Empty Only"
+
+[node name="InvScrollContainer" type="ScrollContainer" parent="CanvasLayer/InventoryScreen/MainLayout/LeftPanel" unique_id=1520840945]
+custom_minimum_size = Vector2(340, 400)
+layout_mode = 0
+offset_top = 4.0
+offset_right = 207.0
+offset_bottom = 4.0
+
+[node name="InventoryGrid" type="GridContainer" parent="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/InvScrollContainer" unique_id=1151970002]
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 6
+
+[node name="CenterPanel" type="Panel" parent="CanvasLayer/InventoryScreen/MainLayout" unique_id=595693983]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = 443.0
+offset_top = -3.0
+offset_right = 643.0
+offset_bottom = 521.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pm3ni")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel" unique_id=1282990480]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer" unique_id=367888454]
+layout_mode = 2
+text = "Equipment"
+
+[node name="EquipLayout" type="HBoxContainer" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer" unique_id=1576368671]
+layout_mode = 2
+
+[node name="LeftEquip" type="VBoxContainer" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout" unique_id=1047142714]
+layout_mode = 2
+
+[node name="HelmetSlot" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/LeftEquip" unique_id=1585957867 instance=ExtResource("9_jscy8")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/LeftEquip/HelmetSlot" unique_id=2046088584]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 9
+text = "Helmet"
+
+[node name="ArmorSlot" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/LeftEquip" unique_id=49438318 instance=ExtResource("9_jscy8")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/LeftEquip/ArmorSlot" unique_id=1070650772]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 9
+text = "Armor"
+
+[node name="LeggingsSlot" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/LeftEquip" unique_id=711721414 instance=ExtResource("9_jscy8")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/LeftEquip/LeggingsSlot" unique_id=439813344]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 9
+text = "Leggings"
+
+[node name="CharacterPreview" type="TextureRect" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout" unique_id=112171021]
+custom_minimum_size = Vector2(80, 160)
+layout_mode = 2
+
+[node name="RightEquip" type="VBoxContainer" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout" unique_id=464099583]
+layout_mode = 2
+
+[node name="BootsSlot" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip" unique_id=1757516570 instance=ExtResource("9_jscy8")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip/BootsSlot" unique_id=1371251839]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 9
+text = "Boots"
+
+[node name="WeaponSlot" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip" unique_id=775162580 instance=ExtResource("9_jscy8")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip/WeaponSlot" unique_id=209068263]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 9
+text = "Weapon"
+
+[node name="OffhandSlot" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip" unique_id=1547607231 instance=ExtResource("9_jscy8")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/InventoryScreen/MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip/OffhandSlot" unique_id=543909352]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 9
+text = "Offhand"
+
+[node name="RightPanel" type="Panel" parent="CanvasLayer/InventoryScreen/MainLayout" unique_id=125819658]
+custom_minimum_size = Vector2(290, 0)
+layout_mode = 0
+offset_left = 678.0
+offset_right = 1063.0
+offset_bottom = 524.0
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_y6deb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel" unique_id=1736722884]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/VBoxContainer" unique_id=985002664]
+layout_mode = 2
+text = "Crafting"
+
+[node name="CraftingGrid" type="GridContainer" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/VBoxContainer" unique_id=644423428]
+layout_mode = 2
+columns = 3
+
+[node name="Label2" type="Label" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/VBoxContainer" unique_id=2059166454]
+layout_mode = 2
+text = "→"
+
+[node name="CraftOutputSlot" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/VBoxContainer" unique_id=1653103468 instance=ExtResource("9_jscy8")]
+layout_mode = 2
+
+[node name="CraftButton" type="Button" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/VBoxContainer" unique_id=1103925795]
+layout_mode = 2
+text = "Craft"
+
+[node name="QuickCraftPanel" type="Panel" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel" unique_id=40410716]
+layout_mode = 0
+offset_left = 310.0
+offset_right = 350.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/QuickCraftPanel" unique_id=1446515657]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CraftBandageBtn" type="Button" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/QuickCraftPanel/VBoxContainer" unique_id=1722668277]
+layout_mode = 2
+text = "Bandage"
+
+[node name="CraftTorchBtn" type="Button" parent="CanvasLayer/InventoryScreen/MainLayout/RightPanel/QuickCraftPanel/VBoxContainer" unique_id=1075370863]
+layout_mode = 2
+text = "Torch"
+
+[node name="HeldItemDisplay" type="Panel" parent="CanvasLayer/InventoryScreen" unique_id=1811148125]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/InventoryScreen/HeldItemDisplay" unique_id=1908967623]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CountLabel" type="Label" parent="CanvasLayer/InventoryScreen/HeldItemDisplay" unique_id=964978395]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="ToolTipLabel" type="Label" parent="CanvasLayer/InventoryScreen" unique_id=1246281960]
+z_index = 10
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+offset_right = -39.0
+offset_bottom = -3.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.040268797, 0.040268805, 0.040268797, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_o561r")
+
+[node name="PausePanel" type="Panel" parent="CanvasLayer" unique_id=47330283]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -386.0
+offset_top = -215.5
+offset_right = 386.0
+offset_bottom = 215.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/PausePanel" unique_id=2114613177]
+process_mode = 3
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "PAUSED"
+
+[node name="ShopPanel" type="Panel" parent="CanvasLayer" unique_id=1326836441]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -512.0
+offset_top = -279.0
+offset_right = 488.0
+offset_bottom = 221.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_5q0nq")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/ShopPanel" unique_id=1160316029]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ShopPanel/MarginContainer" unique_id=1243715543]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/ShopPanel/MarginContainer/VBoxContainer" unique_id=2114802785]
+layout_mode = 2
+text = "Shop"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/ShopPanel/MarginContainer/VBoxContainer" unique_id=1113972314]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BuyList" type="VBoxContainer" parent="CanvasLayer/ShopPanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=818008138]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/ShopPanel/MarginContainer/VBoxContainer/HBoxContainer/BuyList" unique_id=2133898406]
+layout_mode = 2
+text = "Buy"
+horizontal_alignment = 1
+
+[node name="SellList" type="VBoxContainer" parent="CanvasLayer/ShopPanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1878258151]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/ShopPanel/MarginContainer/VBoxContainer/HBoxContainer/SellList" unique_id=1384110763]
+layout_mode = 2
+text = "Sell"
+horizontal_alignment = 1
+
+[node name="TimberDisplay" type="Label" parent="CanvasLayer/ShopPanel" unique_id=1311483078]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="LocationLabel" type="Label" parent="CanvasLayer" unique_id=1147309231]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 24
+metadata/_edit_use_anchors_ = true
+
+[node name="MinimapPanel" type="Panel" parent="CanvasLayer" unique_id=324526342]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -180.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dc6c3")
+script = ExtResource("14_c6pm6")
+
+[node name="CompassLabel" type="Label" parent="CanvasLayer/MinimapPanel" unique_id=1270663957]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 9
+
+[node name="MinimapTexture" type="TextureRect" parent="CanvasLayer/MinimapPanel" unique_id=834959027]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerArrow" type="Polygon2D" parent="CanvasLayer/MinimapPanel" unique_id=2052937921]
+position = Vector2(90, 90)
+polygon = PackedVector2Array(0, -6, 5, 5, -5, 5)
+
+[node name="QuestLogPanel" type="Panel" parent="CanvasLayer" unique_id=1872959344]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -380.0
+offset_bottom = 500.0
+grow_horizontal = 0
+script = ExtResource("13_pibwh")
+
+[node name="Label" type="Label" parent="CanvasLayer/QuestLogPanel" unique_id=1126171777]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Quest Log"
+
+[node name="QuestScroll" type="ScrollContainer" parent="CanvasLayer/QuestLogPanel" unique_id=1290324443]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 39.0
+offset_right = 335.0
+offset_bottom = 491.0
+
+[node name="QuestList" type="VBoxContainer" parent="CanvasLayer/QuestLogPanel/QuestScroll" unique_id=1941184831]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="QuestNotification" type="Label" parent="CanvasLayer" unique_id=1173525344]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1017257784]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.4, 0.102, 0.6, 0.082)
+metadata/_edit_use_anchors_ = true
+
+[node name="Ember" type="Node3D" parent="." unique_id=876940045]
+
+[node name="Ember2" parent="Ember" unique_id=421441933 groups=["ember"] instance=ExtResource("9_85g3d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108.831276, 1.3089035, 307.8939)
+
+[node name="Ember4" parent="Ember" unique_id=474699277 groups=["ember"] instance=ExtResource("9_85g3d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130.62442, 1.3244426, 297.44022)
+
+[node name="Ember3" parent="Ember" unique_id=1584278941 groups=["ember"] instance=ExtResource("9_85g3d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146.71297, 1.3509483, 284.11383)
+
+[node name="Hermit" parent="." unique_id=564781588 instance=ExtResource("10_choun")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.558043, 0.901104, 236.25269)
+script = null
+
+[node name="Shrine" parent="." unique_id=1614487741 instance=ExtResource("11_ya4ey")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108.821915, 0.03433132, 307.90344)
+
+[node name="Shrine2" parent="." unique_id=1877496963 instance=ExtResource("11_ya4ey")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130.64526, 0.03433132, 297.45114)
+
+[node name="Shrine3" parent="." unique_id=422829047 instance=ExtResource("11_ya4ey")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146.73611, 0.03433132, 284.13904)
+
+[node name="PlayerSpawnPoint" type="Marker3D" parent="." unique_id=830485578]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.781977, 2.1736474, 201.35796)
+
+[node name="ThresholdMarker" type="Area3D" parent="." unique_id=1831462105]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 281.92096, 9.8107815, 54.879555)
+script = ExtResource("15_jkv2x")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThresholdMarker" unique_id=1324771738]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.560974, -4.3216553, 146.00568)
+shape = SubResource("BoxShape3D_a8y0u")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="ThresholdMarker" unique_id=322120989]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 175.99573, -4.3216553, 13.177666)
+shape = SubResource("BoxShape3D_a8y0u")
+
+[node name="Husk1" parent="." unique_id=1374809841 instance=ExtResource("16_jbj1t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.89935, 42.84906, 224.12244)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=6985506 groups=["navmesh_source"]]
+navigation_mesh = SubResource("NavigationMesh_jbj1t")
+
+[node name="Terrain3D" type="Terrain3D" parent="NavigationRegion3D" unique_id=1114111210 groups=["navmesh_source"]]
+data_directory = "res://map terrian"
+material = ExtResource("15_0ld40")
+assets = ExtResource("17_dp3eg")
+collision_radius = 256
+top_level = true
+metadata/_edit_lock_ = true
+
+[node name="Item1" parent="." unique_id=410712748 groups=["item_pickup"] instance=ExtResource("17_muem4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2532187, 1.4524059, 241.41116)
+
+[node name="Item2" parent="." unique_id=2137566899 groups=["item_pickup"] instance=ExtResource("17_muem4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2532187, 1.4524059, 248.04219)
+item_id = "armor_leather"
+
+[node name="Item3" parent="." unique_id=477376296 groups=["item_pickup"] instance=ExtResource("17_muem4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2532187, 1.4524059, 254.76714)
+item_id = "boots_swift"
+
+[node name="Berry1" parent="." unique_id=122451337 groups=["berry"] instance=ExtResource("18_0ld40")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.433577, 0.5296154, 237.34215)
+
+[node name="Berry2" parent="." unique_id=794042665 groups=["berry"] instance=ExtResource("18_0ld40")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.988916, 0.5296154, 237.34215)
+
+[node name="Berry3" parent="." unique_id=1875705276 groups=["berry"] instance=ExtResource("18_0ld40")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.097662, 0.5296154, 237.34215)
+
+[node name="Berry4" parent="." unique_id=2143353822 groups=["berry"] instance=ExtResource("18_0ld40")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.7444344, 0.5296154, 237.34215)
+
+[node name="Fiber1" parent="." unique_id=490642316 groups=["fiber"] instance=ExtResource("20_gqmmt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.562038, 0.53194076, 257.7382)
+
+[node name="Fiber2" parent="." unique_id=56853775 groups=["fiber"] instance=ExtResource("20_gqmmt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.421545, 0.53194076, 257.7382)
+
+[node name="Fiber3" parent="." unique_id=615004052 groups=["fiber"] instance=ExtResource("20_gqmmt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.47728, 0.53194076, 257.7382)
+
+[node name="Fiber4" parent="." unique_id=336035852 groups=["fiber"] instance=ExtResource("20_gqmmt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.295202, 0.53194076, 257.7382)
+
+[node name="Fiber5" parent="." unique_id=851348367 groups=["fiber"] instance=ExtResource("20_gqmmt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.328746, 0.53194076, 257.7382)
+
+[node name="Fiber6" parent="." unique_id=1378596012 groups=["fiber"] instance=ExtResource("20_gqmmt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.328746, 0.53194076, 257.7382)
+
+[node name="Fiber7" parent="." unique_id=1483819446 groups=["fiber"] instance=ExtResource("20_gqmmt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.328746, 0.53194076, 257.7382)
+
+[node name="Fiber8" parent="." unique_id=5864399 groups=["fiber"] instance=ExtResource("20_gqmmt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.328746, 0.53194076, 257.7382)
+
+[node name="Fiber9" parent="." unique_id=1966789670 groups=["fiber"] instance=ExtResource("20_gqmmt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.328746, 0.53194076, 257.7382)
+
+[node name="Fiber10" parent="." unique_id=734104046 groups=["fiber"] instance=ExtResource("20_gqmmt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.328746, 0.53194076, 257.7382)
+
+[node name="Fiber11" parent="." unique_id=799860328 groups=["fiber"] instance=ExtResource("20_gqmmt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.328746, 0.53194076, 257.7382)
+
+[node name="Fiber12" parent="." unique_id=33979713 groups=["fiber"] instance=ExtResource("20_gqmmt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.328746, 0.53194076, 257.7382)
+
+[node name="Deer1" parent="." unique_id=1703654575 instance=ExtResource("21_yc10j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.415955, 0.8270289, 258.2953)
+
+[node name="Deer2" parent="." unique_id=422591068 instance=ExtResource("21_yc10j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.34225, 0.8270289, 264.53317)
+
+[node name="Deer3" parent="." unique_id=830831654 instance=ExtResource("21_yc10j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70.025955, 0.8270289, 226.8033)
+
+[node name="HollowSpawner" parent="." unique_id=544521723 instance=ExtResource("20_yc10j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 330.52136, 19.475376, 187.23154)
+
+[node name="Ocean" type="MeshInstance3D" parent="." unique_id=2084440862]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -51.273956, -1445.672)
+mesh = SubResource("BoxMesh_dc6c3")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Ocean" unique_id=771346251]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 48.718052, 0)
+light_color = Color(0.3, 0.7, 0.8, 1)
+
+[node name="Boat" parent="." unique_id=1965323774 instance=ExtResource("24_y6deb")]
+transform = Transform3D(0.999996, 0, 0.0028698333, 0, 1, 0, -0.0028698333, 0, 0.999996, -199.49171, 10.471109, -498.01666)
+
+[node name="Locations" type="Node3D" parent="." unique_id=1661876594]
+
+[node name="ArborealVillage" type="Marker3D" parent="Locations" unique_id=774919406]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -251.91486, -3.4295673, -173.89888)
+
+[node name="SmallHouse" parent="Locations/ArborealVillage" unique_id=132234361 instance=ExtResource("26_2wyq8")]
+transform = Transform3D(-45, 0, -6.7948113e-06, 0, 45, 0, 6.7948113e-06, 0, -45, 158.85274, 4.0014925, -6.072876)
+
+[node name="BigHouse" parent="Locations/ArborealVillage" unique_id=1273295240 instance=ExtResource("27_vxglm")]
+transform = Transform3D(-5.3331594, 0, -79.82204, 0, 80, 0, 79.82204, 0, -5.3331594, 175.91516, 3.40592, -83.30974)
+
+[node name="Spring" parent="Locations/ArborealVillage" unique_id=1327923857 instance=ExtResource("15_gqmmt")]
+transform = Transform3D(1.7815892, 0, -0.2567852, 0, 1.8000001, 0, 0.2567852, 0, 1.7815892, 163.46492, 3.3778918, -42.282654)
+
+[node name="Spring2" parent="Locations/ArborealVillage" unique_id=1324086285 instance=ExtResource("15_gqmmt")]
+transform = Transform3D(-1.7985082, 0, 0.07327005, 0, 1.8, 0, -0.07327005, 0, -1.7985082, 172.0008, 3.722848, -19.890915)
+
+[node name="House3" parent="Locations/ArborealVillage" unique_id=1201786215 instance=ExtResource("30_fv21b")]
+transform = Transform3D(60, 0, 0, 0, 60, 0, 0, 0, 60, -126.66815, 21.245523, -3.6317139)
+
+[node name="Trader" parent="Locations/ArborealVillage" unique_id=1577273347 instance=ExtResource("30_qkpxi")]
+transform = Transform3D(-1.7, 0, -2.5669289e-07, 0, 1.7, 0, 2.5669289e-07, 0, -1.7, 165.2851, 6.1552873, -26.415085)
+
+[node name="Villager" parent="Locations/ArborealVillage" unique_id=1152919175 instance=ExtResource("32_dgi5k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.55708, 8.980027, -34.487045)
+
+[node name="LocationTrigger" parent="Locations/ArborealVillage" unique_id=886422849 instance=ExtResource("33_kmb1v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.052765, 35.279617, 1.1239929)
+location_name = "ArborealVillage"
+
+[node name="Hermit" parent="Locations/ArborealVillage" unique_id=1434923661 instance=ExtResource("10_choun")]
+transform = Transform3D(1.7, 0, 0, 0, 1.7, 0, 0, 0, 1.7, 144.31442, 4.9955564, -70.301834)
+
+[node name="FishermansDock" type="Marker3D" parent="Locations" unique_id=1011813187]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -195.21289, 3.6353183, -472.95096)
+
+[node name="BanditCamp" type="Marker3D" parent="Locations" unique_id=1107541668]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -330.17914, 4.5078697, -2711.43)
+
+[node name="Camp" parent="Locations/BanditCamp" unique_id=210412009 instance=ExtResource("31_qkpxi")]
+transform = Transform3D(-1.3113416e-07, 0, -3, 0, 3, 0, 3, 0, -1.3113416e-07, 113.87152, -6.725918, 119.309814)
+
+[node name="Camp2" parent="Locations/BanditCamp" unique_id=638007786 instance=ExtResource("31_qkpxi")]
+transform = Transform3D(2.9932692, 0, -0.20084725, 0, 3, 0, 0.20084725, 0, 2.9932692, -65.18591, -6.725918, 119.309814)
+
+[node name="BanditGuard" parent="Locations/BanditCamp" unique_id=136398560 instance=ExtResource("34_j8jky")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.75952, -2.1531377, 189.80786)
+
+[node name="BanditGuard2" parent="Locations/BanditCamp" unique_id=1013298617 instance=ExtResource("34_j8jky")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 98.464294, -2.1531377, 189.80786)
+
+[node name="LocationTrigger" parent="Locations/BanditCamp" unique_id=1524225344 instance=ExtResource("33_kmb1v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.0579834, 0, 112.17676)
+location_name = "BanditCamp"
+location_type = "hostile"
+
+[node name="HollowOutpost" type="Marker3D" parent="Locations" unique_id=1455454764]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 386.6684, 8.076035, 176.12231)
+
+[node name="jedi outpost destroyed" parent="Locations/HollowOutpost" unique_id=1947318468 instance=ExtResource("31_tel4y")]
+transform = Transform3D(-0.14507289, 0, -0.37276515, -0.002575107, 0.39999044, 0.0010021811, 0.37275627, 0.0027632487, -0.14506944, -0.5180664, -7.0760345, 2.4605255)
+
+[node name="LocationTrigger" parent="Locations/HollowOutpost" unique_id=1708962590 instance=ExtResource("33_kmb1v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.115284, 0)
+location_name = "HollowOutpost"
+location_type = "hostile"
+
+[node name="LocationNames" type="Node3D" parent="Locations" unique_id=825607987]
+
+[node name="River" type="Node3D" parent="." unique_id=1820378521]
+transform = Transform3D(-0.047664385, 0, 0.99886346, 0, 1, 0, -0.99886346, 0, -0.047664385, 764.996, 85.13577, -11.34758)
+script = ExtResource("38_5poiv")
+metadata/_custom_type_script = "uid://di31oqj63h8vd"
+
+[node name="GravityZone" type="Area3D" parent="." unique_id=1292279032]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1046.0808, 0, 126.80345)
+gravity_space_override = 3
+gravity_point_center = Vector3(0, 1, 0)
+gravity_direction = Vector3(0, 1, 0)
+script = ExtResource("42_2cjbq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GravityZone" unique_id=288961474]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 330.6416, 81.40817, 1121.2963)
+shape = SubResource("SphereShape3D_5poiv")
+
+[node name="InverseSpawnPoint" type="Node3D" parent="." unique_id=110760498]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1376.7712, 162.33458, 1242.6031)
+
+[node name="Sketchfab_Scene" parent="." unique_id=1471286558 instance=ExtResource("43_chjal")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1022.5981, 0, -198.61656)
+
+[connection signal="pressed" from="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/VBoxContainer/HBoxContainer/SortButton" to="CanvasLayer/InventoryScreen" method="_on_sort_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/InventoryScreen/MainLayout/RightPanel/QuickCraftPanel/VBoxContainer/CraftBandageBtn" to="CanvasLayer/InventoryScreen" method="_on_craft_bandage_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/InventoryScreen/MainLayout/RightPanel/QuickCraftPanel/VBoxContainer/CraftTorchBtn" to="CanvasLayer/InventoryScreen" method="_on_craft_torch_btn_pressed"]
+[connection signal="body_entered" from="ThresholdMarker" to="ThresholdMarker" method="_on_body_entered"]

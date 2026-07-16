@@ -91,6 +91,7 @@ func _process(delta):
 	breath_bar.value=GameManager.breath
 	breath_bar.visible=GameManager.in_water
 	get_tree().current_scene.get_node("CanvasLayer/UnderwaterOverlay").visible=GameManager.in_water
+	get_tree().current_scene.get_node("CanvasLayer/GravityOverlay").visible=GameManager.in_gravity_zone
 	var weapon_name="None"
 	if GameManager.equipped["weapon"]!="":
 		weapon_name=GameManager.items[GameManager.equipped["weapon"]]["name"]

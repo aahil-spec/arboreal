@@ -40,6 +40,9 @@ func save_game():
 		"collected_berry_names":GameManager.collected_berry_names,
 		"breath":GameManager.breath,
 		"discovered_locations":GameManager.discovered_locations,
+		"active_quests":GameManager.active_quests,
+		"completed_quests":GameManager.completed_quests,
+		"quest_progress":GameManager.quest_progress,
 	}
 	
 	var file=FileAccess.open(SAVE_PATH,FileAccess.WRITE)
@@ -79,6 +82,9 @@ func load_game():
 	GameManager.collected_fiber_names=data["collected_fiber_names"]
 	GameManager.breath=data["breath"]
 	GameManager.discovered_locations=data.get("discovered_locations",[])
+	GameManager.active_quests=data.get("active_quests",[])
+	GameManager.completed_quests=data.get("completed_quests",[])
+	GameManager.quest_progress=data.get("quest_progress",{})
 	for node in get_tree().get_nodes_in_group("placed_piece"):
 		node.queue_free()
 		
