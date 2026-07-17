@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://tygk8r16pi2f"]
+
+[node name="Sketchfab_Scene" unique_id=1471286558]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)

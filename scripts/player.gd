@@ -1,15 +1,15 @@
 extends CharacterBody3D
 
 
-const SPEED:float = 5.0
-const JUMP_VELOCITY :float= 4.5
+const SPEED:float = 15.0
+const JUMP_VELOCITY :float= 7.0
 const MOUSE_SENSITIVITY:float=0.003
 const ATTACK_DAMAGE:int=15
 const FOOTSTEP_INTERVAL:float=0.4
 const SPRINT_MULTIPLIER:float=1.6
 const HIT_SPARK=preload("res://scenes/effects/hit_spark.tscn")
-const SWIM_SPEED:float=5.0
-const SWIM_UP_SPEED:float=2.0
+const SWIM_SPEED:float=15.0
+const SWIM_UP_SPEED:float=6.0
 
 @onready var camera_pivot:Node3D=$CameraPivot
 @onready var attack_zone:Area3D=$AttackZone

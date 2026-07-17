@@ -42,7 +42,16 @@
 [ext_resource type="Shader" uid="uid://qm0toov6rmju" path="res://addons/waterways/shaders/river.gdshader" id="40_chjal"]
 [ext_resource type="Texture2D" uid="uid://lx1nyoh45ge8" path="res://addons/waterways/textures/foam_noise.png" id="41_cjqg0"]
 [ext_resource type="Script" uid="uid://culpyf8ew71w8" path="res://scripts/gravity_zone.gd" id="42_2cjbq"]
-[ext_resource type="PackedScene" uid="uid://dyejvv3hjyefc" path="res://assets/models/pine_tree.glb" id="43_chjal"]
+[ext_resource type="Script" uid="uid://0fjsu3460pe5" path="res://addons/proton_scatter/src/scatter.gd" id="43_bu4jf"]
+[ext_resource type="Script" uid="uid://dywtggk2m322d" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="44_o7ddy"]
+[ext_resource type="Script" uid="uid://bidsyikbq4o1d" path="res://addons/proton_scatter/src/modifiers/base_modifier.gd" id="45_0loja"]
+[ext_resource type="Script" uid="uid://bujgthtygmn6d" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="46_ids8r"]
+[ext_resource type="Script" uid="uid://cwb6xlnvopuwl" path="res://addons/proton_scatter/src/modifiers/randomize_transforms.gd" id="47_dnhof"]
+[ext_resource type="Script" uid="uid://8ekgkawma4s" path="res://addons/proton_scatter/src/modifiers/relax.gd" id="48_1v6qk"]
+[ext_resource type="Script" uid="uid://ddjvhfsot0blh" path="res://addons/proton_scatter/src/modifiers/project_on_geometry.gd" id="49_augu2"]
+[ext_resource type="Script" uid="uid://ch341lrb3pwpa" path="res://addons/proton_scatter/src/scatter_item.gd" id="50_tm6hj"]
+[ext_resource type="Script" uid="uid://d1w2rl4k0t5rn" path="res://addons/proton_scatter/src/scatter_shape.gd" id="51_kf5aa"]
+[ext_resource type="Script" uid="uid://dd285ag2iqbf4" path="res://addons/proton_scatter/src/shapes/box_shape.gd" id="52_t5ykj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a8y0u"]
 
@@ -61,14 +70,14 @@ adjustment_brightness = 1.05
 adjustment_contrast = 1.1
 adjustment_saturation = 1.1
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jbj1t"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xljpf"]
 emission_shape = 3
 emission_box_extents = Vector3(10, 1, 10)
 direction = Vector3(0, -1, 0)
 initial_velocity_min = 10.0
 initial_velocity_max = 10.0
 
-[sub_resource type="Shader" id="Shader_0ld40"]
+[sub_resource type="Shader" id="Shader_j4bwh"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.6.1.stable's StandardMaterial3D.
 
 shader_type spatial;
@@ -175,14 +184,14 @@ void fragment() {
 }
 "
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gqmmt"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ksmap"]
 noise = ExtResource("18_dp3eg")
 seamless = true
 as_normal_map = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yc10j"]
 render_priority = 0
-shader = SubResource("Shader_0ld40")
+shader = SubResource("Shader_j4bwh")
 shader_parameter/albedo = Color(0.047058824, 0.31764707, 0.46666667, 0.5058824)
 shader_parameter/albedo_texture_size = Vector2i(0, 0)
 shader_parameter/point_size = 1.0
@@ -192,7 +201,7 @@ shader_parameter/specular = 0.5
 shader_parameter/metallic = 0.0
 shader_parameter/refraction = 0.05
 shader_parameter/refraction_texture_channel = Vector4(1, 0, 0, 0)
-shader_parameter/texture_normal = SubResource("NoiseTexture2D_gqmmt")
+shader_parameter/texture_normal = SubResource("NoiseTexture2D_ksmap")
 shader_parameter/normal_scale = 1.0
 shader_parameter/uv1_blend_sharpness = 1.0
 shader_parameter/uv1_scale = Vector3(0.04, 0.04, 0.04)
@@ -200,7 +209,7 @@ shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/uv2_scale = Vector3(1, 1, 1)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
 
-[sub_resource type="BoxMesh" id="BoxMesh_dp3eg"]
+[sub_resource type="BoxMesh" id="BoxMesh_ygd8o"]
 material = SubResource("ShaderMaterial_yc10j")
 size = Vector3(0.02, 0.4, 0.02)
 
@@ -283,6 +292,139 @@ shader_parameter/i_uv2_sides = 0
 [sub_resource type="SphereShape3D" id="SphereShape3D_5poiv"]
 radius = 135.59204
 
+[sub_resource type="Resource" id="Resource_bu4jf"]
+script = ExtResource("46_ids8r")
+amount = 600
+restrict_height = true
+reference_frame = 1
+
+[sub_resource type="Resource" id="Resource_o7ddy"]
+script = ExtResource("47_dnhof")
+position = Vector3(0.15, 0.15, 0.15)
+rotation = Vector3(0, 360, 0)
+scale = Vector3(0.1, 0.1, 0.1)
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_0loja"]
+script = ExtResource("48_1v6qk")
+offset_step = 0.2
+consecutive_step_multiplier = 0.75
+restrict_height = true
+
+[sub_resource type="Resource" id="Resource_ids8r"]
+script = ExtResource("49_augu2")
+ray_length = 5.0
+ray_offset = 5.0
+remove_points_on_miss = false
+
+[sub_resource type="Resource" id="Resource_dnhof"]
+script = ExtResource("44_o7ddy")
+stack = Array[ExtResource("45_0loja")]([SubResource("Resource_bu4jf"), SubResource("Resource_o7ddy"), SubResource("Resource_0loja"), SubResource("Resource_ids8r")])
+
+[sub_resource type="Resource" id="Resource_152kg"]
+script = ExtResource("52_t5ykj")
+size = Vector3(1437.3562, 1, 1780.996)
+metadata/_custom_type_script = "uid://dd285ag2iqbf4"
+
+[sub_resource type="Resource" id="Resource_augu2"]
+script = ExtResource("46_ids8r")
+amount = 600
+restrict_height = true
+reference_frame = 1
+
+[sub_resource type="Resource" id="Resource_tm6hj"]
+script = ExtResource("47_dnhof")
+position = Vector3(0.15, 0.15, 0.15)
+rotation = Vector3(0, 360, 0)
+scale = Vector3(0.1, 0.1, 0.1)
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_kf5aa"]
+script = ExtResource("48_1v6qk")
+offset_step = 0.2
+consecutive_step_multiplier = 0.75
+restrict_height = true
+
+[sub_resource type="Resource" id="Resource_t5ykj"]
+script = ExtResource("49_augu2")
+ray_length = 5.0
+ray_offset = 5.0
+remove_points_on_miss = false
+
+[sub_resource type="Resource" id="Resource_e755i"]
+script = ExtResource("44_o7ddy")
+stack = Array[ExtResource("45_0loja")]([SubResource("Resource_augu2"), SubResource("Resource_tm6hj"), SubResource("Resource_kf5aa"), SubResource("Resource_t5ykj")])
+
+[sub_resource type="Resource" id="Resource_1v6qk"]
+script = ExtResource("52_t5ykj")
+size = Vector3(1011.6384, 1, 1780.996)
+
+[sub_resource type="Resource" id="Resource_ro3en"]
+script = ExtResource("46_ids8r")
+amount = 30
+restrict_height = true
+reference_frame = 1
+
+[sub_resource type="Resource" id="Resource_od4ux"]
+script = ExtResource("47_dnhof")
+position = Vector3(0.15, 0.15, 0.15)
+rotation = Vector3(0, 360, 0)
+scale = Vector3(0.1, 0.1, 0.1)
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_xhfw6"]
+script = ExtResource("48_1v6qk")
+offset_step = 0.2
+consecutive_step_multiplier = 0.75
+restrict_height = true
+
+[sub_resource type="Resource" id="Resource_1epgm"]
+script = ExtResource("49_augu2")
+ray_length = 5.0
+ray_offset = 5.0
+remove_points_on_miss = false
+
+[sub_resource type="Resource" id="Resource_r4e17"]
+script = ExtResource("44_o7ddy")
+stack = Array[ExtResource("45_0loja")]([SubResource("Resource_ro3en"), SubResource("Resource_od4ux"), SubResource("Resource_xhfw6"), SubResource("Resource_1epgm")])
+
+[sub_resource type="Resource" id="Resource_y57op"]
+script = ExtResource("52_t5ykj")
+size = Vector3(371.20874, 1, 442.34235)
+
+[sub_resource type="Resource" id="Resource_mlv25"]
+script = ExtResource("46_ids8r")
+amount = 20
+restrict_height = true
+reference_frame = 1
+
+[sub_resource type="Resource" id="Resource_a82wo"]
+script = ExtResource("47_dnhof")
+position = Vector3(0.15, 0.15, 0.15)
+rotation = Vector3(0, 360, 0)
+scale = Vector3(0.1, 0.1, 0.1)
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_gdvew"]
+script = ExtResource("48_1v6qk")
+offset_step = 0.2
+consecutive_step_multiplier = 0.75
+restrict_height = true
+
+[sub_resource type="Resource" id="Resource_kjtvk"]
+script = ExtResource("49_augu2")
+ray_length = 5.0
+ray_offset = 5.0
+remove_points_on_miss = false
+
+[sub_resource type="Resource" id="Resource_xrs0c"]
+script = ExtResource("44_o7ddy")
+stack = Array[ExtResource("45_0loja")]([SubResource("Resource_mlv25"), SubResource("Resource_a82wo"), SubResource("Resource_gdvew"), SubResource("Resource_kjtvk")])
+
+[sub_resource type="Resource" id="Resource_xljpf"]
+script = ExtResource("52_t5ykj")
+size = Vector3(216.854, 1, 442.34235)
+
 [node name="Main" type="Node3D" unique_id=661294341]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=216505139]
@@ -295,22 +437,22 @@ script = ExtResource("1_trceg")
 world_env = NodePath("../WorldEnvironment")
 
 [node name="Player" parent="." unique_id=600792781 node_paths=PackedStringArray("damage_vignette") instance=ExtResource("5_tbgi4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1018.1351, 8.516875, -200.07552)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 1136.3817, 57.33133, -200.07552)
 damage_vignette = NodePath("../CanvasLayer/DamageVignette")
 
-[node name="BuildSystem" type="Node3D" parent="Player" unique_id=39023323 node_paths=PackedStringArray("timber_label", "selected_label", "ember_label")]
+[node name="BuildSystem" type="Node3D" parent="Player" unique_id=362122924 node_paths=PackedStringArray("timber_label", "selected_label", "ember_label")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.66801, -1.8409333, -201.2784)
 script = ExtResource("8_tipki")
 timber_label = NodePath("../../CanvasLayer/VBoxContainer/TimberLabel")
 selected_label = NodePath("../../CanvasLayer/VBoxContainer/SelectedLabel")
 ember_label = NodePath("../../CanvasLayer/VBoxContainer/EmberLabel")
 
-[node name="Rain" type="GPUParticles3D" parent="Player" unique_id=388917736]
+[node name="Rain" type="GPUParticles3D" parent="Player" unique_id=1755351235]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.5747066, 0)
 amount = 200
 lifetime = 1.5
-process_material = SubResource("ParticleProcessMaterial_jbj1t")
-draw_pass_1 = SubResource("BoxMesh_dp3eg")
+process_material = SubResource("ParticleProcessMaterial_xljpf")
+draw_pass_1 = SubResource("BoxMesh_ygd8o")
 script = ExtResource("8_muem4")
 
 [node name="Timber" type="Node3D" parent="." unique_id=2100848730]
@@ -1185,8 +1327,77 @@ shape = SubResource("SphereShape3D_5poiv")
 [node name="InverseSpawnPoint" type="Node3D" parent="." unique_id=110760498]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1376.7712, 162.33458, 1242.6031)
 
-[node name="Sketchfab_Scene" parent="." unique_id=1471286558 instance=ExtResource("43_chjal")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1022.5981, 0, -198.61656)
+[node name="ProtonScatter" type="Node3D" parent="." unique_id=1047409078]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1314.1456, 0, 680.9719)
+script = ExtResource("43_bu4jf")
+modifier_stack = SubResource("Resource_dnhof")
+Performance/use_chunks = true
+Performance/chunk_dimensions = Vector3(15, 15, 15)
+metadata/_custom_type_script = "uid://0fjsu3460pe5"
+
+[node name="ScatterItem" type="Node3D" parent="ProtonScatter" unique_id=1817746622]
+script = ExtResource("50_tm6hj")
+source_scale_multiplier = 0.5
+path = "uid://birststt0rxc5"
+
+[node name="ScatterShape" type="Node3D" parent="ProtonScatter" unique_id=2087257057]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 464.09705)
+script = ExtResource("51_kf5aa")
+shape = SubResource("Resource_152kg")
+
+[node name="ProtonScatter2" type="Node3D" parent="." unique_id=352596833]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1394.4315, 0, -1468.4868)
+script = ExtResource("43_bu4jf")
+modifier_stack = SubResource("Resource_e755i")
+Performance/use_chunks = true
+Performance/chunk_dimensions = Vector3(15, 15, 15)
+metadata/_custom_type_script = "uid://0fjsu3460pe5"
+
+[node name="ScatterItem" type="Node3D" parent="ProtonScatter2" unique_id=1210739869]
+script = ExtResource("50_tm6hj")
+source_scale_multiplier = 0.5
+path = "uid://birststt0rxc5"
+
+[node name="ScatterShape" type="Node3D" parent="ProtonScatter2" unique_id=1469145001]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 136.51404, 0, 441.85547)
+script = ExtResource("51_kf5aa")
+shape = SubResource("Resource_1v6qk")
+
+[node name="ProtonScatter3" type="Node3D" parent="." unique_id=465858529]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1694.4045, 0, -431.4418)
+script = ExtResource("43_bu4jf")
+modifier_stack = SubResource("Resource_r4e17")
+Performance/use_chunks = true
+Performance/chunk_dimensions = Vector3(15, 15, 15)
+metadata/_custom_type_script = "uid://0fjsu3460pe5"
+
+[node name="ScatterItem" type="Node3D" parent="ProtonScatter3" unique_id=2052834057]
+script = ExtResource("50_tm6hj")
+source_scale_multiplier = 0.5
+path = "uid://birststt0rxc5"
+
+[node name="ScatterShape" type="Node3D" parent="ProtonScatter3" unique_id=1651434464]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 183.02051, 0, 520.312)
+script = ExtResource("51_kf5aa")
+shape = SubResource("Resource_y57op")
+
+[node name="ProtonScatter4" type="Node3D" parent="." unique_id=1890013695]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 758.4817, 0, -873.6292)
+script = ExtResource("43_bu4jf")
+modifier_stack = SubResource("Resource_xrs0c")
+Performance/use_chunks = true
+Performance/chunk_dimensions = Vector3(15, 15, 15)
+metadata/_custom_type_script = "uid://0fjsu3460pe5"
+
+[node name="ScatterItem" type="Node3D" parent="ProtonScatter4" unique_id=1403008930]
+script = ExtResource("50_tm6hj")
+source_scale_multiplier = 0.5
+path = "uid://birststt0rxc5"
+
+[node name="ScatterShape" type="Node3D" parent="ProtonScatter4" unique_id=605265582]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 157.729, 0, 520.312)
+script = ExtResource("51_kf5aa")
+shape = SubResource("Resource_xljpf")
 
 [connection signal="pressed" from="CanvasLayer/InventoryScreen/MainLayout/LeftPanel/VBoxContainer/HBoxContainer/SortButton" to="CanvasLayer/InventoryScreen" method="_on_sort_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/InventoryScreen/MainLayout/RightPanel/QuickCraftPanel/VBoxContainer/CraftBandageBtn" to="CanvasLayer/InventoryScreen" method="_on_craft_bandage_btn_pressed"]

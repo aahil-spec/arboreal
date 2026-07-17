@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://r0hhttikvxxp" path="res://scripts/minimap_camera.gd" id="2_g2els"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
+height = 3.2243652
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_3vyb7"]
 
@@ -14,6 +15,7 @@ size = Vector3(1, 1, 1.5)
 script = ExtResource("1_3vyb7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=303846899]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6121826, 0)
 shape = SubResource("CapsuleShape3D_u8vuu")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=96636483]
@@ -21,7 +23,7 @@ cast_shadow = 3
 mesh = SubResource("CapsuleMesh_3vyb7")
 
 [node name="CameraPivot" type="Node3D" parent="." unique_id=1646304438]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2248803, -0.3839699)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2279005, -0.3839699)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=1552363647]
 near = 0.01
@@ -30,7 +32,7 @@ near = 0.01
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, -0.6935656, -1.0674261)
 
 [node name="AttackZone" type="Area3D" parent="." unique_id=900674039]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.070044875, 0.30360365, -0.57341254)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.070044875, 0.8874073, -0.57341254)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AttackZone" unique_id=208011647]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.056071997, -0.5095508)
