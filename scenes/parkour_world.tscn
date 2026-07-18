@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://bv1eagyjbtvo2"]
+
+[ext_resource type="PackedScene" uid="uid://b44vl6kfvursq" path="res://scenes/portal.tscn" id="1_hqrto"]
+[ext_resource type="PackedScene" uid="uid://bb4xhwdlm36ui" path="res://scenes/parkour_player.tscn" id="2_fo3hj"]
+
+[sub_resource type="Environment" id="Environment_7x5v2"]
+background_mode = 1
+background_color = Color(0.05, 0.02, 0.1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7x5v2"]
+transparency = 1
+albedo_color = Color(0.9088109, 0.9088109, 0.9088109, 0.15686275)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7x5v2"]
+material = SubResource("StandardMaterial3D_7x5v2")
+size = Vector3(5, 1, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0sn18"]
+size = Vector3(5, 1, 5)
+
+[node name="ParkourWorld" type="Node3D" unique_id=164205100]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1553082358]
+environment = SubResource("Environment_7x5v2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=974095905]
+transform = Transform3D(1, 0, 0, 0, -0.0028798059, 0.9999958, 0, -0.9999958, -0.0028798059, 0, 3.5587723, 0)
+light_color = Color(1, 1, 0.8392157, 1)
+
+[node name="ParkourGeometry" type="Node3D" parent="." unique_id=1927869395]
+
+[node name="PlayerSpawn" type="Marker3D" parent="ParkourGeometry" unique_id=67999668]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6136758, -0.06652737)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ParkourGeometry" unique_id=473363588]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ParkourGeometry/StaticBody3D" unique_id=1379168384]
+mesh = SubResource("BoxMesh_7x5v2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParkourGeometry/StaticBody3D" unique_id=403253762]
+shape = SubResource("BoxShape3D_0sn18")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="ParkourGeometry" unique_id=542999566]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -4.2479806, 2.292616, -6.230878)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ParkourGeometry/StaticBody3D2" unique_id=617863260]
+mesh = SubResource("BoxMesh_7x5v2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParkourGeometry/StaticBody3D2" unique_id=2095163248]
+shape = SubResource("BoxShape3D_0sn18")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="ParkourGeometry" unique_id=1965785930]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 5.5228057, 2.292616, -10.70449)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ParkourGeometry/StaticBody3D3" unique_id=66296178]
+mesh = SubResource("BoxMesh_7x5v2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParkourGeometry/StaticBody3D3" unique_id=379226232]
+shape = SubResource("BoxShape3D_0sn18")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="ParkourGeometry" unique_id=1151457536]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.94677234, 7.6966696, -16.230103)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ParkourGeometry/StaticBody3D4" unique_id=1348954976]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7677822)
+mesh = SubResource("BoxMesh_7x5v2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParkourGeometry/StaticBody3D4" unique_id=983620072]
+shape = SubResource("BoxShape3D_0sn18")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=867841320]
+
+[node name="GravityLabel" type="Label" parent="CanvasLayer" unique_id=665995744]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="GravityFlash" type="ColorRect" parent="CanvasLayer" unique_id=512020130]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Portal" parent="." unique_id=417652037 instance=ExtResource("1_hqrto")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -22.465965)
+target_scene = "res://scenes/main.tscn"
+is_return_portal = true
+
+[node name="ParkourPlayer" parent="." unique_id=1052681183 instance=ExtResource("2_fo3hj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)

@@ -5,7 +5,7 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_o561r"]
 radius = 0.30186433
 
-[node name="StaticBody3D" type="StaticBody3D" unique_id=292897326]
+[node name="StaticBody3D" type="Area3D" unique_id=166491794]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=715753154]
 transform = Transform3D(-0.8782459, 0.17193076, 0.44623294, -0.005441026, 0.9294803, -0.36883163, -0.47817826, -0.32635283, -0.8153769, 0.15292224, 0.17453286, -0.106408)

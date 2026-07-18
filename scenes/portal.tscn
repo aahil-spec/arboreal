@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://b44vl6kfvursq"]
+
+[ext_resource type="Script" uid="uid://cy6u3t0eknjhk" path="res://scripts/portal.gd" id="1_1ffj6"]
+[ext_resource type="Shader" uid="uid://iemldqh02dv5" path="res://scripts/portal.gdshader" id="1_v0xau"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ppl40"]
+height = 3.0
+radius = 1.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1ffj6"]
+render_priority = 0
+shader = ExtResource("1_v0xau")
+shader_parameter/color_inner = Color(0.8, 0.2, 1, 1)
+shader_parameter/color_outer = Color(0.1, 0, 0.4, 1)
+shader_parameter/spin_speed = 3.0
+shader_parameter/ring_count = 4.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_v0xau"]
+material = SubResource("ShaderMaterial_1ffj6")
+top_radius = 1.5
+bottom_radius = 1.5
+height = 0.1
+
+[node name="Portal" type="Node3D" unique_id=417652037]
+script = ExtResource("1_1ffj6")
+
+[node name="PortalZone" type="Area3D" parent="." unique_id=481574070]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PortalZone" unique_id=1249535815]
+shape = SubResource("CylinderShape3D_ppl40")
+
+[node name="VortexMesh" type="MeshInstance3D" parent="." unique_id=1152891662]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5076078, 0)
+mesh = SubResource("CylinderMesh_v0xau")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1639435329]
+light_color = Color(0.5, 0.1, 1, 1)
+light_energy = 2.0
+omni_range = 6.0

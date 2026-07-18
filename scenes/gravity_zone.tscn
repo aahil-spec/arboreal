@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bnaday0idhi1h"]
+
+[ext_resource type="Script" uid="uid://culpyf8ew71w8" path="res://scripts/gravity_zone.gd" id="1_tjc6p"]
+[ext_resource type="PackedScene" uid="uid://b44vl6kfvursq" path="res://scenes/portal.tscn" id="2_64srq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tjc6p"]
+size = Vector3(9.287201, 162.6626, 8.900246)
+
+[node name="GravityZone" type="Area3D" unique_id=1051695522]
+gravity_space_override = 3
+gravity_point_center = Vector3(0, 1, 0)
+gravity_direction = Vector3(0, 1, 0)
+script = ExtResource("1_tjc6p")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=104835572]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13804626, 11.53833, -0.16607285)
+shape = SubResource("BoxShape3D_tjc6p")
+
+[node name="Portal" parent="." unique_id=417652037 instance=ExtResource("2_64srq")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 87.61362, 0)

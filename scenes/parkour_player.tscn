@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://bb4xhwdlm36ui"]
+
+[ext_resource type="Script" uid="uid://br0xvc2tdtg6h" path="res://scripts/parkour_player.gd" id="1_btsvw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7om7h"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_btsvw"]
+
+[node name="ParkourPlayer" type="CharacterBody3D" unique_id=1052681183]
+script = ExtResource("1_btsvw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=947310667]
+shape = SubResource("CapsuleShape3D_7om7h")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=670591693]
+mesh = SubResource("CapsuleMesh_btsvw")
+
+[node name="CameraPivot" type="Node3D" parent="." unique_id=396185292]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot" unique_id=213796528]
+spring_length = 4.0
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D" unique_id=1847096109]

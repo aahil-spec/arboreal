@@ -41,7 +41,7 @@
 [ext_resource type="Texture2D" uid="uid://b85tlq8wcklbo" path="res://addons/waterways/textures/water1_normal_bump.png" id="39_2cjbq"]
 [ext_resource type="Shader" uid="uid://qm0toov6rmju" path="res://addons/waterways/shaders/river.gdshader" id="40_chjal"]
 [ext_resource type="Texture2D" uid="uid://lx1nyoh45ge8" path="res://addons/waterways/textures/foam_noise.png" id="41_cjqg0"]
-[ext_resource type="Script" uid="uid://culpyf8ew71w8" path="res://scripts/gravity_zone.gd" id="42_2cjbq"]
+[ext_resource type="PackedScene" uid="uid://bnaday0idhi1h" path="res://scenes/gravity_zone.tscn" id="42_bu4jf"]
 [ext_resource type="Script" uid="uid://0fjsu3460pe5" path="res://addons/proton_scatter/src/scatter.gd" id="43_bu4jf"]
 [ext_resource type="Script" uid="uid://dywtggk2m322d" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="44_o7ddy"]
 [ext_resource type="Script" uid="uid://bidsyikbq4o1d" path="res://addons/proton_scatter/src/modifiers/base_modifier.gd" id="45_0loja"]
@@ -289,9 +289,6 @@ shader_parameter/i_texture_foam_noise = ExtResource("41_cjqg0")
 shader_parameter/i_valid_flowmap = false
 shader_parameter/i_uv2_sides = 0
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_5poiv"]
-radius = 135.59204
-
 [sub_resource type="Resource" id="Resource_bu4jf"]
 script = ExtResource("46_ids8r")
 amount = 600
@@ -309,6 +306,7 @@ reference_frame = 2
 script = ExtResource("48_1v6qk")
 offset_step = 0.2
 consecutive_step_multiplier = 0.75
+use_computeshader = false
 restrict_height = true
 
 [sub_resource type="Resource" id="Resource_ids8r"]
@@ -343,6 +341,7 @@ reference_frame = 2
 script = ExtResource("48_1v6qk")
 offset_step = 0.2
 consecutive_step_multiplier = 0.75
+use_computeshader = false
 restrict_height = true
 
 [sub_resource type="Resource" id="Resource_t5ykj"]
@@ -376,6 +375,7 @@ reference_frame = 2
 script = ExtResource("48_1v6qk")
 offset_step = 0.2
 consecutive_step_multiplier = 0.75
+use_computeshader = false
 restrict_height = true
 
 [sub_resource type="Resource" id="Resource_1epgm"]
@@ -409,6 +409,7 @@ reference_frame = 2
 script = ExtResource("48_1v6qk")
 offset_step = 0.2
 consecutive_step_multiplier = 0.75
+use_computeshader = false
 restrict_height = true
 
 [sub_resource type="Resource" id="Resource_kjtvk"]
@@ -437,7 +438,7 @@ script = ExtResource("1_trceg")
 world_env = NodePath("../WorldEnvironment")
 
 [node name="Player" parent="." unique_id=600792781 node_paths=PackedStringArray("damage_vignette") instance=ExtResource("5_tbgi4")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 1136.3817, 57.33133, -200.07552)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 1533.8098, 57.33133, 980.11676)
 damage_vignette = NodePath("../CanvasLayer/DamageVignette")
 
 [node name="BuildSystem" type="Node3D" parent="Player" unique_id=362122924 node_paths=PackedStringArray("timber_label", "selected_label", "ember_label")]
@@ -1061,6 +1062,16 @@ mouse_filter = 2
 color = Color(0.4, 0.102, 0.6, 0.082)
 metadata/_edit_use_anchors_ = true
 
+[node name="FadeRect" type="ColorRect" parent="CanvasLayer" unique_id=1924065788]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+metadata/_edit_use_anchors_ = true
+
 [node name="Ember" type="Node3D" parent="." unique_id=876940045]
 
 [node name="Ember2" parent="Ember" unique_id=421441933 groups=["ember"] instance=ExtResource("9_85g3d")]
@@ -1313,16 +1324,8 @@ _selected_shader = 0
 _uv2_sides = 0
 metadata/_custom_type_script = "uid://di31oqj63h8vd"
 
-[node name="GravityZone" type="Area3D" parent="." unique_id=1292279032]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1046.0808, 0, 126.80345)
-gravity_space_override = 3
-gravity_point_center = Vector3(0, 1, 0)
-gravity_direction = Vector3(0, 1, 0)
-script = ExtResource("42_2cjbq")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GravityZone" unique_id=288961474]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 330.6416, 81.40817, 1121.2963)
-shape = SubResource("SphereShape3D_5poiv")
+[node name="GravityZone" parent="." unique_id=1051695522 instance=ExtResource("42_bu4jf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1520.2742, 0, 1018.96545)
 
 [node name="InverseSpawnPoint" type="Node3D" parent="." unique_id=110760498]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1376.7712, 162.33458, 1242.6031)

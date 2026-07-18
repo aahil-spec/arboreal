@@ -105,11 +105,17 @@ func _physics_process(delta):
 		if Input.is_action_pressed("ui_accept"):
 			velocity.y=SWIM_SPEED
 		velocity.x=direction.x*SWIM_SPEED
-		velocity.x=direction.z*SWIM_SPEED
+		velocity.z=direction.z*SWIM_SPEED
+	var current_gravity=get_gravity()
+	if current_gravity !=Vector3.ZERO:
+		up_direction-=current_gravity.normalized()
+	else:
+		up_direction=Vector3.UP
+	
 	if not is_on_floor():
-		velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity")* delta
+		velocity+=current_gravity*delta
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		velocity+= up_direction*JUMP_VELOCITY
 	
 	var current_speed=SPEED+GameManager.get_speed_bonus()
 	

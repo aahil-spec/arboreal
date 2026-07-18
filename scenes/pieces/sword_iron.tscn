@@ -5,7 +5,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_jxekr"]
 size = Vector3(0.07763672, 1.3942871, 0.20501709)
 
-[node name="SwordIron" type="StaticBody3D" unique_id=1966479900]
+[node name="SwordIron" type="Area3D" unique_id=1151550512]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1535064126]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.006884575, 0.29779014, 0.045016646)
