@@ -96,7 +96,7 @@ func _physics_process(delta):
 	_update_shelter_status()
 	_update_heat_status()
 	
-	var input_dir :Vector2= Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	var input_dir :Vector2= Input.get_vector("move_left", "move_right","move_up", "move_down")
 	var direction :Vector3= (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	if GameManager.in_water:
@@ -107,8 +107,8 @@ func _physics_process(delta):
 		velocity.x=direction.x*SWIM_SPEED
 		velocity.z=direction.z*SWIM_SPEED
 	var current_gravity=get_gravity()
-	if current_gravity !=Vector3.ZERO:
-		up_direction-=current_gravity.normalized()
+	if current_gravity.length()>0.1:
+		up_direction=-current_gravity.normalized()
 	else:
 		up_direction=Vector3.UP
 	
