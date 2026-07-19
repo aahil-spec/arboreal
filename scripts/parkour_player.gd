@@ -70,6 +70,7 @@ func _set_gravity(new_dir:Vector3):
 		tween.tween_callback(func():flash.visible=false)
 		
 func _physics_process(delta):
+	up_direction=-gravity_dir
 	var fall_speed=velocity.dot(gravity_dir)
 	velocity -=gravity_dir*fall_speed
 	

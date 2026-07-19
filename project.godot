@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Arboreal"
-run/main_scene="uid://iki0q6smjk3i"
+run/main_scene="uid://bn0jel3pmi2g8"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 

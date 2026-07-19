@@ -3,9 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://b44vl6kfvursq" path="res://scenes/portal.tscn" id="1_hqrto"]
 [ext_resource type="PackedScene" uid="uid://bb4xhwdlm36ui" path="res://scenes/parkour_player.tscn" id="2_fo3hj"]
 
-[sub_resource type="Environment" id="Environment_7x5v2"]
-background_mode = 1
-background_color = Color(0.05, 0.02, 0.1, 1)
+[sub_resource type="Environment" id="Environment_hqrto"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7x5v2"]
 transparency = 1
@@ -21,11 +19,12 @@ size = Vector3(5, 1, 5)
 [node name="ParkourWorld" type="Node3D" unique_id=164205100]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1553082358]
-environment = SubResource("Environment_7x5v2")
+environment = SubResource("Environment_hqrto")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=974095905]
-transform = Transform3D(1, 0, 0, 0, -0.0028798059, 0.9999958, 0, -0.9999958, -0.0028798059, 0, 3.5587723, 0)
+transform = Transform3D(1, 0, 0, 0, -0.002879806, 0.9999959, 0, -0.9999959, -0.002879806, 0, 14.766371, -10.665052)
 light_color = Color(1, 1, 0.8392157, 1)
+light_energy = 7.562
 
 [node name="ParkourGeometry" type="Node3D" parent="." unique_id=1927869395]
 
@@ -66,6 +65,205 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7677822)
 mesh = SubResource("BoxMesh_7x5v2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ParkourGeometry/StaticBody3D4" unique_id=983620072]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8784666)
+shape = SubResource("BoxShape3D_0sn18")
+
+[node name="StaticBody3D5" type="StaticBody3D" parent="ParkourGeometry" unique_id=574114490]
+transform = Transform3D(-4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0, 0, 1, 2.2259948, 1.5795355, -22.5073)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ParkourGeometry/StaticBody3D5" unique_id=311179119]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7677822)
+mesh = SubResource("BoxMesh_7x5v2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParkourGeometry/StaticBody3D5" unique_id=923856207]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8784666)
+shape = SubResource("BoxShape3D_0sn18")
+
+[node name="StaticBody3D6" type="StaticBody3D" parent="ParkourGeometry" unique_id=329203013]
+transform = Transform3D(-4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0, 0, 1, -21.644659, -0.6028471, -25.57465)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ParkourGeometry/StaticBody3D6" unique_id=2122636677]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7677822)
+mesh = SubResource("BoxMesh_7x5v2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParkourGeometry/StaticBody3D6" unique_id=1453839278]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8784666)
+shape = SubResource("BoxShape3D_0sn18")
+
+[node name="StaticBody3D8" type="StaticBody3D" parent="ParkourGeometry" unique_id=1927869299]
+transform = Transform3D(-4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0, 0, 1, -37.059795, -0.6028471, -36.81237)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ParkourGeometry/StaticBody3D8" unique_id=318682626]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7677822)
+mesh = SubResource("BoxMesh_7x5v2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParkourGeometry/StaticBody3D8" unique_id=1004194353]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8784666)
+shape = SubResource("BoxShape3D_0sn18")
+
+[node name="StaticBody3D9" type="StaticBody3D" parent="ParkourGeometry" unique_id=936185995]
+transform = Transform3D(-4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0, 0, 1, -59.473537, -0.6028471, -48.402412)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ParkourGeometry/StaticBody3D9" unique_id=205654609]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7677822)
+mesh = SubResource("BoxMesh_7x5v2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParkourGeometry/StaticBody3D9" unique_id=674691626]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8784666)
+shape = SubResource("BoxShape3D_0sn18")
+
+[node name="StaticBody3D10" type="StaticBody3D" parent="ParkourGeometry" unique_id=1867036315]
+transform = Transform3D(-4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0, 0, 1, -75.8181, -0.6028471, -65.01347)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ParkourGeometry/StaticBody3D10" unique_id=899450221]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7677822)
+mesh = SubResource("BoxMesh_7x5v2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParkourGeometry/StaticBody3D10" unique_id=1986774907]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8784666)
+shape = SubResource("BoxShape3D_0sn18")
+
+[node name="StaticBody3D11" type="StaticBody3D" parent="ParkourGeometry" unique_id=308080736]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -68.854126, 21.153984, -76.22905)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ParkourGeometry/StaticBody3D11" unique_id=416692269]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7677822)
+mesh = SubResource("BoxMesh_7x5v2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParkourGeometry/StaticBody3D11" unique_id=1648326273]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8784666)
+shape = SubResource("BoxShape3D_0sn18")
+
+[node name="StaticBody3D12" type="StaticBody3D" parent="ParkourGeometry" unique_id=2140188170]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -68.854126, 21.153984, -93.98224)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ParkourGeometry/StaticBody3D12" unique_id=1998389538]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7677822)
+mesh = SubResource("BoxMesh_7x5v2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParkourGeometry/StaticBody3D12" unique_id=75128383]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8784666)
+shape = SubResource("BoxShape3D_0sn18")
+
+[node name="StaticBody3D13" type="StaticBody3D" parent="ParkourGeometry" unique_id=136301120]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -68.854126, 21.153984, -108.86588)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ParkourGeometry/StaticBody3D13" unique_id=2017680608]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7677822)
+mesh = SubResource("BoxMesh_7x5v2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParkourGeometry/StaticBody3D13" unique_id=154118295]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8784666)
+shape = SubResource("BoxShape3D_0sn18")
+
+[node name="StaticBody3D14" type="StaticBody3D" parent="ParkourGeometry" unique_id=526429186]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -68.854126, 21.153984, -125.34691)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ParkourGeometry/StaticBody3D14" unique_id=1365357061]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7677822)
+mesh = SubResource("BoxMesh_7x5v2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParkourGeometry/StaticBody3D14" unique_id=442966042]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8784666)
+shape = SubResource("BoxShape3D_0sn18")
+
+[node name="StaticBody3D15" type="StaticBody3D" parent="ParkourGeometry" unique_id=1667754957]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -68.854126, -0.5991459, -142.18184)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ParkourGeometry/StaticBody3D15" unique_id=17568883]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7677822)
+mesh = SubResource("BoxMesh_7x5v2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParkourGeometry/StaticBody3D15" unique_id=1622984446]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8784666)
+shape = SubResource("BoxShape3D_0sn18")
+
+[node name="StaticBody3D16" type="StaticBody3D" parent="ParkourGeometry" unique_id=782723621]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -68.854126, -0.5991459, -160.24934)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ParkourGeometry/StaticBody3D16" unique_id=585466108]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7677822)
+mesh = SubResource("BoxMesh_7x5v2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParkourGeometry/StaticBody3D16" unique_id=1912445691]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8784666)
+shape = SubResource("BoxShape3D_0sn18")
+
+[node name="StaticBody3D17" type="StaticBody3D" parent="ParkourGeometry" unique_id=1299581244]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -68.854126, -0.5991459, -175.00285)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ParkourGeometry/StaticBody3D17" unique_id=2021135034]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7677822)
+mesh = SubResource("BoxMesh_7x5v2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParkourGeometry/StaticBody3D17" unique_id=771156233]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8784666)
+shape = SubResource("BoxShape3D_0sn18")
+
+[node name="StaticBody3D18" type="StaticBody3D" parent="ParkourGeometry" unique_id=1187164281]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -68.854126, -0.5991459, -192.64583)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ParkourGeometry/StaticBody3D18" unique_id=1005763687]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7677822)
+mesh = SubResource("BoxMesh_7x5v2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParkourGeometry/StaticBody3D18" unique_id=965058813]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8784666)
+shape = SubResource("BoxShape3D_0sn18")
+
+[node name="StaticBody3D19" type="StaticBody3D" parent="ParkourGeometry" unique_id=731234292]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -68.854126, -0.5991459, -209.52458)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ParkourGeometry/StaticBody3D19" unique_id=1632372171]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7677822)
+mesh = SubResource("BoxMesh_7x5v2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParkourGeometry/StaticBody3D19" unique_id=217539413]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8784666)
+shape = SubResource("BoxShape3D_0sn18")
+
+[node name="StaticBody3D20" type="StaticBody3D" parent="ParkourGeometry" unique_id=809969840]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, -68.854126, 201.78671, -222.22005)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ParkourGeometry/StaticBody3D20" unique_id=1881508993]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7677822)
+mesh = SubResource("BoxMesh_7x5v2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParkourGeometry/StaticBody3D20" unique_id=1056686041]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8784666)
+shape = SubResource("BoxShape3D_0sn18")
+
+[node name="StaticBody3D21" type="StaticBody3D" parent="ParkourGeometry" unique_id=1538155715]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68.854126, 201.78671, -240.10503)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ParkourGeometry/StaticBody3D21" unique_id=1538825152]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7677822)
+mesh = SubResource("BoxMesh_7x5v2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParkourGeometry/StaticBody3D21" unique_id=1217551157]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8784666)
+shape = SubResource("BoxShape3D_0sn18")
+
+[node name="StaticBody3D22" type="StaticBody3D" parent="ParkourGeometry" unique_id=1470190944]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68.854126, 201.78671, -247.45146)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ParkourGeometry/StaticBody3D22" unique_id=1419652363]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7677822)
+mesh = SubResource("BoxMesh_7x5v2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParkourGeometry/StaticBody3D22" unique_id=901739395]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8784666)
+shape = SubResource("BoxShape3D_0sn18")
+
+[node name="StaticBody3D7" type="StaticBody3D" parent="ParkourGeometry" unique_id=1495182571]
+transform = Transform3D(-4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0, 0, 1, -21.644659, -0.6028471, -25.57465)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ParkourGeometry/StaticBody3D7" unique_id=1050586663]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7677822)
+mesh = SubResource("BoxMesh_7x5v2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParkourGeometry/StaticBody3D7" unique_id=1590845698]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8784666)
 shape = SubResource("BoxShape3D_0sn18")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=867841320]
@@ -93,10 +291,10 @@ grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Portal" parent="." unique_id=417652037 instance=ExtResource("1_hqrto")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -22.465965)
-target_scene = "res://scenes/main.tscn"
-is_return_portal = true
-
 [node name="ParkourPlayer" parent="." unique_id=1052681183 instance=ExtResource("2_fo3hj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Portal" parent="." unique_id=417652037 instance=ExtResource("1_hqrto")]
+transform = Transform3D(-1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0, 1, -68.609146, 196.80559, -253.74269)
+target_scene = "res://scenes/main.scn"
+is_return_portal = true
