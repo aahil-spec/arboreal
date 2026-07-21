@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://diev6d5fcfwii"]
+
+[ext_resource type="Script" uid="uid://deutr0b8nedxv" path="res://scripts/hud_icon_row.gd" id="1_5auor"]
+
+[node name="HudIconRow" type="HBoxContainer" unique_id=1606084339]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 2
+script = ExtResource("1_5auor")
