@@ -172,6 +172,9 @@ var quest_definitions:Dictionary={
 var quest_progress:Dictionary={}
 
 var in_gravity_zone:bool=false
+
+var player_name:String="Traveler"
+
 func _ready():
 	inventory.clear()
 	add_to_inventory("fiber",3)

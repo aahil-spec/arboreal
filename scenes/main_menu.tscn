@@ -1,66 +1,133 @@
 [gd_scene format=3 uid="uid://dsigb8itquck7"]
 
-[ext_resource type="Script" uid="uid://c2m6to20otxl5" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+[ext_resource type="Script" uid="uid://bylj1xal8jdg4" path="res://scripts/main_menu.gd" id="1_ekxnf"]
+[ext_resource type="Texture2D" uid="uid://b6dqq22t2qc25" path="res://assets/ui/Screenshot 2026-07-22 222917.png" id="1_l6cm7"]
 
-[node name="MainMenu" type="Control" unique_id=1955306379]
+[node name="MainMenu" type="Control" unique_id=1151194045]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_l6cm7")
+script = ExtResource("1_ekxnf")
 metadata/_edit_use_anchors_ = true
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=42391682]
+[node name="Background" type="TextureRect" parent="." unique_id=961071918]
+modulate = Color(0.6, 0.6, 0.7, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-stretch = true
+texture = ExtResource("1_l6cm7")
+expand_mode = 2
+metadata/_edit_use_anchors_ = true
 
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1930973515]
-size = Vector2i(1152, 648)
+[node name="PartcleLayer" type="Node2D" parent="." unique_id=1984542297]
 
-[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport" unique_id=2072002396]
+[node name="EmberParticles" type="CPUParticles2D" parent="PartcleLayer" unique_id=496160008]
+position = Vector2(562, 13)
+amount = 40
+lifetime = 4.0
+emission_shape = 3
+emission_rect_extents = Vector2(600, 10)
+direction = Vector2(0, -1)
+spread = 20.0
+initial_velocity_min = 30.0
+initial_velocity_max = 80.0
+angular_velocity_min = -30.0
+angular_velocity_max = 30.0
+scale_amount_min = 2.0
+scale_amount_max = 5.0
+color = Color(1, 0.5, 0.1, 0.8)
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1328353372]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.52156866)
+[node name="FogParticles" type="CPUParticles2D" parent="PartcleLayer" unique_id=1038941414]
+position = Vector2(562, 290)
+lifetime = 12.0
+emission_shape = 3
+emission_rect_extents = Vector2(700, 50)
+direction = Vector2(1, -0.1)
+initial_velocity_min = 5.0
+initial_velocity_max = 20.0
+scale_amount_min = 40.0
+scale_amount_max = 100.0
+color = Color(0.5, 0.4, 0.6, 0.15)
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=771635244]
+[node name="MenuContainer" type="CenterContainer" parent="." unique_id=1211269888]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -35.0
-offset_top = -50.5
-offset_right = 35.0
-offset_bottom = 50.5
+offset_left = -164.5
+offset_top = -44.0
+offset_right = 164.5
+offset_bottom = 44.0
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=2136028638]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer" unique_id=1197007326]
 layout_mode = 2
 
-[node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=466903966]
+[node name="TitleLabel" type="Label" parent="MenuContainer/VBoxContainer" unique_id=814462679]
 layout_mode = 2
-text = "Play"
+theme_override_colors/font_color = Color(0.95, 0.8, 0.4, 1)
+theme_override_colors/font_shadow_color = Color(0.3, 0.1, 0, 0.8)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_font_sizes/font_size = 64
+text = "ARBOREAL"
 
-[node name="SettingsButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1939644298]
+[node name="SubtitleLabel" type="Label" parent="MenuContainer/VBoxContainer" unique_id=901856449]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.7, 0.65, 1)
+text = "The shrine has gone dark."
+
+[node name="ButtonContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer" unique_id=1555728512]
+layout_mode = 2
+
+[node name="NewGameButton" type="Button" parent="MenuContainer/VBoxContainer/ButtonContainer" unique_id=761685963]
+layout_mode = 2
+text = "New Game"
+
+[node name="ContinueButton" type="Button" parent="MenuContainer/VBoxContainer/ButtonContainer" unique_id=2100607318]
+layout_mode = 2
+text = "Continue"
+
+[node name="SettingsButton" type="Button" parent="MenuContainer/VBoxContainer/ButtonContainer" unique_id=591019623]
 layout_mode = 2
 text = "Settings"
 
-[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=738130015]
+[node name="QuitButton" type="Button" parent="MenuContainer/VBoxContainer/ButtonContainer" unique_id=2031449216]
 layout_mode = 2
 text = "Quit"
+
+[node name="FadeRect" type="ColorRect" parent="." unique_id=1536679559]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.003921569)
+
+[node name="VersionLabel" type="Label" parent="." unique_id=1968288130]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="MenuContainer/VBoxContainer/ButtonContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="MenuContainer/VBoxContainer/ButtonContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="MenuContainer/VBoxContainer/ButtonContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MenuContainer/VBoxContainer/ButtonContainer/QuitButton" to="." method="_on_quit_button_pressed"]

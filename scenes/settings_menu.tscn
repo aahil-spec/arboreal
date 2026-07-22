@@ -1,0 +1,166 @@
+[gd_scene format=3 uid="uid://d4aywk8uldbf3"]
+
+[ext_resource type="Texture2D" uid="uid://b6dqq22t2qc25" path="res://assets/ui/Screenshot 2026-07-22 222917.png" id="1_05p07"]
+[ext_resource type="Script" uid="uid://spnqplcbqhtv" path="res://scripts/settings_menu.gd" id="1_cr101"]
+
+[node name="SettingsMenu" type="Control" unique_id=1312235558]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cr101")
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1554555132]
+modulate = Color(0.3862508, 0.38625085, 0.38625085, 1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_05p07")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=712596899]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -71.0
+offset_top = -81.0
+offset_right = 71.0
+offset_bottom = 81.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=901704142]
+layout_mode = 2
+text = "Settings"
+
+[node name="SettingsTabs" type="TabContainer" parent="VBoxContainer" unique_id=694465910]
+layout_mode = 2
+current_tab = 2
+
+[node name="Audio" type="VBoxContainer" parent="VBoxContainer/SettingsTabs" unique_id=477814007]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/SettingsTabs/Audio" unique_id=1443058364]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsTabs/Audio/HBoxContainer" unique_id=1076435035]
+layout_mode = 2
+text = "Master Volume"
+
+[node name="MasterSlider" type="HSlider" parent="VBoxContainer/SettingsTabs/Audio/HBoxContainer" unique_id=1342312015]
+layout_mode = 2
+max_value = 1.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/SettingsTabs/Audio" unique_id=2074709241]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsTabs/Audio/HBoxContainer2" unique_id=1215201660]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="MusicSlider" type="HSlider" parent="VBoxContainer/SettingsTabs/Audio/HBoxContainer2" unique_id=358412979]
+layout_mode = 2
+max_value = 1.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/SettingsTabs/Audio" unique_id=1904519986]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsTabs/Audio/HBoxContainer3" unique_id=991226875]
+layout_mode = 2
+text = "SFX Volume"
+
+[node name="SFXSlider" type="HSlider" parent="VBoxContainer/SettingsTabs/Audio/HBoxContainer3" unique_id=1969781289]
+layout_mode = 2
+max_value = 1.0
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer/SettingsTabs/Audio" unique_id=1683944730]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsTabs/Audio/HBoxContainer4" unique_id=1296235661]
+layout_mode = 2
+text = "Ambient Volume"
+
+[node name="AmbientSlider" type="HSlider" parent="VBoxContainer/SettingsTabs/Audio/HBoxContainer4" unique_id=438008295]
+layout_mode = 2
+max_value = 1.0
+
+[node name="Graphics" type="VBoxContainer" parent="VBoxContainer/SettingsTabs" unique_id=969648257]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/SettingsTabs/Graphics" unique_id=40357827]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsTabs/Graphics/HBoxContainer" unique_id=811832508]
+layout_mode = 2
+text = "Render Scale"
+
+[node name="RenderScaleOption" type="OptionButton" parent="VBoxContainer/SettingsTabs/Graphics/HBoxContainer" unique_id=753104171]
+layout_mode = 2
+item_count = 4
+popup/item_0/text = "Low(50%)"
+popup/item_0/id = 0
+popup/item_1/text = "Medium(75%)"
+popup/item_1/id = 1
+popup/item_2/text = "High(100%)"
+popup/item_2/id = 2
+popup/item_3/text = "Ultra(150%)"
+popup/item_3/id = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/SettingsTabs/Graphics" unique_id=719780471]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsTabs/Graphics/HBoxContainer2" unique_id=161078508]
+layout_mode = 2
+text = "Shadow Quality"
+
+[node name="ShadowOption" type="OptionButton" parent="VBoxContainer/SettingsTabs/Graphics/HBoxContainer2" unique_id=1157144788]
+layout_mode = 2
+item_count = 4
+popup/item_0/text = "Off"
+popup/item_0/id = 0
+popup/item_1/text = "Low"
+popup/item_1/id = 1
+popup/item_2/text = "Medium"
+popup/item_2/id = 2
+popup/item_3/text = "HIgh"
+popup/item_3/id = 3
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/SettingsTabs/Graphics" unique_id=1023161950]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsTabs/Graphics/HBoxContainer3" unique_id=1813264956]
+layout_mode = 2
+text = "Fog"
+
+[node name="FogToggle" type="CheckButton" parent="VBoxContainer/SettingsTabs/Graphics/HBoxContainer3" unique_id=127623343]
+layout_mode = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer/SettingsTabs/Graphics" unique_id=815124710]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsTabs/Graphics/HBoxContainer4" unique_id=211346606]
+layout_mode = 2
+text = "Bloom"
+
+[node name="BloomToggle" type="CheckButton" parent="VBoxContainer/SettingsTabs/Graphics/HBoxContainer4" unique_id=311473404]
+layout_mode = 2
+
+[node name="KeyBinds" type="VBoxContainer" parent="VBoxContainer/SettingsTabs" unique_id=1551827169]
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="BackButton" type="Button" parent="." unique_id=1362471976]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

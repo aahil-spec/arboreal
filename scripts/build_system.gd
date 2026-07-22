@@ -33,7 +33,6 @@ func _unhandled_input(event):
 	if event.is_action_pressed("load_game"):
 		SaveSystem.load_game()
 	if event.is_action_pressed("toggle_build"):
-		print("B key was presssed!")
 		if not GameManager.in_water:
 			build_mode=!build_mode
 		GameManager.build_mode=build_mode
@@ -139,7 +138,7 @@ func _place_piece():
 	var piece=pieces[selected_index]
 	if GameManager.spend_timber(piece["cost"]):
 		var real_piece=piece["scene"].instantiate()
-		real_piece.add_to_group("placed_piece")
+		real_piece.add_to_group("placed_  vdvpiece")
 		get_tree().current_scene.add_child(real_piece)
 		var pos=current_hit_position +Vector3(0,piece["height_offset"],0)
 		real_piece.global_position=pos
@@ -152,3 +151,4 @@ func _place_piece():
 		
 	else:
 		print("not enough timber! need",piece["cost"])
+		
