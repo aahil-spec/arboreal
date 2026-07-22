@@ -9,6 +9,41 @@ extends Control
 @onready var bloom_toggle:CheckButton=$VBoxContainer/SettingsTabs/Graphics/HBoxContainer4/BloomToggle
 
 func _ready():
+	var keybinds = [
+	["Move", "WASD"],
+	["Sprint", "Shift"],
+	["Jump", "Space"],
+	["Attack", "Left Click"],
+	["Build Mode", "B"],
+	["Rotate Piece", "Q / E"],
+	["Place Piece", "Left Click"],
+	["Interact", "E"],
+	["Sleep", "Z"],
+	["Inventory", "I"],
+	["Quest Log", "J"],
+	["Map", "M"],
+	["Pause", "Escape"],
+	["Save", "F5"],
+	["Load", "F9"],
+	["Gravity Down", "↓"],
+	["Gravity Up", "↑"],
+	["Gravity Left", "←"],
+	["Gravity Right", "→"],
+	]
+	var keybinds_tab=$VBoxContainer/SettingsTabs/KeyBinds
+	for bind in keybinds:
+		var row=HBoxContainer.new()
+		
+		var action_label=Label.new()
+		action_label.text=bind[0]
+		action_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		
+		var key_label=Label.new()
+		key_label.text=bind[1]
+		
+		row.add_child(action_label)
+		row.add_child(key_label)
+		keybinds_tab.add_child(row)
 	_load_settings()
 	master_slider.value_changed.connect(func(v):AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"),linear_to_db(v)))
 	music_slider.value_changed.connect(func(v): AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear_to_db(v)))
@@ -36,7 +71,7 @@ func _load_settings():
 	file.close()
 	if data.has("master"):master_slider.value=data["master"]
 	if data.has("music"):music_slider.value=data["music"]
-	if data.had("sfx"):sfx_slider.value=data["sfx"]
+	if data.has("sfx"):sfx_slider.value=data["sfx"]
 	if data.has("ambient"):ambient_slider.value=data["ambient"]
 	if data.has("fog"):fog_toggle.button_pressed=data["fog"]
 	if data.has("bloom"):bloom_toggle.button_pressed=data["bloom"]

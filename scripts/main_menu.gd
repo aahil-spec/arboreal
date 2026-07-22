@@ -11,7 +11,7 @@ var buttons:Array=[]
 
 func _ready():
 	version_label.text="v0.1.0 - Early Access"
-	continue_btn.disabled=not FileAccess.file_exists("user://embermoor_save.json")
+	continue_btn.disabled = not FileAccess.file_exists(SaveSystem.SAVE_PATH)
 	buttons=button_container.get_children()
 	for btn in buttons:
 		if btn is Button:
@@ -66,9 +66,10 @@ func _on_new_game_button_pressed():
 	get_tree().change_scene_to_file("res://scenes/name_entry.tscn")
 	
 func _on_continue_button_pressed():
-	_fade_to_scene("res://scenes/main.scn")
-	await get_tree().process_frame
-	await get_tree().process_frame
+	var tree=get_tree()
+	await _fade_to_scene("res://scenes/main.scn")
+	await tree.process_frame
+	await tree.process_frame
 	SaveSystem.load_game()
 	
 func _on_settings_button_pressed():
