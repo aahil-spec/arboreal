@@ -8,6 +8,7 @@ extends Control
 @onready var fog_toggle:CheckButton=$VBoxContainer/SettingsTabs/Graphics/HBoxContainer3/FogToggle
 @onready var bloom_toggle:CheckButton=$VBoxContainer/SettingsTabs/Graphics/HBoxContainer4/BloomToggle
 
+@export var return_scene:String="res://scenes/main_menu.tscn"
 func _ready():
 	var keybinds = [
 	["Move", "WASD"],
@@ -91,4 +92,4 @@ func _save_settings():
 	
 func _on_back_button_pressed():
 	_save_settings()
-	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	get_tree().change_scene_to_file(GameManager.settings_return_scene)

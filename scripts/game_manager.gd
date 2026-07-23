@@ -175,6 +175,8 @@ var in_gravity_zone:bool=false
 
 var player_name:String="Traveler"
 
+var settings_return_scene:String="res://scenes/main_menu.tscn"
+
 func _ready():
 	inventory.clear()
 	add_to_inventory("fiber",3)

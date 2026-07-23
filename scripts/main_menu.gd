@@ -16,7 +16,7 @@ func _ready():
 	for btn in buttons:
 		if btn is Button:
 			_style_button(btn)
-		_play_intro_animation()
+	_play_intro_animation()
 		
 func _play_intro_animation():
 	title_label.modulate.a=0.0
@@ -73,6 +73,7 @@ func _on_continue_button_pressed():
 	SaveSystem.load_game()
 	
 func _on_settings_button_pressed():
+	GameManager.settings_return_scene="res://scenes/main.scn"
 	get_tree().change_scene_to_file("res://scenes/settings_menu.tscn")
 	
 func _on_quit_button_pressed():

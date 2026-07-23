@@ -26,7 +26,9 @@ func _unhandled_input(event):
 	if event.is_action_pressed("toggle_help"):
 		help_panel.visible=!help_panel.visible
 		
-	if event.is_action_pressed("pause") and not inventory_screen.visible:
+	if event.is_action_pressed("pause"):
+		if inventory_screen.visible or quest_log.visible:
+			return
 		_toggle_pause()
 		
 	if event.is_action_pressed("toggle_quest_log") and not is_paused:
@@ -46,6 +48,7 @@ func _return_held_item():
 		
 func _toggle_pause():
 	is_paused=!is_paused
-	pause_panel.visible=is_paused
-	get_tree().paused=is_paused
-	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE if is_paused else Input.MOUSE_MODE_CAPTURED
+	if is_paused:
+		pause_panel.show_pause()
+	else:
+		pause_panel.hide_pause()
