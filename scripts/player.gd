@@ -88,6 +88,9 @@ func _unhandled_input(event):
 			_start_flight()
 		elif flight_active:
 			_stop_flight()
+			
+	if event.is_action_pressed("drop_item") amd not GameManager.build_mode:
+		_drop_last_item()
 func _attack():
 	var mesh=$MeshInstance3D
 	var original_pos=mesh.position
@@ -162,6 +165,7 @@ func _physics_process(delta):
 			_stop_flight()
 		global_position=$"../PlayerSpawnPoint".global_position
 	if GameManager.player_health<=0:
+		_drop_inventory_on_death()
 		GameManager.heal_player(GameManager.MAX_PLAYER_HEALTH)
 		if flight_active:
 			_stop_flight()

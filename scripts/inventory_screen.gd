@@ -30,6 +30,7 @@ var held_item_source:String=""
 var held_item_source_index:int=-1
 
 
+var currently_hovered_slot:int=-1
 
 func _ready():
 	inventory_grid.columns=6
@@ -380,12 +381,14 @@ func refresh_crafting():
 		out_icon.texture=load(GameManager.item_icons[craft_result])
 	GameManager.hotbar_changed.emit()
 func _on_slot_hovered(index:int):
+	currently_hovered_slot=index
 	if index<GameManager.inventory.size():
 		var item=GameManager.inventory[index]
 		if item is Dictionary:
-			
 			_show_tooltip(item["id"])
+			
 func _on_slot_unhovered():
+	currently_hovered_slot=-1
 	tooltip_label.visible=false
 	
 func _on_craft_slot_hovered(index:int):
@@ -419,3 +422,21 @@ func _on_craft_torch_btn_pressed():
 func _on_craft_bandage_btn_pressed():
 	if GameManager.craft_item("bandage"):
 		refresh_all()
+		
+func _input(event):
+	if event.is_action_pressed("drop_item") and currently_hovered_slot !=-1:
+		if currently_hovered_slot<GameManager.inventory.size():
+			var item=GameManager.inventory[currently_hovered_slot]
+			if item is Dictionary and item.has("id"):
+				var item_id=item["id"]
+				
+				item["count"] -=1
+				if item["count"]<=0:
+					GameManager.inventory.remove_at(currently_hovered_slot)
+					_on_slot_unhovered()
+				var player =get_tree().current_scene.get_node_or_null("Player")
+				var drop_pos=player.global_position if player else Vector3.ZERO
+				var forward =-player.global_transform.basis.z if player else Vector3.FORWARD
+				GameManager.spawn_drop(item_id,drop_pos+forward*1.5)
+				refresh_all()
+				

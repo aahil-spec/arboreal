@@ -185,6 +185,7 @@ const FLIGHT_DRAIN_PER_SECOND:float=100.0/45.0
 const FLIGHT_REGEN_PER_SECOND:float=100.0/12.0
 var is_flying:bool=false
 
+const DROPPED_ITEM_SCENE=preload("res://scenes/dropped_item.tscn")
 
 func _ready():
 	inventory.clear()
@@ -443,3 +444,9 @@ func _complete_quest(quest_id:String):
 
 func has_wings():
 	return equipped["wings"]=="emberwing"
+
+func spawn_drop(item_id:String,world_position:Vector3):
+	var drop=DROPPED_ITEM_SCENE.instantiate()
+	drop.item_id=item_id
+	drop.position=world_position+Vector3(0,0.4,0)
+	get_tree().current_scene.add_child(drop)
