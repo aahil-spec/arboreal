@@ -13,6 +13,7 @@ func _ready():
 func _on_confirm_button_pressed():
 	_start_with_name()
 	
+@warning_ignore("unused_parameter")
 func _on_name_submitted(text:String):
 	_start_with_name()
 	

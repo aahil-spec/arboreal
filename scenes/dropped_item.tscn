@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://cvff6nl3sa5u7"]
+
+[ext_resource type="Script" uid="uid://wkrta4k0v4nc" path="res://scripts/dropped_item.gd" id="1_u41rd"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_sm7lx"]
+radius = 0.2
+height = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sm7lx"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_sm7lx"]
+radius = 0.35
+
+[node name="DroppedItem" type="Area3D" unique_id=953034987]
+process_mode = 3
+script = ExtResource("1_u41rd")
+
+[node name="VisualRoot" type="Node3D" parent="." unique_id=14822883]
+
+[node name="ModelHolder" type="Node3D" parent="VisualRoot" unique_id=715690]
+
+[node name="FallbackSphere" type="MeshInstance3D" parent="VisualRoot" unique_id=1483099438]
+mesh = SubResource("SphereMesh_sm7lx")
+surface_material_override/0 = SubResource("StandardMaterial3D_sm7lx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1010460150]
+shape = SubResource("SphereShape3D_sm7lx")
+
+[node name="Glow" type="OmniLight3D" parent="." unique_id=48488185]
+light_energy = 1.5
+omni_range = 3.0

@@ -255,7 +255,7 @@ func _handle_flight(delta:float,direction:Vector3):
 		
 	)
 	var target_velocity =Vector3.ZERO
-	target_velocity+=flat_forward* -move_input.y*FLIGHT_SPEED
+	target_velocity+=flat_forward* move_input.y*FLIGHT_SPEED
 	target_velocity+=flat_right*move_input.x*FLIGHT_SPEED
 	
 	var pitch_factor=-camera_pivot.rotation.x

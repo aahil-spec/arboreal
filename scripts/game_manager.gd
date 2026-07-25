@@ -104,7 +104,7 @@ var item_icons: Dictionary = {
 	"leggings_leather": "res://assets/icons/leggings_leather.png",
 	"shield_wood": "res://assets/icons/shield_wood.png", 
 	"bandage": "res://assets/icons/bandage.png",
-	"emberwing":"res://assests/icons/emeberwing.png"
+	"emberwing":"res://assets/icons/emberwing.png"
 }
 
 var item_models:Dictionary={
@@ -280,6 +280,7 @@ func add_item(item_id:String,pickup_name:String=""):
 	if pickup_name!="":
 		collected_item_pickup_names.append(pickup_name)
 	print("Picked up: ", items[item_id]["name"])
+	hotbar_changed.emit()
 	
 func equip_item(item_id:String):
 	var item_type=items[item_id]["type"]

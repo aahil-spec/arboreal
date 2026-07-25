@@ -44,6 +44,7 @@ func save_game():
 		"completed_quests":GameManager.completed_quests,
 		"quest_progress":GameManager.quest_progress,
 		"player_name":GameManager.player_name,
+		"flight_energy":GameManager.flight_energy,
 	}
 	
 	var file=FileAccess.open(SAVE_PATH,FileAccess.WRITE)
@@ -87,6 +88,7 @@ func load_game():
 	GameManager.completed_quests=data.get("completed_quests",[])
 	GameManager.quest_progress=data.get("quest_progress",{})
 	GameManager.player_name=data.get("player_name","Traveler")
+	GameManager.flight_energy=data.get("flight_energy",GameManager.MAX_FLIGHT_ENERGY)
 	for node in get_tree().get_nodes_in_group("placed_piece"):
 		node.queue_free()
 		
