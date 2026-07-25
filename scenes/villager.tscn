@@ -15,6 +15,43 @@ script = ExtResource("1_kufqh")
 [node name="Model" parent="." unique_id=270526002 instance=ExtResource("2_bjpa3")]
 transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, -0.006751418, 0.2026074, -0.050918818)
 
+[node name="Skeleton3D" parent="Model/Node" parent_id_path=PackedInt32Array(270526002, 1312350823) index="0" unique_id=238095202]
+bones/0/position = Vector3(-0.38686395, 79.65152, -0.21385956)
+bones/0/rotation = Quaternion(-0.037143994, -0.36789888, -0.011610446, 0.9290511)
+bones/1/rotation = Quaternion(0.051068638, 0.041091744, -0.010426614, 0.9977949)
+bones/2/rotation = Quaternion(0.08763439, 0.081232145, -0.017587148, 0.99267936)
+bones/3/rotation = Quaternion(0.11301713, 0.08124285, -0.017537829, 0.9901107)
+bones/4/rotation = Quaternion(-0.03756028, -0.011099062, 0.0021804192, 0.99923044)
+bones/5/rotation = Quaternion(-0.054469015, 0.17692326, -0.012970572, 0.9826307)
+bones/9/rotation = Quaternion(0.5771025, 0.42487454, -0.5946149, 0.3645101)
+bones/10/rotation = Quaternion(0.4183781, -0.0917246, 0.100619026, 0.8980102)
+bones/11/rotation = Quaternion(-0.012449433, 0.057868056, 0.40497905, 0.91240793)
+bones/12/rotation = Quaternion(-0.16276735, 0.1400707, 0.015132926, 0.97655416)
+bones/13/rotation = Quaternion(0.28231367, 0.12302817, 0.19679844, 0.9308241)
+bones/14/rotation = Quaternion(-0.007324298, 0.0006019748, -0.0008545234, 0.9999727)
+bones/15/rotation = Quaternion(7.048948e-08, -2.2177119e-08, 9.872019e-08, 1)
+bones/17/rotation = Quaternion(0.03268135, -0.005905766, 0.06101301, 0.99758434)
+bones/18/rotation = Quaternion(0.14277329, -0.00072177907, -0.006931879, 0.98973095)
+bones/19/rotation = Quaternion(3.8473114e-12, 2.3283064e-10, 3.754308e-11, 1)
+bones/21/rotation = Quaternion(0.62901276, -0.38622487, 0.5549709, 0.3836412)
+bones/22/rotation = Quaternion(0.38699788, 0.10267395, 0.13414331, 0.90647465)
+bones/23/rotation = Quaternion(0.044699363, 0.029114384, -0.35953817, 0.9316044)
+bones/24/rotation = Quaternion(0.106754005, -0.06460346, -0.10112173, 0.987018)
+bones/25/rotation = Quaternion(0.20181976, 0.013470737, -0.229766, 0.95199525)
+bones/26/rotation = Quaternion(0.008522505, 0.0016515779, 0.18302064, 0.9830708)
+bones/27/rotation = Quaternion(-4.459289e-07, -8.090865e-08, -1.4249235e-07, 1)
+bones/29/rotation = Quaternion(0.039575495, 0.00980926, 0.010215199, 0.99911624)
+bones/30/rotation = Quaternion(0.1472942, 0.0002363656, 0.009860176, 0.9890436)
+bones/31/rotation = Quaternion(-2.916578e-11, 2.6193447e-09, 1.38622e-08, 1)
+bones/33/rotation = Quaternion(0.067076884, 0.30137342, 0.9440215, -0.1161822)
+bones/34/rotation = Quaternion(-0.45558733, 0.11987582, -0.03328304, 0.8814547)
+bones/35/rotation = Quaternion(0.5405136, -0.052761316, -0.04853643, 0.8382754)
+bones/36/rotation = Quaternion(0.36396, 0.0010728213, -0.032915927, 0.93083227)
+bones/38/rotation = Quaternion(-0.11007973, 0.031711925, 0.9803983, 0.16029967)
+bones/39/rotation = Quaternion(-0.43907654, 0.06343133, -0.016431712, 0.8960571)
+bones/40/rotation = Quaternion(0.68106526, 0.09839691, 0.14922631, 0.71007025)
+bones/41/rotation = Quaternion(0.3585745, 0.019185448, 0.0072727944, 0.93327564)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2088344077]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04736328, 0)
 shape = SubResource("CapsuleShape3D_kufqh")
@@ -28,3 +65,5 @@ shape = SubResource("SphereShape3D_bjpa3")
 
 [connection signal="body_entered" from="TalkZone" to="." method="_on_talk_zone_body_entered"]
 [connection signal="body_exited" from="TalkZone" to="." method="_on_talk_zone_body_exited"]
+
+[editable path="Model"]

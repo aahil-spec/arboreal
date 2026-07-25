@@ -4,13 +4,13 @@ extends Control
 @onready var thirst_bar:HBoxContainer=$ThirstBar
 
 
-var heart_full=preload("res://assets/ui/heart_full.png")
-var heart_half=preload("res://assets/ui/heart_half.png")
-var heart_empty=preload("res://assets/ui/heart_empty.png")
+var heart_full=preload("res://assets/ui/HeartFull.png")
+var heart_half=preload("res://assets/ui/HeartHalf.png")
+var heart_empty=preload("res://assets/ui/HeartEmpty.png")
 
-var thirst_full=preload("res://assets/ui/thirst_full.png")
-var thirst_half=preload("res://assets/ui/thirst_half.png")
-var thirst_empty=preload("res://assets/ui/thirst_empty.png")
+var thirst_full=preload("res://assets/ui/WaterDropFull.png")
+var thirst_half=preload("res://assets/ui/DropLetHalf.png")
+var thirst_empty=preload("res://assets/ui/WaterDropEmpty.png")
 const MAX_ICONS:int=10
 
 func _process(_delta):

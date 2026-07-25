@@ -1,21 +1,39 @@
 extends CharacterBody3D
 
 @export var dialogue_lines:Array=["Nice weather today.","Stay safe out there","The shrine has been dark too long"]
-@export var wander_point_a:Vector3=Vector3.ZERO
-@export var wander_point_b:Vector3=Vector3(5,0,5)
+@export var wander_radius:float=15.0
+
 
 var player_in_range:bool=false
 var current_line:int=0
-var going_to_b:bool=true
+var home_position:Vector3
+var navigation_ready:bool=false
 
 @onready var nav_agent:NavigationAgent3D=$NavigationAgent3D
-
+@onready var anim_player:AnimationPlayer=$Model/AnimationPlayer
 func _ready():
-	wander_point_a=global_position
+	home_position=global_position
+	anim_player.play("Idle")
+	
+	await get_tree().create_timer(0.2).timeout
+	navigation_ready=true
 	_pick_target()
 	
 func _pick_target():
-	nav_agent.target_position=wander_point_b if going_to_b else wander_point_a
+	if not navigation_ready:
+		return
+	var safe_target=global_position
+	
+	for i in range(10):
+		var random_x=randf_range(-wander_radius,wander_radius)
+		var random_z=randf_range(-wander_radius,wander_radius)
+		var random_target=home_position+Vector3(random_x,0,random_z)
+		var map=get_world_3d().navigation_map
+		var candidate=NavigationServer3D.map_get_closest_point(map,random_target)
+		if candidate.distance_to(global_position)>3.0:
+			safe_target=candidate
+			break
+	nav_agent.target_position=safe_target
 	
 func _on_talk_zone_body_entered(body):
 	if body.name=="Player":
@@ -32,6 +50,7 @@ func _unhandled_input(event):
 		var label=get_tree().current_scene.get_node("CanvasLayer/VBoxContainer/DialogueLabel")
 		label.visible=true
 		label.text=dialogue_lines[current_line]
+		_offer_quests()
 		current_line=(current_line+1)%dialogue_lines.size()
 		
 func _physics_process(delta):
@@ -40,12 +59,16 @@ func _physics_process(delta):
 		
 	if GameManager.is_night():
 		velocity.x=move_toward(velocity.x,0,3.0)
-		velocity.x=move_toward(velocity.z,0,3.0)
+		velocity.z=move_toward(velocity.z,0,3.0)
+		move_and_slide()
+		anim_player.play("Idle")
+		return
+	if not navigation_ready:
 		move_and_slide()
 		return
 		
 	if nav_agent.is_navigation_finished():
-		going_to_b=!going_to_b
+		anim_player.play("Idle")
 		_pick_target()
 	else:
 		var next=nav_agent.get_next_path_position()
@@ -53,7 +76,11 @@ func _physics_process(delta):
 		dir.y=0
 		velocity.x=dir.x*1.5
 		velocity.z=dir.z*1.5
+		anim_player.play("Walking")
 		
+		if dir.length()>0.1:
+			var look_target=global_position+dir
+			$Model.look_at(look_target,Vector3.UP)
 	move_and_slide()
 
 func _offer_quests():

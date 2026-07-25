@@ -39,6 +39,8 @@ func _setup_visuals():
 		if ResourceLoader.exists(model_path):
 			var model_scene=load(model_path)
 			var model_instance=model_scene.instantiate()
+			
+			_disable_secret_triggers(model_instance)
 			model_holder.add_child(model_instance)
 			model_holder.scale=Vector3(0.35,0.35,0.35)
 			fallback_sphere.visible=false
@@ -80,22 +82,19 @@ func _process(delta):
 	visual_root.position.y=sin(time_alive*bob_speed)*bob_amount
 	
 func _on_body_entered(body):
-	if body.name =="Player" and time_alive >=PICKUP_DELAY and item_id:
+	if body.name =="Player" and time_alive >=PICKUP_DELAY and item_id !="":
 		var grabbed_item=item_id
-		
 		item_id=""
-		
 		set_deferred("monitoring",false)
-		
 		GameManager.add_item(grabbed_item)
-		_play_pickup_effect()
-		
-func _pickup():
-	GameManager.add_item(item_id)
-	_play_pickup_effect()
+		var tween=create_tween()
+		tween.tween_property(visual_root,"scale",Vector3(1.5,1.5,1.5),0.07)
+		tween.tween_property(visual_root, "scale", Vector3(0.01, 0.01, 0.01), 0.09)
+		tween.tween_callback(queue_free)
 	
-func _play_pickup_effect():
-	var tween=create_tween()
-	tween.tween_property(visual_root,"scale",Vector3(1.5,1.5,1.5),0.07)
-	tween.tween_property(visual_root, "scale", Vector3(0.0, 0.0, 0.0), 0.09)
-	tween.tween_callback(queue_free)
+func _disable_secret_triggers(node:Node):
+	if node is Area3D:
+		node.set_deferred("monitoring",false)
+		node.set_deferred("monitorable",false)
+	for child in node.get_children():
+		_disable_secret_triggers(child)

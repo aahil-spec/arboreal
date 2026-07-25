@@ -214,6 +214,8 @@ func _update_hand_visuals():
 		if ResourceLoader.exists(model_path):
 			var model_scene=load(model_path)
 			current_held_model=model_scene.instantiate()
+			
+			_disable_secret_triggers(current_held_model)
 			right_hand.add_child(current_held_model)
 			current_held_model.transform=Transform3D()
 		
@@ -309,3 +311,9 @@ func _drop_inventory_on_death():
 			var spread =Vector3(randf_range(-2.0,2.0),0.0,randf_range(-2.0,2.0))
 			GameManager.spawn_drop(item_id,global_position+spread)
 		
+func _disable_secret_triggers(node:Node3D):
+	if node is Area3D:
+		node.monitoring=false
+		node.monitorable=false
+	for child in node.get_children():
+		_disable_secret_triggers(child)
