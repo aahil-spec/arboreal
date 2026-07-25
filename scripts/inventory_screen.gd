@@ -119,6 +119,7 @@ func _build_equip_slot_map():
 		"boots":boots_slot,
 		"weapon":weapon_slot,
 		"offhand":offhand_slot,
+		"wings":$MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip/WingsSlot
 	}
 	for slot_type in equip_slot_map:
 		var slot_node=equip_slot_map[slot_type]

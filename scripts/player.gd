@@ -10,6 +10,11 @@ const SPRINT_MULTIPLIER:float=1.6
 const HIT_SPARK=preload("res://scenes/effects/hit_spark.tscn")
 const SWIM_SPEED:float=15.0
 const SWIM_UP_SPEED:float=6.0
+const FLIGHT_SPEED:float=9.0
+const FLIGHT_ASCEND_SPEED:float=6.0
+const FLIGHT_DESCEND_SPEED:float=5.0
+const FLIGHT_DRAG:float=0.88
+const FLIGHT_TILT_AMOUNT:float=0.25
 
 @onready var camera_pivot:Node3D=$CameraPivot
 @onready var attack_zone:Area3D=$AttackZone
@@ -20,6 +25,9 @@ var was_on_floor:bool=true
 
 @onready var right_hand:Marker3D=$CameraPivot/Camera3D/RightHand
 var current_held_model:Node3D=null
+
+var flight_active:bool=false
+var flight_velocity:Vector3=Vector3.ZERO
 
 func _ready():
 	Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
@@ -75,6 +83,11 @@ func _unhandled_input(event):
 			GameManager.active_hotbar_slot=i-1
 			GameManager.hotbar_changed.emit()
 			break
+	if event.is_action_pressed("ui_accept") and GameManager.has_wings():
+		if not is_on_floor() and not flight_active and GameManager.flight_energy >10.0:
+			_start_flight()
+		elif flight_active:
+			_stop_flight()
 func _attack():
 	var mesh=$MeshInstance3D
 	var original_pos=mesh.position
@@ -91,57 +104,67 @@ func _attack():
 func _physics_process(delta):
 	if is_on_floor() and not was_on_floor:
 		_squash()
+		if flight_active:
+			_stop_flight()
 	was_on_floor=is_on_floor()
 	GameManager.in_water=global_position.y<GameManager.water_y_level+0.5
 	_update_shelter_status()
 	_update_heat_status()
+	_update_flight_energy(delta)
 	
 	var input_dir :Vector2= Input.get_vector("move_left", "move_right","move_up", "move_down")
 	var direction :Vector3= (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
-	if GameManager.in_water:
-		var float_pressure=(GameManager.water_y_level-global_position.y)*2.0
-		velocity.y=clamp(velocity.y+float_pressure*delta,-4.0,4.0)
-		if Input.is_action_pressed("ui_accept"):
-			velocity.y=SWIM_SPEED
-		velocity.x=direction.x*SWIM_SPEED
-		velocity.z=direction.z*SWIM_SPEED
-	var current_gravity=get_gravity()
-	if current_gravity.length()>0.1:
-		up_direction=-current_gravity.normalized()
+	if flight_active and not GameManager.in_water:
+		_handle_flight(delta,direction)
 	else:
-		up_direction=Vector3.UP
-	
-	if not is_on_floor():
-		velocity+=current_gravity*delta
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity+= up_direction*JUMP_VELOCITY
-	
-	var current_speed=SPEED+GameManager.get_speed_bonus()
-	
-	var wants_to_sprint=Input.is_action_pressed("sprint") and direction.length()>0.1 and GameManager.stamina>0.0
-	GameManager.is_sprinting=wants_to_sprint
-	if wants_to_sprint:
-		current_speed*=SPRINT_MULTIPLIER
+		var current_speed=SPEED+GameManager.get_speed_bonus()
 		
-	if direction:
-		velocity.x = direction.x *current_speed
-		velocity.z = direction.z * current_speed
-	else:
-		velocity.x = move_toward(velocity.x, 0, current_speed)
-		velocity.z = move_toward(velocity.z, 0, current_speed)
-	var moving=direction.length()>0.1 and is_on_floor()
-	if moving:
-		footstep_timer-=delta
-		if footstep_timer<=0.0:
-			footstep_timer=FOOTSTEP_INTERVAL
-	else:
-		footstep_timer=0.0
+		if GameManager.in_water:
+			var float_pressure=(GameManager.water_y_level-global_position.y)*2.0
+			velocity.y=clamp(velocity.y+float_pressure*delta,-4.0,4.0)
+			if Input.is_action_pressed("ui_accept"):
+				velocity.y=SWIM_SPEED
+			velocity.x=direction.x*SWIM_SPEED
+			velocity.z=direction.z*SWIM_SPEED
+		else:
+			var current_gravity=get_gravity()
+			if current_gravity.length()>0.1:
+				up_direction=-current_gravity.normalized()
+			else:
+				up_direction=Vector3.UP
+			if not is_on_floor():
+				velocity+=current_gravity*delta
+			if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+				velocity+= up_direction*JUMP_VELOCITY
+			var wants_to_sprint=Input.is_action_pressed("sprint") and direction.length()>0.1 and GameManager.stamina>0.0
+			GameManager.is_sprinting=wants_to_sprint
+			if wants_to_sprint:
+				current_speed*=SPRINT_MULTIPLIER
+			
+			if direction:
+				velocity.x = direction.x *current_speed
+				velocity.z = direction.z * current_speed
+			else:
+				velocity.x = move_toward(velocity.x, 0, current_speed)
+				velocity.z = move_toward(velocity.z, 0, current_speed)
+		var moving=direction.length()>0.1 and is_on_floor()
+		if moving:
+			footstep_timer-=delta
+			if footstep_timer<=0.0:
+				footstep_timer=FOOTSTEP_INTERVAL
+		else:
+			footstep_timer=0.0
+			
 	if global_position.y<-50.0:
 		velocity=Vector3.ZERO
+		if flight_active:
+			_stop_flight()
 		global_position=$"../PlayerSpawnPoint".global_position
 	if GameManager.player_health<=0:
 		GameManager.heal_player(GameManager.MAX_PLAYER_HEALTH)
+		if flight_active:
+			_stop_flight()
 		global_position=$"../PlayerSpawnPoint".global_position
 		GameManager.player_invincible=true
 		await get_tree().create_timer(2.0).timeout
@@ -190,3 +213,64 @@ func _update_hand_visuals():
 			right_hand.add_child(current_held_model)
 			current_held_model.transform=Transform3D()
 		
+
+func _start_flight():
+	flight_active=true
+	GameManager.is_flying=true
+	flight_velocity=velocity
+	
+func _stop_flight():
+	flight_active=false
+	GameManager.is_flying=false
+	velocity=flight_velocity
+	
+	rotation.x=0.0
+	
+func _update_flight_energy(delta:float):
+	if flight_active:
+		GameManager.flight_energy=max(
+			GameManager.flight_energy-GameManager.FLIGHT_DRAIN_PER_SECOND*delta,
+			0.0
+		)
+		if GameManager.flight_energy<=0.0:
+			_stop_flight()
+	elif is_on_floor():
+		GameManager.flight_energy=min(
+			GameManager.flight_energy+GameManager.FLIGHT_REGEN_PER_SECOND*delta,
+			GameManager.MAX_FLIGHT_ENERGY
+		)
+		
+@warning_ignore("unused_parameter")
+func _handle_flight(delta:float,direction:Vector3):
+	var cam_basis=camera_pivot.global_transform.basis
+	var cam_forward=-cam_basis.z
+	var cam_right=cam_basis.x
+	
+	var flat_forward=Vector3(cam_forward.x,0,cam_forward.z).normalized()
+	var flat_right=Vector3(cam_right.x,0,cam_right.z).normalized()
+	
+	var move_input=Vector2(
+		Input.get_action_strength("move_right")-Input.get_action_strength("move_left"),
+		Input.get_action_strength("move_up")-Input.get_action_strength("move_down")
+		
+	)
+	var target_velocity =Vector3.ZERO
+	target_velocity+=flat_forward* -move_input.y*FLIGHT_SPEED
+	target_velocity+=flat_right*move_input.x*FLIGHT_SPEED
+	
+	var pitch_factor=-camera_pivot.rotation.x
+	target_velocity.y+=pitch_factor*FLIGHT_SPEED*0.8
+	
+	if Input.is_action_pressed("fly_up"):
+		target_velocity.y= FLIGHT_ASCEND_SPEED
+	if Input.is_action_pressed("fly_down"):
+		target_velocity.y= -FLIGHT_DESCEND_SPEED
+	
+	flight_velocity=flight_velocity.lerp(target_velocity,1.0-pow(FLIGHT_DRAG,delta*60.0))
+	velocity=flight_velocity
+	
+	if move_input.length()>0.1:
+		var titl_target=-move_input.y*FLIGHT_TILT_AMOUNT
+		rotation.x=lerp(rotation.x,titl_target,delta*5.0)
+	else:
+		rotation.x=lerp(rotation.x,0.0,delta*5.0)

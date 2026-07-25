@@ -7,6 +7,7 @@ extends Node
 @onready var breath_row:HBoxContainer=$BreathRow
 
 var pulse_tween:Tween=null
+@warning_ignore("unused_parameter")
 func _process(delta):
 	health_row.update_value(GameManager.player_health,GameManager.MAX_PLAYER_HEALTH)
 	hunger_row.update_value(GameManager.hunger,GameManager.MAX_HUNGER)
@@ -23,6 +24,23 @@ func _process(delta):
 		
 	_update_low_health_pulse()
 	
+	var flight_bar=get_tree().current_scene.get_node_or_null("CanvasLayer/FlightBar")
+	if flight_bar:
+		flight_bar.value=GameManager.flight_energy
+		flight_bar.visible=GameManager.has_wings()
+	
+	var flight_label=get_tree().current_scene.get_node_or_null("CanvasLayer/FlightBar/Flight_label")
+	if flight_label:
+		flight_label.visible=GameManager.has_wings()
+		if GameManager.flight_energy<=0.0:
+			flight_label.text="✦ Recharging..."
+			flight_label.modulate=Color(0.7,0.5,0.2)
+		elif GameManager.is_flying:
+			flight_label.text="✦ Flying"
+			flight_label.modulate=Color(1.0,0.85,0.3)
+		else:
+			flight_label.text="✦ Emberwing"
+			flight_label.modulate=Color(0.9,0.75,0.3)
 func _update_low_health_pulse():
 	var health_pct=float(GameManager.player_health)/float(GameManager.MAX_PLAYER_HEALTH)
 	if health_pct<0.3 and (pulse_tween==null or not pulse_tween.is_running()):

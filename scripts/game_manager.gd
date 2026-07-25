@@ -33,10 +33,11 @@ var items:Dictionary={
 	"bandage": {"name": "Bandage", "type": "consumable", "bonus_key": "health", "bonus_value": 20},
 	"fiber": {"name": "Fiber", "type": "material", "bonus_key": "none", "bonus_value": 0},
 	"timber": {"name": "Timber", "type": "material", "bonus_key": "none", "bonus_value": 0},
+	"emberwing":{"name":"Emberwing","type":"wings","bonus_key":"none","bonus_value":0},
 }
 
 var inventory:Array=[]
-var equipped:Dictionary={"weapon":"","offhand":"","armor":"","leggings":"","helmet":"","boots":""}
+var equipped:Dictionary={"weapon":"","offhand":"","armor":"","leggings":"","helmet":"","boots":"","wings":""}
 
 var hunger:float=100.0
 var thirst:float=100.0
@@ -103,6 +104,7 @@ var item_icons: Dictionary = {
 	"leggings_leather": "res://assets/icons/leggings_leather.png",
 	"shield_wood": "res://assets/icons/shield_wood.png", 
 	"bandage": "res://assets/icons/bandage.png",
+	"emberwing":"res://assests/icons/emeberwing.png"
 }
 
 var item_models:Dictionary={
@@ -176,6 +178,13 @@ var in_gravity_zone:bool=false
 var player_name:String="Traveler"
 
 var settings_return_scene:String="res://scenes/main_menu.tscn"
+
+var flight_energy:float=100.0
+const MAX_FLIGHT_ENERGY:float=100.0
+const FLIGHT_DRAIN_PER_SECOND:float=100.0/45.0
+const FLIGHT_REGEN_PER_SECOND:float=100.0/12.0
+var is_flying:bool=false
+
 
 func _ready():
 	inventory.clear()
@@ -430,3 +439,6 @@ func _complete_quest(quest_id:String):
 	tween.tween_property(notif,"modulate:a",0.0,1.0)
 	tween.tween_callback(func(): notif.visible = false)
 	
+
+func has_wings():
+	return equipped["wings"]=="emberwing"
