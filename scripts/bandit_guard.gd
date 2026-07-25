@@ -39,6 +39,7 @@ func take_damage(amount:int,attacker_position:Vector3=Vector3.ZERO):
 func _drop_loot():
 	var loot_options=["bandage","timber","sword_iron"]
 	var drop_id=loot_options[randi()%loot_options.size()]
+	GameManager.spawn_drop(drop_id,global_position)
 	GameManager.add_item(drop_id)
 	GameManager.update_quest_progress("defeat_bandits")
 	print("The bandit dropped:",GameManager.items[drop_id]["name"])

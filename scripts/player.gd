@@ -89,7 +89,7 @@ func _unhandled_input(event):
 		elif flight_active:
 			_stop_flight()
 			
-	if event.is_action_pressed("drop_item") amd not GameManager.build_mode:
+	if event.is_action_pressed("drop_item") and not GameManager.build_mode and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		_drop_last_item()
 func _attack():
 	var mesh=$MeshInstance3D
@@ -278,3 +278,34 @@ func _handle_flight(delta:float,direction:Vector3):
 		rotation.x=lerp(rotation.x,titl_target,delta*5.0)
 	else:
 		rotation.x=lerp(rotation.x,0.0,delta*5.0)
+
+func _drop_last_item():
+	if GameManager.active_hotbar_slot>=GameManager.inventory.size():
+		return
+	var slot_index=GameManager.active_hotbar_slot
+	var item=GameManager.inventory[slot_index]
+	var item_id=item["id"]
+	
+	item["count"]-=1
+	
+	if item["count"]<=0:
+		GameManager.inventory.remove_at(slot_index)
+	var forward=-global_transform.basis.z
+	GameManager.spawn_drop(item_id,global_position+forward*1.5)
+	
+	GameManager.hotbar_changed.emit()
+func _drop_inventory_on_death():
+	var items_to_drop=GameManager.inventory.duplicate()
+	GameManager.inventory.clear()
+	GameManager.equipped={
+		"weapon":"","armor":"","boots":"",
+		"helmet":"","leggings":"","offhand":"","wings":""
+	}
+	for item in items_to_drop:
+		var item_id=item["id"]
+		var count=item.get("count",1)
+		
+		for i in range(count):
+			var spread =Vector3(randf_range(-2.0,2.0),0.0,randf_range(-2.0,2.0))
+			GameManager.spawn_drop(item_id,global_position+spread)
+		

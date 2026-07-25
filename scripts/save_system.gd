@@ -52,6 +52,18 @@ func save_game():
 	file.close()
 	print("Game saved")
 	
+	var dropped_items_data=[]
+	for node in get_tree().get_nodes_in_group("dropped_item"):
+		dropped_items_data.append({
+			"item_id":node.item_id,
+			"position":{
+				"x":node.global_position.x,
+				"y":node.global_position.y,
+				"z":node.global_position.z
+			}
+		})
+	data["dropped_items"]=dropped_items_data
+	
 func load_game():
 	if not FileAccess.file_exists(SAVE_PATH):
 		print("no save file found")
@@ -89,6 +101,13 @@ func load_game():
 	GameManager.quest_progress=data.get("quest_progress",{})
 	GameManager.player_name=data.get("player_name","Traveler")
 	GameManager.flight_energy=data.get("flight_energy",GameManager.MAX_FLIGHT_ENERGY)
+	
+	for node in get_tree().get_nodes_in_group("dropped_item"):
+		node.queue_free()
+	if data.has("dropped_items"):
+		for entry in data["dropped_items"]:
+			var pos =Vector3(entry["position"]["x"],entry["position"]["y"],entry["position"]["z"])
+			GameManager.spawn_drop(entry["item_id"],pos)
 	for node in get_tree().get_nodes_in_group("placed_piece"):
 		node.queue_free()
 		

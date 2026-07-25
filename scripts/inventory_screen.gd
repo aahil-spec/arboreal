@@ -424,6 +424,9 @@ func _on_craft_bandage_btn_pressed():
 		refresh_all()
 		
 func _input(event):
+	if Input.mouse_mode==Input.MOUSE_MODE_CAPTURED:
+		return
+		
 	if event.is_action_pressed("drop_item") and currently_hovered_slot !=-1:
 		if currently_hovered_slot<GameManager.inventory.size():
 			var item=GameManager.inventory[currently_hovered_slot]

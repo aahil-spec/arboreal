@@ -28,9 +28,10 @@ func _pick_new_wander_target():
 @warning_ignore("unused_parameter")
 func take_damage(amount:int,attacker_position:Vector3=Vector3.ZERO):
 	health-=amount
+	
 	_flash()
 	print("Dear health",health)
-	GameManager.add_item("raw_meat_bundle")
+	GameManager.spawn_drop("raw_meat_bundle",global_position)
 	GameManager.update_quest_progress("hunt_deer")
 	queue_free()
 	

@@ -7,6 +7,9 @@ var bob_speed:float=0.0
 var bob_amount:float=0.0
 var base_y:float=0.0
 
+var has_been_picked_up:bool=false
+
+
 const PICKUP_DELAY:float=0.6
 
 @onready var visual_root:Node3D=$VisualRoot
@@ -77,8 +80,15 @@ func _process(delta):
 	visual_root.position.y=sin(time_alive*bob_speed)*bob_amount
 	
 func _on_body_entered(body):
-	if body.name =="Player" and time_alive >=PICKUP_DELAY:
-		_pickup()
+	if body.name =="Player" and time_alive >=PICKUP_DELAY and item_id:
+		var grabbed_item=item_id
+		
+		item_id=""
+		
+		set_deferred("monitoring",false)
+		
+		GameManager.add_item(grabbed_item)
+		_play_pickup_effect()
 		
 func _pickup():
 	GameManager.add_item(item_id)
