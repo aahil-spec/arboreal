@@ -30,7 +30,9 @@ func _pick_target():
 		var random_target=home_position+Vector3(random_x,0,random_z)
 		var map=get_world_3d().navigation_map
 		var candidate=NavigationServer3D.map_get_closest_point(map,random_target)
-		if candidate.distance_to(global_position)>3.0:
+		var flat_pos=Vector2(global_position.x,global_position.z)
+		var flat_candidate=Vector2(candidate.x,candidate.z)
+		if flat_pos.distance_to(flat_candidate)>3.0:
 			safe_target=candidate
 			break
 	nav_agent.target_position=safe_target
@@ -67,20 +69,24 @@ func _physics_process(delta):
 		move_and_slide()
 		return
 		
-	if nav_agent.is_navigation_finished():
+	var flat_pos=Vector2(global_position.x,global_position.z)
+	var flat_target=Vector2(nav_agent.target_position.x,nav_agent.target_position.z)
+	var distance_to_target=flat_pos.distance_to(flat_target)
+	if distance_to_target<1.5 or nav_agent.is_navigation_finished():
 		anim_player.play("Idle")
 		_pick_target()
 	else:
 		var next=nav_agent.get_next_path_position()
-		var dir=(next-global_position).normalized()
+		var dir=next-global_position
 		dir.y=0
+		dir=dir.normalized()
 		velocity.x=dir.x*1.5
 		velocity.z=dir.z*1.5
 		anim_player.play("Walking")
 		
 		if dir.length()>0.1:
-			var look_target=global_position+dir
-			$Model.look_at(look_target,Vector3.UP)
+			var look_target=$Model.global_position+dir
+			$Model.look_at(look_target,Vector3.UP,true)
 	move_and_slide()
 
 func _offer_quests():

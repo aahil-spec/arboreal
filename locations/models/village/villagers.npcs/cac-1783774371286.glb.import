@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://ce5vlclsiejas"
+uid="uid://darl726iq31te"
 path="res://.godot/imported/cac-1783774371286.glb-d11b2786e0358a3a7ab01fa4a097ce0f.scn"
 
 [deps]
@@ -16,8 +16,6 @@ dest_files=["res://.godot/imported/cac-1783774371286.glb-d11b2786e0358a3a7ab01fa
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
-mesh_library/use_node_names_as_mesh_names=false
-array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
@@ -42,4 +40,3 @@ materials/extract_path=""
 _subresources={}
 gltf/naming_version=2
 gltf/embedded_image_handling=1
-gltf/texture_map_mode=1

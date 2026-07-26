@@ -1,21 +1,22 @@
 [gd_scene format=3 uid="uid://6tdy0ttim4oa"]
 
 [ext_resource type="Script" uid="uid://rm35w2o1etcn" path="res://scripts/villager.gd" id="1_kufqh"]
-[ext_resource type="PackedScene" uid="uid://ce5vlclsiejas" path="res://locations/models/village/villagers.npcs/cac-1783774371286.glb" id="2_bjpa3"]
+[ext_resource type="PackedScene" uid="uid://darl726iq31te" path="res://locations/models/village/villagers.npcs/cac-1783774371286.glb" id="2_bjpa3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kufqh"]
-height = 2.0947266
+radius = 1.4165039
+height = 4.2319336
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_bjpa3"]
-radius = 1.3028171
+radius = 67.95992
 
 [node name="Villager" type="CharacterBody3D" unique_id=1152919175]
 script = ExtResource("1_kufqh")
 
 [node name="Model" parent="." unique_id=270526002 instance=ExtResource("2_bjpa3")]
-transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, -0.006751418, 0.2026074, -0.050918818)
+transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, -0.006751418, 5.1800337, -0.050918818)
 
-[node name="Skeleton3D" parent="Model/Node" parent_id_path=PackedInt32Array(270526002, 1312350823) index="0" unique_id=238095202]
+[node name="Skeleton3D" parent="Model/Node" parent_id_path=PackedInt32Array(270526002, 1094729826) index="0" unique_id=1532770141]
 bones/0/position = Vector3(-0.38686395, 79.65152, -0.21385956)
 bones/0/rotation = Quaternion(-0.037143994, -0.36789888, -0.011610446, 0.9290511)
 bones/1/rotation = Quaternion(0.051068638, 0.041091744, -0.010426614, 0.9977949)
@@ -53,12 +54,13 @@ bones/40/rotation = Quaternion(0.68106526, 0.09839691, 0.14922631, 0.71007025)
 bones/41/rotation = Quaternion(0.3585745, 0.019185448, 0.0072727944, 0.93327564)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2088344077]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04736328, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.025604248, 4.805498, 0.08481908)
 shape = SubResource("CapsuleShape3D_kufqh")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1776245695]
 
 [node name="TalkZone" type="Area3D" parent="." unique_id=588501606]
+transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 0, 4.977426, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TalkZone" unique_id=860043925]
 shape = SubResource("SphereShape3D_bjpa3")
