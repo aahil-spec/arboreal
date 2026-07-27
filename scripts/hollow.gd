@@ -1,13 +1,11 @@
 extends CharacterBody3D
 
-
-const SPEED = 3.0
-const DETECT_RADIUS:float=8.0
+const SPEED=3.0
+const DETECT_RADIUS:float=50.0
 const MAX_HEALTH:int=90
 const KNOCKBACK_FORCE:float=4.0
 const KNOCKBACK_DURATION:float=0.3
 const ALERT_DURATION:float=0.4
-
 
 var knockback_timer:float=0.0
 var player:Node3D=null
@@ -25,6 +23,7 @@ func _ready():
 	player=get_tree().current_scene.get_node("Player")
 	add_to_group("enemy")
 	
+	await get_tree().physics_frame
 func take_damage(amount:int,attacker_position:Vector3=Vector3.ZERO):
 	if is_dead:
 		return
@@ -45,27 +44,26 @@ func take_damage(amount:int,attacker_position:Vector3=Vector3.ZERO):
 			velocity.x=knockback_dir.x*KNOCKBACK_FORCE
 			velocity.z=knockback_dir.z*KNOCKBACK_FORCE
 			knockback_timer=KNOCKBACK_DURATION
-	
+		
 func _flash():
 	var tween=create_tween()
 	tween.tween_property(mesh,"scale",Vector3(1.2,1.2,1.2),0.05)
 	tween.tween_property(mesh,"scale",Vector3(1.0,1.0,1.0),0.1)
+	
 func _physics_process(delta):
 	if not is_on_floor():
-		if is_dead:
-			return
 		velocity.y-=ProjectSettings.get_setting("physics/3d/default_gravity")*delta
-		
+	if is_dead:
+		move_and_slide()
+		return
 	if knockback_timer>0.0:
 		knockback_timer-=delta
 		move_and_slide()
 		return
-		
 	var detecting=false
 	if GameManager.is_night():
-		var distance =global_position.distance_to(player.global_position)
+		var distance=global_position.distance_to(player.global_position)
 		detecting=distance<DETECT_RADIUS
-		
 	if detecting and not was_detecting:
 		is_alert=true
 		alert_timer=ALERT_DURATION
@@ -73,27 +71,39 @@ func _physics_process(delta):
 	
 	if is_alert:
 		alert_timer-=delta
-		
 		var player_look=Vector3(player.global_position.x,global_position.y,player.global_position.z)
-		if global_position.distance_to(player_look):
+		if global_position.distance_to(player_look)>0.1:
 			look_at(player_look,Vector3.UP)
 		velocity.x=move_toward(velocity.x,0,SPEED)
 		velocity.z=move_toward(velocity.z,0,SPEED)
+		
 		if alert_timer<=0.0:
 			is_alert=false
-			
 	elif detecting:
 		nav_agent.target_position=player.global_position
 		var distance_to_player=global_position.distance_to(player.global_position)
 		if distance_to_player>1.5:
-				var next_point=nav_agent.get_next_path_position()
-				var direction=(next_point-global_position)
-				direction.y=0
-				if direction.length()>0.05:
-					direction=direction.normalized()
-					velocity.x=direction.x*SPEED
-					velocity.z=direction.z*SPEED
-					var look_target=global_position+direction
+			var next_point=nav_agent.get_next_path_position()
+			var direction=(next_point-global_position)
+			direction.y=0
+			
+			if direction.length()<0.05 or not nav_agent.is_target_reachable():
+				var backup_dir=(player.global_position-global_position)
+				backup_dir.y=0
+				backup_dir=backup_dir.normalized()
+				velocity.x=backup_dir.x*SPEED
+				velocity.z=backup_dir.z*SPEED
+				
+				var look_target=global_position+backup_dir
+				if global_position.distance_to(look_target)>0.1:
+					look_at(look_target,Vector3.UP)
+			else:
+				direction=direction.normalized()
+				velocity.x=direction.x*SPEED
+				velocity.z=direction.z*SPEED
+				
+				var look_target=global_position+direction
+				if global_position.distance_to(look_target)>0.1:
 					look_at(look_target,Vector3.UP)
 		else:
 			velocity.x=move_toward(velocity.x,0,SPEED)
@@ -101,7 +111,6 @@ func _physics_process(delta):
 	else:
 		velocity.x=move_toward(velocity.x,0,SPEED)
 		velocity.z=move_toward(velocity.z,0,SPEED)
-		
 	var is_moving=velocity.length()>0.5
 	if is_moving:
 		anim_player.play("Run")

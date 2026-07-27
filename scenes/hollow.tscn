@@ -6,7 +6,7 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rf16s"]
 radius = 0.7319336
-height = 2.8762283
+height = 2.992463
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gvftp"]
 radius = 1.2129023
@@ -15,24 +15,23 @@ radius = 1.2129023
 script = ExtResource("1_rf16s")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1962806674]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27116704, 0.21674436, 0.16400492)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27116704, 0.15862697, 0.16400492)
 shape = SubResource("CapsuleShape3D_rf16s")
 
 [node name="HitZone" type="Area3D" parent="." unique_id=1309805140]
 script = ExtResource("2_gvftp")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitZone" unique_id=74167816]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39721274, 0.49123466, 0.059187055)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26004815, 0.49123466, 0.1994785)
 shape = SubResource("SphereShape3D_gvftp")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=756365059]
 path_return_max_radius = 0.4
 
 [node name="ModelWrapper" type="Node3D" parent="." unique_id=787043997]
-transform = Transform3D(0.015, 0, 0, 0, 0.015, 0, 0, 0, 0.015, -0.2282412, 0.40739107, 0.37231183)
+transform = Transform3D(-0.015, 0, 1.3113416e-09, 0, 0.015, 0, -1.3113416e-09, 0, -0.015, -0.1418469, 0.38917804, 0.4796754)
 
 [node name="EnemyModel" parent="ModelWrapper" unique_id=219952035 instance=ExtResource("3_7udks")]
-transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, -0.13204813, 0.31068772, 0.34896207)
 
 [node name="Skeleton3D" parent="ModelWrapper/EnemyModel/Node" parent_id_path=PackedInt32Array(219952035, 712878929) index="0" unique_id=1390642940]
 bones/0/position = Vector3(0.7675762, 97.81532, -2.739128)
