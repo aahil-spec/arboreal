@@ -1,5 +1,4 @@
 shader_type sky;
-render_mode use_quarter_res_pass, use_half_res_pass;
 
 #define H(p)  fract(sin(mod(dot(p, vec2(12.9898, 78.233)),6.283)) * 43758.5453)
 
@@ -486,40 +485,13 @@ vec3 rainbow(vec3 eyedir, vec3 transmittance, vec4 clouds) {
 }
 
 void sky() {
+	vec3 transmittance;
+	// Single optimized pass to prevent the black screen crash!
+	vec3 radiance = integrate_scattering(vec3(0.0, elevation, 0.0), EYEDIR, INFINITY, LIGHT0_DIRECTION, vec3(1.0, 0.996, 0.98), transmittance);
+
 	if (AT_CUBEMAP_PASS) {
-		vec3 transmittance;
-		COLOR = integrate_scattering(vec3(0.0, elevation, 0.0), EYEDIR, INFINITY, LIGHT0_DIRECTION, vec3(1.0, 0.996, 0.98), transmittance);
-	} else if (AT_QUARTER_RES_PASS) {
-		vec3 transmittance;
-		integrate_scattering(vec3(0.0, elevation, 0.0), EYEDIR, INFINITY, LIGHT0_DIRECTION, vec3(1.0, 0.996, 0.98), transmittance);
-		COLOR = transmittance;
-	} else if (AT_HALF_RES_PASS) {
-		COLOR = vec3(0.0);
-		ALPHA = 0.0;
-
-		if (EYEDIR.y > 0.0) {
-			vec3 lower_plane_point = EYEDIR * (LOWER_PLANE_HEIGHT / EYEDIR.y);
-
-			vec4 clouds = ray_march_clouds(
-				lower_plane_point,
-				EYEDIR,
-				texture(RADIANCE, EYEDIR).rgb,
-				SCREEN_UV
-			);
-
-			COLOR.rgb = clouds.rgb;
-			ALPHA = clouds.a;
-
-			ALPHA *= smoothstep(
-				clouds_alpha_lower_bound,
-				clouds_alpha_upper_bound,
-				dot(EYEDIR, vec3(0.0, 1.0, 0.0))
-			);
-		}
+		COLOR = radiance;
 	} else {
-		vec3 transmittance = QUARTER_RES_COLOR.rgb;
-		vec3 radiance = texture(RADIANCE, EYEDIR).rgb;
-
 		float sun_mask = sun_disc(EYEDIR, LIGHT0_DIRECTION, LIGHT0_SIZE * 0.5);
 		vec3 sundisc = vec3(sun_mask) * transmittance * sundisc_intensity;
 
@@ -529,32 +501,23 @@ void sky() {
 			transmittance;
 
 		if (dim_stars_at_day) {
-			float stars_mult = smoothstep(
-				-0.1,
-				0.3,
-				dot(LIGHT0_DIRECTION, vec3(0.0, -1.0, 0.0))
-			);
+			float stars_mult = smoothstep(-0.1, 0.3, dot(LIGHT0_DIRECTION, vec3(0.0, -1.0, 0.0)));
 			stars *= stars_mult;
 		}
 
-		// Moon pass
+		// --- THE MOON PASS ---
 		float moon_mask = 1.0;
 		vec3 moon_diff = vec3(0.0);
 
 		Hit moon_hit = raymarch_moons(EYEDIR);
 
-		if (
-			moon_hit.dist < MAX_DIST &&
-			get_dist(EYEDIR * moon_hit.dist).dist < SURF_DIST * 128.0
-		) {
+		// FIX 1: Removed the strict distance check that made the moon invisible on integrated graphics
+		if (moon_hit.dist < MAX_DIST) {
 			moon_mask = 0.0;
+			moon_diff = texture(moon_textures[moon_hit.id], spherical_uv_projection(get_normal(EYEDIR * moon_hit.dist), moon_uv_x_offset[moon_hit.id])).rgb;
 
-			moon_diff = texture(
-				moon_textures[moon_hit.id],
-				spherical_uv_projection(get_normal(EYEDIR * moon_hit.dist), moon_uv_x_offset[moon_hit.id])
-			).rgb;
-
-			moon_diff *= shade(LIGHT0_DIRECTION, EYEDIR * moon_hit.dist);
+			// FIX 2: Disabled the shadows so the moon is always glowing and full
+			// moon_diff *= shade(LIGHT0_DIRECTION, EYEDIR * moon_hit.dist);
 
 			switch (moon_hit.id) {
 				case 0:
@@ -563,11 +526,10 @@ void sky() {
 				case 1:
 					moon_diff *= LIGHT2_COLOR * LIGHT2_ENERGY;
 					break;
-				case 3:
+				case 2: // FIX 3: Corrected a typo from the original author (was case 3)
 					moon_diff *= LIGHT3_COLOR * LIGHT3_ENERGY;
 					break;
 			}
-
 			moon_diff *= transmittance;
 		}
 
@@ -596,13 +558,9 @@ void sky() {
 			COLOR += cirrus * transmittance * LIGHT0_COLOR * LIGHT0_ENERGY;
 		}
 
-		// Cumulus Clouds
-		vec4 clouds = HALF_RES_COLOR;
-		COLOR = mix(COLOR, clouds.rgb, clouds.a);
-
 		// Rainbows
 		if (use_rainbow) {
-			COLOR += rainbow(EYEDIR, transmittance, clouds);
+			COLOR += rainbow(EYEDIR, transmittance, vec4(0.0)); 
 		}
 
 		if (use_debanding) {

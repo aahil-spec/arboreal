@@ -8,7 +8,8 @@ var has_built_shelter:bool=false
 var timber:int=0
 var collected_timber_names:Array=[]
 var placed_pieces:Array=[]
-var time_of_day:float=300.0
+
+var time_of_day:float=12.0
 var player_health:int=100 
 var build_mode:bool=false
 var player_invincible:bool=false
