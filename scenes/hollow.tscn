@@ -72,6 +72,11 @@ bones/43/rotation = Quaternion(-0.40681478, 0.0728681, -0.037541512, 0.9098257)
 bones/44/rotation = Quaternion(0.5151785, 0.13740969, 0.051348865, 0.8444365)
 bones/45/rotation = Quaternion(0.34008765, 0.05411863, 0.012426067, 0.938753)
 
+[node name="VisibleOnScreenEnabler3D" type="VisibleOnScreenEnabler3D" parent="." unique_id=241591684]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.37503088, 0.24823546, 0)
+aabb = AABB(-1.1571697, -1.8173704, -1, 2.3143394, 3.6347408, 2)
+enable_mode = 1
+
 [connection signal="body_entered" from="HitZone" to="HitZone" method="_on_body_entered"]
 
 [editable path="ModelWrapper/EnemyModel"]

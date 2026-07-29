@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dsigb8itquck7"]
 
 [ext_resource type="Script" uid="uid://bylj1xal8jdg4" path="res://scripts/main_menu.gd" id="1_ekxnf"]
-[ext_resource type="Texture2D" uid="uid://b6dqq22t2qc25" path="res://assets/ui/Screenshot 2026-07-22 222917.png" id="1_l6cm7"]
+[ext_resource type="Texture2D" uid="uid://c45gkmh88perd" path="res://addons/Screenshot 2026-07-28 232735.png" id="2_ekxnf"]
 
 [node name="MainMenu" type="Control" unique_id=1151194045]
 layout_mode = 3
@@ -21,7 +21,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_l6cm7")
+texture = ExtResource("2_ekxnf")
 expand_mode = 2
 metadata/_edit_use_anchors_ = true
 

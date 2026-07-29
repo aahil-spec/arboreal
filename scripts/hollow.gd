@@ -60,10 +60,8 @@ func _physics_process(delta):
 		knockback_timer-=delta
 		move_and_slide()
 		return
-	var detecting=false
-	if GameManager.is_night():
-		var distance=global_position.distance_to(player.global_position)
-		detecting=distance<DETECT_RADIUS
+	var distance=global_position.distance_to(player.global_position)
+	var detecting=distance<DETECT_RADIUS
 	if detecting and not was_detecting:
 		is_alert=true
 		alert_timer=ALERT_DURATION

@@ -16,14 +16,34 @@ const FLIGHT_DESCEND_SPEED:float=5.0
 const FLIGHT_DRAG:float=0.88
 const FLIGHT_TILT_AMOUNT:float=0.25
 
+
+const ANIM_IDLE:String="Idle"
+const ANIM_WALK:String="Walking"
+const ANIM_RUN:String="Run"
+const ANIM_JUMP:String="Jump"
+const ANIM_FALL:String="Fall"
+const ANIM_SWIM:String="Swimming"
+const ANIM_FLY:String="Flying"
+const ANIM_ATTACK:String="SwordSlash"
+const ANIM_DEATH:String="Die"
+
 @onready var camera_pivot:Node3D=$CameraPivot
 @onready var attack_zone:Area3D=$AttackZone
 var footstep_timer:float=0.0
 var was_on_floor:bool=true
 @export var damage_vignette:ColorRect
 
+@onready var character_model:Node3D=$CharacterModel
+@onready var third_person_arm:SpringArm3D=$CameraPivot/ThirdPersonArm
+@onready var third_person_cam:Camera3D=$CameraPivot/ThirdPersonArm/ThirdPersonCamera
+@onready var first_person_cam:Camera3D=$CameraPivot/FirstPersonPoint/Camera3D
+@onready var anim_player:AnimationPlayer=$CharacterModel/AnimationPlayer
+@onready var right_hand:Marker3D=$CameraPivot/FirstPersonPoint/Camera3D/RightHand
 
-@onready var right_hand:Marker3D=$CameraPivot/Camera3D/RightHand
+var is_first_person:bool=false
+var is_attacking:bool=false
+var is_dead:bool=false
+var current_anim:String=""
 var current_held_model:Node3D=null
 
 var flight_active:bool=false
@@ -35,6 +55,8 @@ func _ready():
 	
 	GameManager.hotbar_changed.connect(_update_hand_visuals)
 	call_deferred("_update_hand_visuals")
+	third_person_cam.current=true
+	first_person_cam.current=false
 func _on_player_damaged():
 	_camera_shake()
 	_flash_vignette()
@@ -58,12 +80,15 @@ func _unhandled_input(event):
 		$CameraPivot.rotate_x(-event.relative.y*0.005)
 		$CameraPivot.rotation.x=clamp($CameraPivot.rotation.x,deg_to_rad(-80),deg_to_rad(80))
 		
+	if event.is_action_pressed("toggle_camera"):
+		_toggle_camera()
+		
 	if event.is_action_pressed("ui_cancel"):
 		if Input.mouse_mode==Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 		else:
 			Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
-			
+	
 	if event.is_action_pressed("attack") and not GameManager.build_mode and not GameManager.in_water:
 		_attack()
 		
@@ -92,6 +117,10 @@ func _unhandled_input(event):
 	if event.is_action_pressed("drop_item") and not GameManager.build_mode and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		_drop_last_item()
 func _attack():
+	if is_attacking:
+		return
+	is_attacking=true
+	_play_anim(ANIM_ATTACK,true)
 	var mesh=$MeshInstance3D
 	var original_pos=mesh.position
 	var lunge_tween=create_tween()
