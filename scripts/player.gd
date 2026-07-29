@@ -24,7 +24,8 @@ const ANIM_JUMP:String="Jump"
 const ANIM_FALL:String="Fall"
 const ANIM_SWIM:String="Swimming"
 const ANIM_FLY:String="Flying"
-const ANIM_ATTACK:String="SwordSlash"
+const ANIM_SWORD:String="SwordSlash"
+const ANIM_PUNCH:String="Punch"
 const ANIM_DEATH:String="Die"
 
 @onready var camera_pivot:Node3D=$CameraPivot
@@ -38,8 +39,8 @@ var was_on_floor:bool=true
 @onready var third_person_cam:Camera3D=$CameraPivot/ThirdPersonArm/ThirdPersonCamera
 @onready var first_person_cam:Camera3D=$CameraPivot/FirstPersonPoint/Camera3D
 @onready var anim_player:AnimationPlayer=$CharacterModel/AnimationPlayer
-@onready var right_hand:Marker3D=$CameraPivot/FirstPersonPoint/Camera3D/RightHand
-
+@onready var first_person_hand:Marker3D=$CameraPivot/FirstPersonPoint/Camera3D/RightHand
+@onready var third_person_hand:Marker3D=$CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand/GripPoint
 var is_first_person:bool=false
 var is_attacking:bool=false
 var is_dead:bool=false
@@ -57,6 +58,8 @@ func _ready():
 	call_deferred("_update_hand_visuals")
 	third_person_cam.current=true
 	first_person_cam.current=false
+	
+	third_person_arm.add_excluded_object(self.get_rid())
 func _on_player_damaged():
 	_camera_shake()
 	_flash_vignette()
@@ -120,22 +123,29 @@ func _attack():
 	if is_attacking:
 		return
 	is_attacking=true
-	_play_anim(ANIM_ATTACK,true)
-	var mesh=$MeshInstance3D
-	var original_pos=mesh.position
-	var lunge_tween=create_tween()
-	lunge_tween.tween_property(mesh,"position",original_pos+Vector3(0,0,-0.3),0.05)
-	lunge_tween.tween_property(mesh,"position",original_pos,0.1)
+	
+	var held_item=GameManager.get_acitve_hotbar_item()
+	var is_holding_sword=false
+	if not held_item.is_empty() and "sword" in held_item["id"].to_lower():
+		is_holding_sword=true
+	if is_holding_sword:
+		_play_anim(ANIM_SWORD,true)
+	else:
+		_play_anim(ANIM_PUNCH,true)
 	for body in attack_zone.get_overlapping_bodies():
 		if body.is_in_group("enemy") or body.is_in_group("huntable"):
 			body.take_damage(GameManager.get_attack_damage(),global_position)
 			var spark=HIT_SPARK.instantiate()
 			get_tree().current_scene.add_child(spark)
 			spark.global_position=body.global_position+Vector3(0,1,0)
-			
+	await anim_player.animation_finished
+	is_attacking=false
 func _physics_process(delta):
+	if is_dead:
+		move_and_slide()
+		return
 	if is_on_floor() and not was_on_floor:
-		_squash()
+		_on_landed()
 		if flight_active:
 			_stop_flight()
 	was_on_floor=is_on_floor()
@@ -193,22 +203,10 @@ func _physics_process(delta):
 		if flight_active:
 			_stop_flight()
 		global_position=$"../PlayerSpawnPoint".global_position
-	if GameManager.player_health<=0:
-		_drop_inventory_on_death()
-		GameManager.heal_player(GameManager.MAX_PLAYER_HEALTH)
-		if flight_active:
-			_stop_flight()
-		global_position=$"../PlayerSpawnPoint".global_position
-		GameManager.player_invincible=true
-		await get_tree().create_timer(2.0).timeout
-		GameManager.player_invincible=false
+	if GameManager.player_health<=0 and not is_dead:
+		_die()
+	_update_animation(direction.length()>0.1,GameManager.is_sprinting)
 	move_and_slide()
-func _squash():
-	var mesh=$MeshInstance3D
-	var original_scale=mesh.scale
-	var tween=create_tween()
-	tween.tween_property(mesh, "scale", Vector3(original_scale.x * 1.2, original_scale.y * 0.7, original_scale.z * 1.2), 0.06)
-	tween.tween_property(mesh,"scale",original_scale,0.12)
 
 func _update_shelter_status():
 	var space_state=get_world_3d().direct_space_state
@@ -245,8 +243,13 @@ func _update_hand_visuals():
 			current_held_model=model_scene.instantiate()
 			
 			_disable_secret_triggers(current_held_model)
-			right_hand.add_child(current_held_model)
-			current_held_model.transform=Transform3D()
+			if is_first_person:
+				first_person_hand.add_child(current_held_model)
+				current_held_model.transform=Transform3D()
+			else:
+				third_person_hand.add_child(current_held_model)
+				current_held_model.transform=Transform3D()
+
 		
 
 func _start_flight():
@@ -344,5 +347,80 @@ func _disable_secret_triggers(node:Node3D):
 	if node is Area3D:
 		node.monitoring=false
 		node.monitorable=false
+	if node is CollisionShape3D:
+		node.disabled=true
 	for child in node.get_children():
 		_disable_secret_triggers(child)
+
+func _toggle_camera():
+	is_first_person=!is_first_person
+	if is_first_person:
+		third_person_cam.current=false
+		first_person_cam.current=true
+		character_model.visible=false
+		third_person_arm.spring_length=0.0
+		if is_instance_valid(current_held_model):
+			current_held_model.reparent(first_person_hand,false)
+			current_held_model.transform=Transform3D()
+	else:
+		third_person_cam.current=true
+		first_person_cam.current=false
+		character_model.visible=true
+		third_person_arm.spring_length=4.0
+		if is_instance_valid(current_held_model):
+			current_held_model.reparent(third_person_hand,false)
+			current_held_model.transform=Transform3D()
+		
+func _on_landed():
+	var original_scale=character_model.scale
+	var tween=create_tween()
+	tween.tween_property(character_model, "scale", Vector3(original_scale.x * 1.15, original_scale.y * 0.75, original_scale.z * 1.15), 0.06)
+	tween.tween_property(character_model,"scale",original_scale,0.12)
+	
+func _play_anim(anim_name:String,force:bool=false):
+	if current_anim==anim_name and not force:
+		return
+	if not anim_player.has_animation(anim_name):
+		return
+	current_anim=anim_name
+	anim_player.play(anim_name)
+	
+func _update_animation(is_moving:bool,is_sprinting:bool):
+	if is_dead:
+		_play_anim(ANIM_DEATH)
+		return
+	if is_attacking:
+		return
+	if GameManager.in_water:
+		_play_anim(ANIM_SWIM)
+		return
+	if flight_active:
+		_play_anim(ANIM_FLY)
+		return
+	if not is_on_floor():
+		if velocity.y>0.5:
+			_play_anim(ANIM_JUMP)
+		else:
+			_play_anim(ANIM_FALL)
+		return
+	if is_moving and is_sprinting:
+		_play_anim(ANIM_RUN)
+	elif is_moving:
+		_play_anim(ANIM_WALK)
+	else:
+		_play_anim(ANIM_IDLE)
+func _die():
+	is_dead=true
+	_drop_inventory_on_death()
+	_play_anim(ANIM_DEATH,true)
+	await get_tree().create_timer(2.0).timeout
+	_respawn()
+func _respawn():
+	is_dead=false
+	GameManager.heal_player(GameManager.MAX_PLAYER_HEALTH)
+	if flight_active:
+		_stop_flight()
+	global_position=$"../PlayerSpawnPoint".global_position
+	GameManager.player_invincible=true
+	await get_tree().create_timer(2.0).timeout
+	GameManager.player_invincible=false
