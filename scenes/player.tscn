@@ -77,8 +77,11 @@ transform = Transform3D(-0.1846465, -0.2520825, 0.94992626, 0.3185046, -0.929730
 bone_name = "mixamorigRightHand"
 bone_idx = 34
 
-[node name="GripPoint" type="Marker3D" parent="CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand" unique_id=1137616672]
-transform = Transform3D(-1.2492604, 19.922064, -1.2453858, -18.69477, -1.6050906, -6.923119, -6.9960823, 0.7316699, 18.72217, 0.31784916, 4.0710754, 0.017482758)
+[node name="SwordGrip" type="Marker3D" parent="CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand" unique_id=1137616672]
+transform = Transform3D(2.4302218, 19.608929, -3.0959182, -4.3036, -2.5244737, -19.367662, -19.37972, 3.0195584, 3.9126887, 2.6061058, 4.2839937, 1.1722155)
+
+[node name="DefaultGrip" type="Marker3D" parent="CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand" unique_id=752707483]
+transform = Transform3D(-4.241131, 6.207791, -6.593649, -0.7413112, 7.018483, 7.084587, 9.025707, 3.4934568, -2.5164394, 0.49840498, 1.9188395, 0.21069622)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=303846899]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5716858, 0)
