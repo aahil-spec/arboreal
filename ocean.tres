@@ -2,6 +2,32 @@
 
 [ext_resource type="Shader" uid="uid://ch31hb11kigvf" path="res://spring.tres" id="1_8dmnu"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8dmnu"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_h3wkb"]
+noise = SubResource("FastNoiseLite_8dmnu")
+as_normal_map = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cdnpg"]
+seed = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_e2ar4"]
+noise = SubResource("FastNoiseLite_cdnpg")
+as_normal_map = true
+
 [resource]
 render_priority = 0
 shader = ExtResource("1_8dmnu")
+shader_parameter/shallow_color = Color(0, 0.8, 0.8, 1)
+shader_parameter/deep_color = Color(0.05, 0.1, 0.3, 1)
+shader_parameter/foam_color = Color(1, 1, 1, 1)
+shader_parameter/depth_distance = 8.0
+shader_parameter/foam_distance = 0.5
+shader_parameter/wave_scale = 20.0
+shader_parameter/wave_height = 0.8
+shader_parameter/wave_speed = 1.2
+shader_parameter/wave_texture_1 = SubResource("NoiseTexture2D_h3wkb")
+shader_parameter/wave_texture_2 = SubResource("NoiseTexture2D_e2ar4")
+shader_parameter/wave_direction_1 = Vector2(1, 0.2)
+shader_parameter/wave_direction_2 = Vector2(-0.5, 1)
+shader_parameter/refraction_strength = 0.015
