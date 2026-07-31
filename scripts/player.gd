@@ -57,8 +57,8 @@ func _ready():
 	
 	GameManager.hotbar_changed.connect(_update_hand_visuals)
 	call_deferred("_update_hand_visuals")
-	third_person_cam.current=true
-	first_person_cam.current=false
+	third_person_cam.current=false
+	first_person_cam.current=true
 	
 	third_person_arm.add_excluded_object(self.get_rid())
 func _on_player_damaged():
@@ -146,7 +146,6 @@ func _physics_process(delta):
 		move_and_slide()
 		return
 	if is_on_floor() and not was_on_floor:
-		_on_landed()
 		if flight_active:
 			_stop_flight()
 	was_on_floor=is_on_floor()
@@ -379,11 +378,7 @@ func _toggle_camera():
 				current_held_model.reparent(grip_default,false)
 				current_held_model.transform=Transform3D()
 		
-func _on_landed():
-	var original_scale=character_model.scale
-	var tween=create_tween()
-	tween.tween_property(character_model, "scale", Vector3(original_scale.x * 1.15, original_scale.y * 0.75, original_scale.z * 1.15), 0.06)
-	tween.tween_property(character_model,"scale",original_scale,0.12)
+		
 	
 func _play_anim(anim_name:String,force:bool=false):
 	if current_anim==anim_name and not force:

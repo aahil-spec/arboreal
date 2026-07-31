@@ -101,7 +101,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11388874, -0.49883056, 0)
 [node name="Camera3D" type="Camera3D" parent="CameraPivot/FirstPersonPoint" unique_id=1552363647]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11388874, 0.49883056, 0)
 near = 0.01
-far = 200.0
+far = 2500.0
 
 [node name="RightHand" type="Marker3D" parent="CameraPivot/FirstPersonPoint/Camera3D" unique_id=1577134651]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, -0.6935656, -1.0674261)

@@ -12,6 +12,10 @@
 [ext_resource type="Texture2D" uid="uid://xikhe8buc1fm" path="res://assets/Textures/rocky terrian/packed_normal_roughness.png" id="10_qk5g0"]
 [ext_resource type="Texture2D" uid="uid://m3svtqmxdg6g" path="res://assets/Textures/rocky trail/packed_albedo_height.png" id="11_senjq"]
 [ext_resource type="Texture2D" uid="uid://cni0ef63p7go" path="res://assets/Textures/rocky trail/packed_normal_roughness.png" id="12_t78h4"]
+[ext_resource type="Texture2D" uid="uid://bx7brvfdobwww" path="res://assets/Textures/maati/packed_albedo_height.png" id="13_gnejw"]
+[ext_resource type="Texture2D" uid="uid://byr0daac00inl" path="res://assets/Textures/maati/packed_normal_roughness.png" id="14_qk5g0"]
+[ext_resource type="Texture2D" uid="uid://dibbrtb60i1in" path="res://assets/Textures/snow/packed_albedo_height.png" id="15_senjq"]
+[ext_resource type="Texture2D" uid="uid://ck0ogupbfdtxb" path="res://assets/Textures/snow/packed_normal_roughness.png" id="16_t78h4"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xyh1j"]
 transparency = 4
@@ -68,6 +72,18 @@ albedo_texture = ExtResource("11_senjq")
 normal_texture = ExtResource("12_t78h4")
 uv_scale = 1.5
 
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_senjq"]
+name = "maati"
+id = 6
+albedo_texture = ExtResource("13_gnejw")
+normal_texture = ExtResource("14_qk5g0")
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_3u6ge"]
+name = "snow"
+id = 7
+albedo_texture = ExtResource("15_senjq")
+normal_texture = ExtResource("16_t78h4")
+
 [resource]
 mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_6f161")])
-texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_muem4"), SubResource("Terrain3DTextureAsset_dp3eg"), SubResource("Terrain3DTextureAsset_cf8io"), SubResource("Terrain3DTextureAsset_6f161"), SubResource("Terrain3DTextureAsset_cgk4v"), SubResource("Terrain3DTextureAsset_vs002")])
+texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_muem4"), SubResource("Terrain3DTextureAsset_dp3eg"), SubResource("Terrain3DTextureAsset_cf8io"), SubResource("Terrain3DTextureAsset_6f161"), SubResource("Terrain3DTextureAsset_cgk4v"), SubResource("Terrain3DTextureAsset_vs002"), SubResource("Terrain3DTextureAsset_senjq"), SubResource("Terrain3DTextureAsset_3u6ge")])

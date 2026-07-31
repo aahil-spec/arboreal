@@ -11,7 +11,7 @@ var player:Node3D=null
 var home_position:Vector3=Vector3.ZERO
 var wander_target:Vector3=Vector3.ZERO
 
-@onready var mesh:MeshInstance3D=$MeshInstance3D
+@onready var mesh:MeshInstance3D=$deer_animation/Mesh
 @onready var nav_agent:NavigationAgent3D=$NavigationAgent3D
 
 
