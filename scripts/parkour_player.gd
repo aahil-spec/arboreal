@@ -6,17 +6,38 @@ const JUMP_VELOCITY = 5.0
 const MOUSE_SENSITIVITY:float=0.003
 const GRAVITY_STRENGTH:float=20.0
 
-var gravity_dir:Vector3=Vector3.DOWN
+const ANIM_IDLE:String="Idle"
+const ANIM_WALK:String="Walking"
+const ANIM_RUN:String="Run"
+const ANIM_JUMP:String="Jump"
+const ANIM_FALL:String="Fall"
+const ANIM_SWIM:String="Swimming"
 
+
+var gravity_dir:Vector3=Vector3.DOWN
 var target_basis:Basis=Basis.IDENTITY
+var pitch:float=0.0
 
 @onready var camera_pivot:Node3D=$CameraPivot
+@onready var character_model:Node3D=$CharacterModel
+@onready var anim_player:AnimationPlayer=$CharacterModel/AnimationPlayer
 
-var pitch:float=0.0
+@onready var third_person_arm:SpringArm3D=$CameraPivot/ThirdPersonArm
+@onready var third_person_cam:Camera3D=$CameraPivot/ThirdPersonArm/ThirdPersonCamera
+@onready var first_person_cam:Camera3D=$CameraPivot/FirstPersonPoint/Camera3D
+
+var is_first_person:bool=false
+var current_anim:String=""
+
 
 func _ready():
 	Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
 	target_basis=global_transform.basis
+	third_person_cam.current=false
+	first_person_cam.current=true
+	character_model.visible=false
+	if has_node("CameraPivot/ThirdPersonArm"):
+		third_person_arm.add_excluded_object(self.get_rid())
 	
 func _unhandled_input(event):
 	if event is InputEventMouseMotion and Input.mouse_mode==Input.MOUSE_MODE_CAPTURED:
@@ -26,7 +47,8 @@ func _unhandled_input(event):
 		pitch-=event.relative.y*MOUSE_SENSITIVITY
 		pitch=clamp(pitch,-1.2,1.2)
 		camera_pivot.rotation.x=pitch
-		
+	if event.is_action_pressed("toggle_camera"):
+		_toggle_camera()
 	if event.is_action_pressed("ui_cancel"):
 		if Input.mouse_mode==Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
@@ -109,4 +131,40 @@ func _physics_process(delta):
 	velocity=horizontol_velocity+vertical_velocity
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity+=-gravity_dir*JUMP_VELOCITY
+	var is_moving=move_dir.length()>0.1
+	_update_animation(is_moving)
 	move_and_slide()
+	
+func _toggle_camera():
+	is_first_person=!is_first_person
+	if is_first_person:
+		third_person_cam.current=false
+		first_person_cam.current=true
+		character_model.visible=false
+		third_person_arm.spring_length=0.0
+	else:
+		third_person_cam.current=true
+		first_person_cam.current=false
+		character_model.visible=true
+		third_person_arm.spring_length=4.0
+		
+func _play_animation(anim_name:String,force:bool=false):
+	if current_anim==anim_name and not force:
+		return
+	if not anim_player.has_animation(anim_name):
+		return
+	current_anim=anim_name
+	anim_player.play(anim_name)
+	
+func _update_animation(is_moving:bool):
+	if not is_on_floor():
+		var upward_speed=velocity.dot(-gravity_dir)
+		if upward_speed>0.5:
+			_play_anim(ANIM_JUMP)
+		else:
+			_play_anim(ANIM_FALL)
+		return
+	if is_moving:
+		_play_anim(ANIM_RUN)
+	else:
+		_play_anim(ANIM_IDLE)
