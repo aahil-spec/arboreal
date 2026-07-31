@@ -42,6 +42,7 @@ var was_on_floor:bool=true
 @onready var first_person_hand:Marker3D=$CameraPivot/FirstPersonPoint/Camera3D/RightHand
 @onready var grip_sword:Marker3D=$CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand/SwordGrip
 @onready var grip_default:Marker3D=$CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand/DefaultGrip
+@onready var wings_grip:Marker3D=$CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand/WingsGrip
 var is_first_person:bool=false
 var is_attacking:bool=false
 var is_dead:bool=false
@@ -249,9 +250,12 @@ func _update_hand_visuals():
 			else:
 				if "sword" in item_id.to_lower():
 					grip_sword.add_child(current_held_model)
+				elif item_id.to_lower()=="emberwing":
+					wings_grip.add_child(current_held_model)
 				else:
 					grip_default.add_child(current_held_model)
 				current_held_model.transform=Transform3D()
+			
 
 		
 
@@ -372,11 +376,15 @@ func _toggle_camera():
 		third_person_arm.spring_length=4.0
 		if is_instance_valid(current_held_model):
 			var item=GameManager.get_acitve_hotbar_item()
-			if not item.is_empty() and "sword" in item["id"].to_lower():
-				current_held_model.reparent(grip_sword,false)
-			else:
-				current_held_model.reparent(grip_default,false)
-				current_held_model.transform=Transform3D()
+			if not item.is_empty():
+				var item_id=item["id"].to_lower()
+				if "sword" in item_id:
+					current_held_model.reparent(grip_sword,false)
+				elif item_id=="emberwing":
+					current_held_model.reparent(wings_grip,false)
+				else:
+					current_held_model.reparent(grip_default,false)
+					current_held_model.transform=Transform3D()
 		
 		
 	

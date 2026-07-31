@@ -22,12 +22,12 @@ func _process(delta):
 			_teleport()
 			
 func _on_body_entered(body):
-	if body.name=="Player":
+	if "Player" in body.name or "player" in body.name:
 		player_inside=true
 		teleport_timer=0.0
 
 func _on_body_exited(body):
-	if body.name=="Player":
+	if "Player" in body.name or "player" in body.name:
 		player_inside=false
 		teleport_timer=0.0
 		

@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://c0xsy1jjjkb4b"]
 
 [ext_resource type="Script" uid="uid://cmryfsppyn5b1" path="res://scripts/glider_item.gd" id="1_fcusq"]
+[ext_resource type="PackedScene" uid="uid://b8ajgnrfvr7eo" path="res://assets/models/angel_wings.glb" id="2_wn8dy"]
 
 [node name="EmberWings" type="Node3D" unique_id=234992017]
 script = ExtResource("1_fcusq")
+
+[node name="Model" parent="." unique_id=2105269736 instance=ExtResource("2_wn8dy")]

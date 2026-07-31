@@ -99,7 +99,7 @@ func _physics_process(delta):
 	fall_speed+=GRAVITY_STRENGTH*delta
 	velocity+=gravity_dir*fall_speed
 	
-	global_transform.basis=global_transform.basis.slerp(target_basis,12.0*delta)
+	global_transform.basis = global_transform.basis.orthonormalized().slerp(target_basis.orthonormalized(), 12.0 * delta)
 	
 	global_transform.basis=global_transform.basis.orthonormalized()
 	
@@ -148,7 +148,7 @@ func _toggle_camera():
 		character_model.visible=true
 		third_person_arm.spring_length=4.0
 		
-func _play_animation(anim_name:String,force:bool=false):
+func _play_anim(anim_name:String,force:bool=false):
 	if current_anim==anim_name and not force:
 		return
 	if not anim_player.has_animation(anim_name):

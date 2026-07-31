@@ -117,6 +117,7 @@ var item_models:Dictionary={
 	"boots_swift":"res://scenes/pieces/boots_swift.tscn",
 	"leggings_leather":"res://scenes/pieces/leggings_leather.tscn",
 	"fiber":"res://scenes/pieces/fiber_bush.tscn",
+	"emberwing":"res://scenes/ember_wings.tscn"
 }
 
 var active_quests:Array=[]

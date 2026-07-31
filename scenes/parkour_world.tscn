@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b44vl6kfvursq" path="res://scenes/portal.tscn" id="1_hqrto"]
 [ext_resource type="PackedScene" uid="uid://bb4xhwdlm36ui" path="res://scenes/parkour_player.tscn" id="2_fo3hj"]
+[ext_resource type="PackedScene" uid="uid://ieqykf03wt2j" path="res://scenes/chest.tscn" id="4_gq3tw"]
 
 [sub_resource type="Environment" id="Environment_hqrto"]
 
@@ -292,9 +293,12 @@ mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="ParkourPlayer" parent="." unique_id=1052681183 instance=ExtResource("2_fo3hj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64.83072, 211.7673, -221.2365)
 
 [node name="Portal" parent="." unique_id=417652037 instance=ExtResource("1_hqrto")]
 transform = Transform3D(-1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0, 1, -68.609146, 196.80559, -253.74269)
 target_scene = "res://scenes/main.scn"
 is_return_portal = true
+
+[node name="Chest" parent="." unique_id=201137574 instance=ExtResource("4_gq3tw")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -66.08916, 205.6671, -219.31073)

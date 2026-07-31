@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://60kscwbtt3pl"]
+
+[ext_resource type="PackedScene" uid="uid://b8ajgnrfvr7eo" path="res://assets/models/angel_wings.glb" id="1_hpav6"]
+[ext_resource type="Script" uid="uid://y4wplo6fm6ud" path="res://scripts/wings_pickup.gd" id="1_ie8dd"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ie8dd"]
+radius = 0.9389576
+
+[node name="WingsPickup" type="Area3D" unique_id=1593766238]
+script = ExtResource("1_ie8dd")
+item_id = "emberwing"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=323844510]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95520234, 0)
+shape = SubResource("SphereShape3D_ie8dd")
+
+[node name="Model" parent="." unique_id=2105269736 instance=ExtResource("1_hpav6")]
