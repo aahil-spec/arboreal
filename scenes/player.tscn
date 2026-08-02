@@ -87,8 +87,13 @@ transform = Transform3D(-4.241131, 6.207791, -6.593649, -0.7413112, 7.018483, 7.
 [node name="WingsGrip" type="Marker3D" parent="CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand" unique_id=2058847901]
 transform = Transform3D(3.971827, 5.353657, -2.1361215, 5.547249, -4.255078, -0.34994048, -1.5661153, -1.4942389, -6.656922, -5.2511053, 6.8737316, 3.592352)
 
-[node name="EmberWings" parent="CharacterModel" unique_id=280031889 instance=ExtResource("3_dqkch")]
-transform = Transform3D(38.408188, -0.79968244, -11.143219, -3.7205386, 36.704365, -15.457928, 10.53415, 15.879246, 35.169323, 2.9011142, -20.532663, -19.814774)
+[node name="BackAttachment3D" type="BoneAttachment3D" parent="CharacterModel/AuxScene/Node/Skeleton3D" index="2" unique_id=784618190]
+transform = Transform3D(35.17905, 2.5024452, -27.949463, -1.0828507, 44.908386, 2.6579082, 28.040365, -1.4052795, 35.167645, 0.29972154, 37.269424, -0.6854125)
+bone_name = "mixamorigSpine"
+bone_idx = 1
+
+[node name="EmberWingsVisual" parent="CharacterModel/AuxScene/Node/Skeleton3D/BackAttachment3D" unique_id=234992017 instance=ExtResource("3_dqkch")]
+transform = Transform3D(0.9992898, 0.03760709, 0.0024729967, -0.037448235, 0.9981789, -0.04729794, -0.0042474866, 0.047171686, 0.998878, -0.046345375, -0.85396326, -0.13479264)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=303846899]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5716858, 0)

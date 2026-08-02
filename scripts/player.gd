@@ -43,6 +43,7 @@ var was_on_floor:bool=true
 @onready var grip_sword:Marker3D=$CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand/SwordGrip
 @onready var grip_default:Marker3D=$CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand/DefaultGrip
 @onready var wings_grip:Marker3D=$CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand/WingsGrip
+@onready var wings_visual:Node3D=$CharacterModel/AuxScene/Node/Skeleton3D/BackAttachment3D/EmberWingsVisual
 var is_first_person:bool=false
 var is_attacking:bool=false
 var is_dead:bool=false
@@ -154,7 +155,8 @@ func _physics_process(delta):
 	_update_shelter_status()
 	_update_heat_status()
 	_update_flight_energy(delta)
-	
+	_update_equipment_visuals()
+	print("equipped wings:",GameManager.equipped["wings"])
 	var input_dir :Vector2= Input.get_vector("move_left", "move_right","move_up", "move_down")
 	var direction :Vector3= (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
@@ -435,3 +437,9 @@ func _respawn():
 	GameManager.player_invincible=true
 	await get_tree().create_timer(2.0).timeout
 	GameManager.player_invincible=false
+func _update_equipment_visuals():
+	if wings_visual:
+		if GameManager.equipped.has("wings") and GameManager.equipped["wings"] !="":
+			wings_visual.visible=true
+		else:
+			wings_visual.visible=false

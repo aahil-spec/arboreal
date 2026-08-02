@@ -11,8 +11,14 @@ var player:Node3D=null
 var home_position:Vector3=Vector3.ZERO
 var wander_target:Vector3=Vector3.ZERO
 
+var is_dead:bool=false
+var is_fleeing:bool=false
+
+
 @onready var mesh:MeshInstance3D=$deer_animation/Mesh
 @onready var nav_agent:NavigationAgent3D=$NavigationAgent3D
+
+@onready var anim_player:AnimationPlayer=$Sketchfab_Scene/AnimationPlayer
 
 
 func _ready():
@@ -30,11 +36,19 @@ func take_damage(amount:int,attacker_position:Vector3=Vector3.ZERO):
 	health-=amount
 	
 	_flash()
-	print("Dear health",health)
+	if health<=0:
+		_die()
+	
+func _die():
+	is_dead=true
+	velocity=Vector3.ZERO
 	GameManager.spawn_drop("raw_meat_bundle",global_position)
 	GameManager.update_quest_progress("hunt_deer")
-	queue_free()
 	
+	anim_player.play("Death_Stand_R01")
+	
+	await anim_player.animation_finished
+	queue_free()
 func _flash():
 	var flash_mat=StandardMaterial3D.new()
 	flash_mat.albedo_color=Color(1,1,1)
@@ -52,6 +66,7 @@ func _physics_process(delta):
 		flee_direction=flee_direction.normalized()
 		nav_agent.target_position=global_position+flee_direction*10.0
 	else:
+		is_fleeing=false
 		if global_position.distance_to(wander_target)<1.0:
 			_pick_new_wander_target()
 		nav_agent.target_position=wander_target
@@ -61,10 +76,21 @@ func _physics_process(delta):
 		var direction=(next_point-global_position)
 		direction.y=0
 		direction=direction.normalized()
-		velocity.x=direction.x*SPEED
-		velocity.z=direction.z*SPEED
+		if direction.length()>0.1:
+			var look_pos=global_position+direction
+			look_at(Vector3(look_pos.x,global_position.y,look_pos.z),Vector3.UP)
+		if is_fleeing:
+			velocity.x=direction.x*(SPEED*1.5)
+			velocity.z=direction.z*(SPEED*1.5)
+			anim_player.play("Run")
+		else:
+			velocity.x=direction.x*SPEED
+			velocity.z=direction.z*SPEED
+			anim_player.play("Walk")
 	else:
+		
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
+		anim_player.play("Stand_Breathing_01")
 		
 	move_and_slide()
