@@ -7,29 +7,25 @@ extends Node
 @onready var breath_row:HBoxContainer=$BreathRow
 
 var pulse_tween:Tween=null
+var update_timer:float=0.0
+var stamina_bar:Node=null
+var flight_bar:Node=null
+var flight_label:Node=null
+
+func _ready():
+	GameManager.player_damaged.connect(_update_health_ui)
+	
+	stamina_bar=get_tree().current_scene.get_node_or_null("CanvasLayer/StaminaBar")
+	flight_bar=get_tree().current_scene.get_node_or_null("CanvasLayer/FlightBar")
+	if flight_bar:
+		flight_label=flight_bar.get_node_or_null("Flight_label")
+	_update_health_ui()
+func _update_health_ui():
+	health_row.update_value(GameManager.player_health,GameManager.MAX_PLAYER_HEALTH)
+	_update_low_health_pulse()
 @warning_ignore("unused_parameter")
 func _process(delta):
-	health_row.update_value(GameManager.player_health,GameManager.MAX_PLAYER_HEALTH)
-	hunger_row.update_value(GameManager.hunger,GameManager.MAX_HUNGER)
-	thirst_row.update_value(GameManager.thirst,GameManager.MAX_THRIST)
-	warmth_row.update_value(GameManager.warmth,GameManager.MAX_WARMTH)
-	breath_row.visible=GameManager.in_water
-	if GameManager.in_water:
-		breath_row.update_value(GameManager.breath,GameManager.MAX_BREATH)
-		
-	var stamina_bar=get_tree().current_scene.get_node_or_null("CanvasLayer/StaminaBar")
-	if stamina_bar:
-		stamina_bar.value=GameManager.stamina
-		stamina_bar.visible=GameManager.stamina<GameManager.MAX_STAMINA
-		
-	_update_low_health_pulse()
-	
-	var flight_bar=get_tree().current_scene.get_node_or_null("CanvasLayer/FlightBar")
-	if flight_bar:
-		flight_bar.value=GameManager.flight_energy
-		flight_bar.visible=GameManager.has_wings()
-	
-	var flight_label=get_tree().current_scene.get_node_or_null("CanvasLayer/FlightBar/Flight_label")
+	update_timer+=delta
 	if flight_label:
 		flight_label.visible=GameManager.has_wings()
 		if GameManager.flight_energy<=0.0:

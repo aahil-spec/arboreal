@@ -15,7 +15,6 @@ var is_dead:bool=false
 var is_fleeing:bool=false
 
 
-@onready var mesh:MeshInstance3D=$deer_animation/Mesh
 @onready var nav_agent:NavigationAgent3D=$NavigationAgent3D
 
 @onready var anim_player:AnimationPlayer=$Sketchfab_Scene/AnimationPlayer
@@ -52,9 +51,14 @@ func _die():
 func _flash():
 	var flash_mat=StandardMaterial3D.new()
 	flash_mat.albedo_color=Color(1,1,1)
-	mesh.material_override=flash_mat
+	var all_meshes=find_children("*","MeshInstance3D",true,false)
+	
+	for m in all_meshes:
+		m.material_override=flash_mat
 	await get_tree().create_timer(0.1).timeout
-	mesh.material_override=null
+	for m in all_meshes:
+		if is_instance_valid(m):
+			m.material_override=null
 	
 func _physics_process(delta):
 	if not is_on_floor():

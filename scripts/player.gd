@@ -156,7 +156,6 @@ func _physics_process(delta):
 	_update_heat_status()
 	_update_flight_energy(delta)
 	_update_equipment_visuals()
-	print("equipped wings:",GameManager.equipped["wings"])
 	var input_dir :Vector2= Input.get_vector("move_left", "move_right","move_up", "move_down")
 	var direction :Vector3= (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	

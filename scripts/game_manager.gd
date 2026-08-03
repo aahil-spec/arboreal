@@ -81,8 +81,11 @@ var active_hotbar_slot:int=0
 var shop_open:bool=false
 
 var discovered_locations:Array=[]
-@warning_ignore("unused_signal")
+
 signal hotbar_changed
+signal inventory_changed
+signal quest_completed_signal(quest_title)
+
 var recipes:Dictionary={
 	"armor_leather":{"timber":0,"fiber":8,"meat":0},
 	"boots_swift":{"timber":4,"fiber":4,"meat":0},
@@ -226,7 +229,6 @@ func _process(delta):
 			survival_damage_timer=1.0
 			damage_player(2)
 	if in_water:
-		print(GameManager.in_water)
 		breath=max(breath-BREATH_DRAIN_PER_SECOND*delta,0.0)
 		if breath<=0.0:
 			drown_timer-=delta
@@ -257,6 +259,7 @@ func add_timber(amount: int, pickup_name: String = ""):
 func spend_timber(amount:int) ->bool:
 	if timber>=amount:
 		timber-=amount
+		inventory_changed.emit()
 		return true
 	return false
 	
@@ -326,6 +329,7 @@ func add_fiber(amount:int,pickup_name:String=""):
 func spend_fiber(amount:int):
 	if fiber>=amount:
 		fiber-=amount
+		inventory_changed.emit()
 		return true
 	return false
 
@@ -375,6 +379,7 @@ func add_to_inventory(item_id:String,amount:int=1):
 		var chunk=min(remaining,max_stack)
 		inventory.append({"id":item_id,"count":chunk})
 		remaining-=chunk
+	inventory_changed.emit()
 		
 func remove_from_inventory(item_id:String,amount:int):
 	var remaining=amount
@@ -389,7 +394,7 @@ func remove_from_inventory(item_id:String,amount:int):
 				inventory.remove_at(i)
 		if remaining<=0:
 			break
-			
+	inventory_changed.emit()
 
 func get_acitve_hotbar_item()-> Dictionary:
 	if active_hotbar_slot<inventory.size():
@@ -434,19 +439,10 @@ func _complete_quest(quest_id:String):
 	timber+=quest["reward_timber"]
 	add_item(quest["reward_item"])
 	print("Quest complete:",quest["title"],"! Rewards given.")
-	var notif=Engine.get_main_loop().current_scene.get_node_or_null("CanvasLayer/QuestNotification")
-	notif.text="Quest Complete:"+quest["title"]+"!"
-	notif.modulate=Color(1,0.85,0.2,1.0)
-	notif.visible=true
-	var tween=notif.create_tween()
-	tween.tween_interval(2.0)
-	tween.tween_property(notif,"modulate:a",0.0,1.0)
-	tween.tween_callback(func(): notif.visible = false)
+	quest_completed_signal.emit(quest["title"])
 	
-
 func has_wings():
 	return equipped["wings"]=="emberwing"
-
 func spawn_drop(item_id:String,world_position:Vector3):
 	var drop=DROPPED_ITEM_SCENE.instantiate()
 	drop.item_id=item_id
