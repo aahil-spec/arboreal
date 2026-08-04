@@ -32,6 +32,7 @@ const ANIM_DEATH:String="Die"
 @onready var attack_zone:Area3D=$AttackZone
 var footstep_timer:float=0.0
 var was_on_floor:bool=true
+var survival_check_timer:float=0.0
 @export var damage_vignette:ColorRect
 
 @onready var character_model:Node3D=$CharacterModel
@@ -152,9 +153,12 @@ func _physics_process(delta):
 			_stop_flight()
 	was_on_floor=is_on_floor()
 	GameManager.in_water=global_position.y<GameManager.water_y_level+0.5
-	_update_shelter_status()
-	_update_heat_status()
 	_update_flight_energy(delta)
+	survival_check_timer-=delta
+	if survival_check_timer<=0.0:
+		survival_check_timer=0.5
+		_update_shelter_status()
+		_update_heat_status()
 	_update_equipment_visuals()
 	var input_dir :Vector2= Input.get_vector("move_left", "move_right","move_up", "move_down")
 	var direction :Vector3= (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()

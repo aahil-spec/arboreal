@@ -26,6 +26,21 @@ func _update_health_ui():
 @warning_ignore("unused_parameter")
 func _process(delta):
 	update_timer+=delta
+	if update_timer<0.1:
+		return
+	update_timer=0.0
+	hunger_row.update_value(GameManager.hunger,GameManager.MAX_HUNGER)
+	thirst_row.update_value(GameManager.thirst,GameManager.MAX_THRIST)
+	warmth_row.update_value(GameManager.warmth,GameManager.MAX_WARMTH)
+	breath_row.visible=GameManager.in_water
+	if GameManager.in_water:
+		breath_row.update_value(GameManager.breath,GameManager.MAX_BREATH)
+	if stamina_bar:
+		stamina_bar.value=GameManager.stamina
+		stamina_bar.visible=GameManager.stamina<GameManager.MAX_STAMINA
+	if flight_bar:
+		flight_bar.value=GameManager.flight_energy
+		flight_bar.visible=GameManager.has_wings()
 	if flight_label:
 		flight_label.visible=GameManager.has_wings()
 		if GameManager.flight_energy<=0.0:

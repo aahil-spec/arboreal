@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dtxpvnjmha7u7"]
+
+[ext_resource type="PackedScene" uid="uid://d0lecdd3v3650" path="res://models/maple_tree.glb" id="1_avsvi"]
+
+[node name="Node3D" type="Node3D" unique_id=1184385890]
+
+[node name="Sketchfab_Scene" parent="." unique_id=230714448 instance=ExtResource("1_avsvi")]
