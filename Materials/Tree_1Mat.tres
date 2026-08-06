@@ -1,0 +1,19 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dcu8ukgef6bf3"]
+
+[ext_resource type="Texture2D" uid="uid://cb15theei6s35" path="res://models/maple_tree_3.png" id="1_vbmy0"]
+[ext_resource type="Texture2D" uid="uid://dav0fqufb8aao" path="res://models/maple_tree_4.png" id="2_ha6r1"]
+[ext_resource type="Texture2D" uid="uid://b0lquyvpk0pks" path="res://models/maple_tree_5.png" id="3_qv31i"]
+
+[resource]
+resource_name = "Tree_1Mat"
+transparency = 2
+alpha_scissor_threshold = 0.23968892
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_texture = ExtResource("1_vbmy0")
+metallic_texture = ExtResource("2_ha6r1")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_ha6r1")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_qv31i")

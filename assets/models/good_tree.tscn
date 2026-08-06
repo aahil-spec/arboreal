@@ -98,15 +98,15 @@ shadow_mesh = SubResource("ArrayMesh_c8d7t")
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=493380441]
-transform = Transform3D(1, 0, 0, 0, -0.048274506, 0.99883413, 0, -0.99883413, -0.048274506, 0, -1.0396423, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.0396423, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1203550874]
 shape = SubResource("ConcavePolygonShape3D_2ywbs")
 
 [node name="tree4_bark_0" type="MeshInstance3D" parent="." unique_id=706246458]
-transform = Transform3D(1, 0, 0, 0, -0.048274506, 0.99883413, 0, -0.99883413, -0.048274506, 0, -1.0396423, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.0396423, 0)
 mesh = SubResource("ArrayMesh_ec5df")
 
 [node name="tree4_leaves_0" type="MeshInstance3D" parent="." unique_id=226859326]
-transform = Transform3D(1, 0, 0, 0, -0.048274506, 0.99883413, 0, -0.99883413, -0.048274506, 0, -1.0396423, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.0396423, 0)
 mesh = SubResource("ArrayMesh_hak4q")
