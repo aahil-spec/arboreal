@@ -78,8 +78,6 @@ func _process(delta):
 		ember_label.text="Quest:"+quest["title"]
 	else:
 		ember_label.text="Embers:"+str(GameManager.embers_collected)+"/3"
-
-	get_tree().current_scene.get_node("CanvasLayer/UnderwaterOverlay").visible=GameManager.in_water
 	get_tree().current_scene.get_node("CanvasLayer/GravityOverlay").visible=GameManager.in_gravity_zone
 	var weapon_name="None"
 	if GameManager.equipped["weapon"]!="":

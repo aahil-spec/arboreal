@@ -68,7 +68,6 @@ var collected_fiber_names:Array=[]
 
 
 var in_water:bool=false
-var water_y_level:float=-3.0
 
 var breath:float=100.0
 const MAX_BREATH:float=100.0

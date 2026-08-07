@@ -45,13 +45,8 @@ func save_game():
 		"quest_progress":GameManager.quest_progress,
 		"player_name":GameManager.player_name,
 		"flight_energy":GameManager.flight_energy,
+		"time_of_day":GameManager.time_of_day,
 	}
-	
-	var file=FileAccess.open(SAVE_PATH,FileAccess.WRITE)
-	file.store_string(JSON.stringify(data))
-	file.close()
-	print("Game saved")
-	
 	var dropped_items_data=[]
 	for node in get_tree().get_nodes_in_group("dropped_item"):
 		dropped_items_data.append({
@@ -63,6 +58,11 @@ func save_game():
 			}
 		})
 	data["dropped_items"]=dropped_items_data
+	
+	var file=FileAccess.open(SAVE_PATH,FileAccess.WRITE)
+	file.store_string(JSON.stringify(data))
+	file.close()
+	print("Game saved")
 	
 func load_game():
 	if not FileAccess.file_exists(SAVE_PATH):
@@ -101,7 +101,7 @@ func load_game():
 	GameManager.quest_progress=data.get("quest_progress",{})
 	GameManager.player_name=data.get("player_name","Traveler")
 	GameManager.flight_energy=data.get("flight_energy",GameManager.MAX_FLIGHT_ENERGY)
-	
+	GameManager.time_of_day=data.get("time_of_day",12.0)
 	for node in get_tree().get_nodes_in_group("dropped_item"):
 		node.queue_free()
 	if data.has("dropped_items"):

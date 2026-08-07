@@ -11,13 +11,15 @@ var player_aboard:bool=false
 var player_ref:Node3D=null
 var boarding_player_in_range:bool=false
 
+var in_water:bool=false
+var current_surface_y:float=-3.0
+
 @onready var boarding_point:Marker3D=$BoardingPoint
 @onready var board_zone:Area3D=$BoardZone
 
 func _ready():
 	board_zone.body_entered.connect(_on_board_zone_entered)
 	board_zone.body_exited.connect(_on_board_zone_exited)
-	gravity_scale=0.0
 	
 	axis_lock_angular_x=true
 	axis_lock_angular_z=true
@@ -58,16 +60,22 @@ func _disembark_player():
 	print("Disembarked")
 	
 func _physics_process(delta):
-	var water_y=GameManager.water_y_level
+	if not in_water:
+		return
+		
+	var water_y=current_surface_y
 	var boat_y=global_position.y
 	var float_offset=1.7
 	
 	var depth_below_surface=(water_y+float_offset)-boat_y
 	
-	var bouyancy=depth_below_surface*BUOYANCY_FORCE
-	apply_central_force(Vector3(0,bouyancy,0))
-	
-	linear_velocity*=DRAG
+	if depth_below_surface>0:
+		var bouyancy=depth_below_surface*BUOYANCY_FORCE
+		var damping=-linear_velocity.y*(BUOYANCY_FORCE*0.1)
+		apply_central_force(Vector3(0,bouyancy+damping,0))
+		
+		linear_velocity.x*=DRAG
+		linear_velocity.z*=DRAG
 	
 	var bob=sin(Time.get_ticks_msec()*0.001*WAVE_BOB_SPEED) *WAVE_BOB_AMOUNT
 	apply_central_force(Vector3(0,bob,0))

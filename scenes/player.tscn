@@ -12,6 +12,11 @@ height = 3.305359
 [sub_resource type="BoxShape3D" id="BoxShape3D_3vyb7"]
 size = Vector3(1, 1, 1.5)
 
+[sub_resource type="Environment" id="Environment_dqkch"]
+fog_enabled = true
+fog_light_color = Color(0.37879592, 0.58042747, 0.6866558, 1)
+fog_density = 0.0
+
 [node name="Player" type="CharacterBody3D" unique_id=600792781]
 script = ExtResource("1_3vyb7")
 
@@ -136,5 +141,8 @@ projection = 1
 size = 700.0
 far = 200.0
 script = ExtResource("2_g2els")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1513384918]
+environment = SubResource("Environment_dqkch")
 
 [editable path="CharacterModel"]

@@ -3,5 +3,19 @@
 [ext_resource type="Shader" uid="uid://ch31hb11kigvf" path="res://spring.tres" id="1_8dmnu"]
 
 [resource]
+render_priority = 0
 shader = ExtResource("1_8dmnu")
-shader_parameter/tint_color = Color(0, 0, 0, 1)
+shader_parameter/wave_speed = 0.5
+shader_parameter/wave_a = Vector4(1, 0.4, 0.35, 3)
+shader_parameter/wave_b = Vector4(-0.1, 0.6, 0.3, 1.55)
+shader_parameter/wave_c = Vector4(-1, -0.8, 0.25, 0.9)
+shader_parameter/sampler_scale = Vector2(0.25, 0.25)
+shader_parameter/sampler_direction = Vector2(0.05, 0.04)
+shader_parameter/uv_sampler_scale = Vector2(0.25, 0.25)
+shader_parameter/uv_sampler_strength = 0.04
+shader_parameter/foam_level = 0.75
+shader_parameter/refraction = 0.075
+shader_parameter/color_deep = Color(0.322, 0.4, 0.502, 1)
+shader_parameter/color_shallow = Color(0.659, 0.749, 0.761, 1)
+shader_parameter/beers_law = 2.0
+shader_parameter/depth_offset = -0.75

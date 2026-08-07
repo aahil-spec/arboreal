@@ -45,6 +45,7 @@ var survival_check_timer:float=0.0
 @onready var grip_default:Marker3D=$CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand/DefaultGrip
 @onready var wings_grip:Marker3D=$CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand/WingsGrip
 @onready var wings_visual:Node3D=$CharacterModel/AuxScene/Node/Skeleton3D/BackAttachment3D/EmberWingsVisual
+@onready var water_env=$WorldEnvironment.environment
 var is_first_person:bool=false
 var is_attacking:bool=false
 var is_dead:bool=false
@@ -53,6 +54,8 @@ var current_held_model:Node3D=null
 
 var flight_active:bool=false
 var flight_velocity:Vector3=Vector3.ZERO
+
+var current_water_surface_y:float=-3.0
 
 func _ready():
 	Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
@@ -152,7 +155,6 @@ func _physics_process(delta):
 		if flight_active:
 			_stop_flight()
 	was_on_floor=is_on_floor()
-	GameManager.in_water=global_position.y<GameManager.water_y_level+0.5
 	_update_flight_energy(delta)
 	survival_check_timer-=delta
 	if survival_check_timer<=0.0:
@@ -160,6 +162,15 @@ func _physics_process(delta):
 		_update_shelter_status()
 		_update_heat_status()
 	_update_equipment_visuals()
+	var active_camera=get_viewport().get_camera_3d()
+	
+	if active_camera:
+		var camera_y=active_camera.global_position.y
+		
+		if camera_y<current_water_surface_y:
+			water_env.fog_density=lerp(water_env.fog_density,0.15,delta*5.0)
+		else:
+			water_env.fog_density=lerp(water_env.fog_density,0.0,delta*5.0)
 	var input_dir :Vector2= Input.get_vector("move_left", "move_right","move_up", "move_down")
 	var direction :Vector3= (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
@@ -169,8 +180,8 @@ func _physics_process(delta):
 		var current_speed=SPEED+GameManager.get_speed_bonus()
 		
 		if GameManager.in_water:
-			var float_pressure=(GameManager.water_y_level-global_position.y)*2.0
-			velocity.y=clamp(velocity.y+float_pressure*delta,-4.0,4.0)
+			velocity.y-=9.8*delta*0.5
+			velocity.y=max(velocity.y,-2.5)
 			if Input.is_action_pressed("ui_accept"):
 				velocity.y=SWIM_SPEED
 			velocity.x=direction.x*SWIM_SPEED
