@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c2kl0vguqn4c6"]
 
-[ext_resource type="PackedScene" uid="uid://8hxg2asky3hl" path="res://locations/models/village/pompeii_-_public_water_fountain_06.glb" id="1_6vrsj"]
+[ext_resource type="PackedScene" uid="uid://8hxg2asky3hl" path="res://locations/models/village/well.glb" id="1_6vrsj"]
 [ext_resource type="Script" uid="uid://bglsec4gt5rbr" path="res://scripts/drink_zone.gd" id="1_61klm"]
 [ext_resource type="Material" uid="uid://brp8y5j07cybn" path="res://ocean.tres" id="3_f6w1c"]
 

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://d4m4qqs551qqj"
-path="res://.godot/imported/floor.glb-597ca528cb88548f97d3962addb1b1f9.scn"
+uid="uid://8hxg2asky3hl"
+path="res://.godot/imported/well.glb-1ee53611bfe7d0e79950412324f6ddba.scn"
 
 [deps]
 
-source_file="res://assets/kenleys/survival kit/floor.glb"
-dest_files=["res://.godot/imported/floor.glb-597ca528cb88548f97d3962addb1b1f9.scn"]
+source_file="res://locations/models/village/well.glb"
+dest_files=["res://.godot/imported/well.glb-1ee53611bfe7d0e79950412324f6ddba.scn"]
 
 [params]
 

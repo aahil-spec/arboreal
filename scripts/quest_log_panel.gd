@@ -48,7 +48,7 @@ func _add_quest_entry(quest_id:String,completed:bool):
 			var obj_label=Label.new()
 			var current=progress.get(objective["type"],0)
 			var target=objective["target"]
-			if objective["type"]=="discover_location":
+			if target is String:
 				var done=objective["target"] in GameManager.discovered_locations
 				obj_label.text=("  ✓ " if done else "  ○ ") + objective["text"]
 				obj_label.modulate=Color(0.5,0.9,0.5) if done else Color(0.8,0.8,0.8)

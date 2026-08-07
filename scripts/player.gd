@@ -9,7 +9,7 @@ const FOOTSTEP_INTERVAL:float=0.4
 const SPRINT_MULTIPLIER:float=1.6
 const HIT_SPARK=preload("res://scenes/effects/hit_spark.tscn")
 const SWIM_SPEED:float=15.0
-const SWIM_UP_SPEED:float=6.0
+const SWIM_UP_SPEED:float=3.0
 const FLIGHT_SPEED:float=9.0
 const FLIGHT_ASCEND_SPEED:float=6.0
 const FLIGHT_DESCEND_SPEED:float=5.0
@@ -45,7 +45,7 @@ var survival_check_timer:float=0.0
 @onready var grip_default:Marker3D=$CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand/DefaultGrip
 @onready var wings_grip:Marker3D=$CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand/WingsGrip
 @onready var wings_visual:Node3D=$CharacterModel/AuxScene/Node/Skeleton3D/BackAttachment3D/EmberWingsVisual
-@onready var water_env=$WorldEnvironment.environment
+@onready var global_env:Environment
 var is_first_person:bool=false
 var is_attacking:bool=false
 var is_dead:bool=false
@@ -57,6 +57,11 @@ var flight_velocity:Vector3=Vector3.ZERO
 
 var current_water_surface_y:float=-3.0
 
+var air_time:float=0.0
+var FALL_ANIM_THRESHOLD:float=2.5
+var is_jumping:bool=false
+
+var was_in_water:bool=false
 func _ready():
 	Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
 	GameManager.player_damaged.connect(_on_player_damaged)
@@ -67,6 +72,9 @@ func _ready():
 	first_person_cam.current=true
 	
 	third_person_arm.add_excluded_object(self.get_rid())
+	global_env=get_viewport().find_world_3d().environment
+	if global_env==null:
+		global_env=get_viewport().find_world_3d().fallback_environment
 func _on_player_damaged():
 	_camera_shake()
 	_flash_vignette()
@@ -119,7 +127,7 @@ func _unhandled_input(event):
 			GameManager.hotbar_changed.emit()
 			break
 	if event.is_action_pressed("ui_accept") and GameManager.has_wings():
-		if not is_on_floor() and not flight_active and GameManager.flight_energy >10.0:
+		if not is_on_floor() and not GameManager.in_water and not flight_active and GameManager.flight_energy >10.0:
 			_start_flight()
 		elif flight_active:
 			_stop_flight()
@@ -152,9 +160,18 @@ func _physics_process(delta):
 		move_and_slide()
 		return
 	if is_on_floor() and not was_on_floor:
+		is_jumping=false
 		if flight_active:
 			_stop_flight()
 	was_on_floor=is_on_floor()
+	if not is_on_floor() and not GameManager.in_water and not flight_active:
+		air_time+=delta
+	else:
+		air_time=0.0
+	if not GameManager.in_water and was_in_water:
+		if not is_on_floor() and velocity.y>0.0:
+			velocity.y=2.0
+	was_in_water=GameManager.in_water
 	_update_flight_energy(delta)
 	survival_check_timer-=delta
 	if survival_check_timer<=0.0:
@@ -164,13 +181,17 @@ func _physics_process(delta):
 	_update_equipment_visuals()
 	var active_camera=get_viewport().get_camera_3d()
 	
-	if active_camera:
+	if active_camera and global_env:
 		var camera_y=active_camera.global_position.y
 		
 		if camera_y<current_water_surface_y:
-			water_env.fog_density=lerp(water_env.fog_density,0.15,delta*5.0)
+			global_env.fog_enabled=true
+			global_env.fog_light_color=Color(0.1,0.35,0.45)
+			global_env.fog_density=lerp(global_env.fog_density,0.15,delta*5.0)
 		else:
-			water_env.fog_density=lerp(water_env.fog_density,0.0,delta*5.0)
+			global_env.fog_density=lerp(global_env.fog_density,0.0,delta*5.0)
+			if global_env.fog_density<0.005:
+				global_env.fog_enabled=false
 	var input_dir :Vector2= Input.get_vector("move_left", "move_right","move_up", "move_down")
 	var direction :Vector3= (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
@@ -180,12 +201,22 @@ func _physics_process(delta):
 		var current_speed=SPEED+GameManager.get_speed_bonus()
 		
 		if GameManager.in_water:
-			velocity.y-=9.8*delta*0.5
-			velocity.y=max(velocity.y,-2.5)
+			is_jumping=false
+			var active_cam=get_viewport().get_camera_3d()
+			var swim_dir=Vector3.ZERO
+			if active_cam:
+				swim_dir=(active_cam.global_transform.basis*Vector3(input_dir.x,0,input_dir.y)).normalized()
+			if swim_dir!=Vector3.ZERO:
+				velocity.x=swim_dir.x*SWIM_SPEED
+				velocity.y=swim_dir.y*SWIM_SPEED
+				velocity.z=swim_dir.z*SWIM_SPEED
+			else:
+				velocity.x=move_toward(velocity.x,0,SWIM_SPEED*0.1)
+				velocity.z=move_toward(velocity.z,0,SWIM_SPEED*0.1)
+				velocity.y-=9.8*delta*0.5
+				velocity.y=max(velocity.y,-2.5)
 			if Input.is_action_pressed("ui_accept"):
-				velocity.y=SWIM_SPEED
-			velocity.x=direction.x*SWIM_SPEED
-			velocity.z=direction.z*SWIM_SPEED
+				velocity.y=SWIM_UP_SPEED
 		else:
 			var current_gravity=get_gravity()
 			if current_gravity.length()>0.1:
@@ -196,6 +227,7 @@ func _physics_process(delta):
 				velocity+=current_gravity*delta
 			if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 				velocity+= up_direction*JUMP_VELOCITY
+				is_jumping=true
 			var wants_to_sprint=Input.is_action_pressed("sprint") and direction.length()>0.1 and GameManager.stamina>0.0
 			GameManager.is_sprinting=wants_to_sprint
 			if wants_to_sprint:
@@ -215,7 +247,7 @@ func _physics_process(delta):
 		else:
 			footstep_timer=0.0
 			
-	if global_position.y<-50.0:
+	if global_position.y<-600.0:
 		velocity=Vector3.ZERO
 		if flight_active:
 			_stop_flight()
@@ -425,11 +457,12 @@ func _update_animation(is_moving:bool,is_sprinting:bool):
 		_play_anim(ANIM_FLY)
 		return
 	if not is_on_floor():
-		if velocity.y>0.5:
+		if velocity.y>0.5 and is_jumping:
 			_play_anim(ANIM_JUMP)
-		else:
+			return
+		elif air_time>FALL_ANIM_THRESHOLD:
 			_play_anim(ANIM_FALL)
-		return
+			return
 	if is_moving and is_sprinting:
 		_play_anim(ANIM_RUN)
 	elif is_moving:
