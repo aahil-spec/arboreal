@@ -32,6 +32,7 @@ var held_item_source_index:int=-1
 
 var currently_hovered_slot:int=-1
 
+
 func _ready():
 	inventory_grid.columns=6
 	
@@ -134,10 +135,14 @@ func refresh_equipment():
 		var icon_node = slot_node.get_node("Icon")
 		icon_node.texture = null
 		var item_id = GameManager.equipped[slot_type]
-		if item_id!="" and GameManager.item_icons.has(item_id):
-			icon_node.texture = load(GameManager.item_icons[item_id])
-		_set_slot_border(slot_node,item_id!="")
-		GameManager.hotbar_changed.emit()
+		
+		if item_id!="":
+			slot_node.set_slot_state(true,true)
+			if GameManager.item_icons.has(item_id):
+				icon_node.texture = load(GameManager.item_icons[item_id])
+		else:
+			slot_node.set_slot_state(false,false)
+	GameManager.hotbar_changed.emit()
 	
 @warning_ignore("unused_parameter")
 func _on_equip_slot_clicked(index:int,button:int,slot_type:String):
@@ -169,17 +174,6 @@ func _on_equip_slot_hovered(index:int,slot_type:String):
 	if item_id!="":
 		_show_tooltip(item_id)
 		
-func _set_slot_border(slot:Panel,active:bool):
-	var style=StyleBoxFlat.new()
-	style.bg_color=Color(0.22,0.22,0.22)
-	style.set_corner_radius_all(2)
-	if active:
-		style.border_color=Color(1,0.85,0.1)
-		style.set_border_width_all(3)
-	else:
-		style.border_color=Color(0.4,0.4,0.4)
-		style.set_border_width_all(2)
-	slot.add_theme_stylebox_override("panel",style)
 	
 func refresh_all():
 	refresh_inventory()
@@ -343,20 +337,24 @@ func refresh_inventory():
 	for i in range(MAX_INV_SLOTS):
 		var slot=inv_slot_nodes[i]
 		var icon_node=slot.get_node("Icon")
-		var count_label=slot.get_node("CountLabel")
+		
 		icon_node.texture=null
-		count_label.text=""
-		_set_slot_border(slot,false)
+		slot.set_slot_state(false,false)
+		slot.update_display("",0)
+		
 		if i<GameManager.inventory.size():
 			var item=GameManager.inventory[i]
 			if item is Dictionary and item.has("id"):
 				var item_id=item["id"]
+				var count=item.get("count",1)
+				
+				slot.set_slot_state(true,false)
+				
 				if GameManager.item_icons.has(item_id):
 					var path=GameManager.item_icons[item_id]
 					if ResourceLoader.exists(path):
 						icon_node.texture=load(path)
-				if item["count"]>1:
-					count_label.text=str(item["count"])
+				slot.update_display(item_id,count)
 	GameManager.hotbar_changed.emit()
 func refresh_crafting():
 	for i in range(9):

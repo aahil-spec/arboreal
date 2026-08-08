@@ -490,3 +490,4 @@ func _update_equipment_visuals():
 			wings_visual.visible=true
 		else:
 			wings_visual.visible=false
+	
