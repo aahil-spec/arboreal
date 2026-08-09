@@ -360,19 +360,23 @@ func refresh_crafting():
 	for i in range(9):
 		var slot =craft_grid_slots[i]
 		var icon_node=slot.get_node("Icon")
-		var count_label=slot.get_node("CountLabel")
+		
 		icon_node.texture=null
-		count_label.text=""
+		slot.update_display("",0)
+		
 		if not craft_grid_items[i].is_empty():
 			var item=craft_grid_items[i]
 			var item_id=item["id"]
+			var count=item.get("count",1)
 			if GameManager.item_icons.has(item_id):
 				var path=GameManager.item_icons[item_id]
 				if ResourceLoader.exists(path):
 					icon_node.texture=load(path)
-					
-			if item["count"]>1:
-				count_label.text=str(item["count"])
+			slot.update_display(item_id,count)
+			var is_valid_recipe=(craft_result!="")
+			slot.set_craft_slot_state(true,is_valid_recipe)
+		else:
+			slot.set_craft_slot_state(false,false)
 	var out_icon=craft_output_slot.get_node("Icon")
 	out_icon.texture=null
 	if craft_result != "" and GameManager.item_icons.has(craft_result):
@@ -441,3 +445,27 @@ func _input(event):
 				GameManager.spawn_drop(item_id,drop_pos+forward*1.5)
 				refresh_all()
 				
+func show_inventory():
+	visible=true
+	modulate.a=0.0
+	scale=Vector2(0.96,0.96)
+	
+	var tween=create_tween().set_parallel(true)
+	tween.tween_property(self,"modulate:a",1.0,0.15)
+	tween.tween_property(self,"scale",Vector2(1.0,1.0),0.15).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	
+	var survival_hud=get_tree().current_scene.get_node_or_null("CanvasLayer/SurvivalHUD")
+	var hotbar=get_tree().current_scene.get_node_or_null("CanvasLayer/Hotbar")
+	if survival_hud:survival_hud.modulate.a=0.35
+	if hotbar:hotbar.modulate.a=0.35
+	
+func hide_inventory():
+	var tween=create_tween().set_parallel(true)
+	tween.tween_property(self,"modulate:a",0.0,0.1)
+	tween.tween_property(self,"scale",Vector2(0.96,0.96),0.1)
+	tween.chain().tween_callback(func():visible=false)
+	
+	var survival_hud=get_tree().current_scene.get_node_or_null("CanvasLayer/SurvivalHUD")
+	var hotbar=get_tree().current_scene.get_node_or_null("CanvasLayer/Hotbar")
+	if survival_hud:survival_hud.modulate.a=1.0
+	if hotbar:hotbar.modulate.a=1.0
