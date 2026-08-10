@@ -6,7 +6,7 @@
 height = 1.4186523
 radius = 0.10449219
 
-[node name="Torch" type="Node3D" unique_id=1788136523]
+[node name="Torch" type="Area3D" unique_id=2091103909]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1908133275]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5423453, -0.07108545)

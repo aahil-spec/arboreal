@@ -3,7 +3,7 @@ extends CanvasLayer
 
 @onready var pause_panel:Control=$PausePanel
 @onready var help_panel:Control=$HelpPanel
-@onready var inventory_screen:Panel=$InventoryScreen
+@onready var inventory_screen:CanvasLayer=$InventoryScreen
 
 @onready var quest_log:Control=$QuestLogPanel
 

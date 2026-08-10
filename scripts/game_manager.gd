@@ -338,8 +338,8 @@ func can_craft(item_id:String):
 func _count_meat():
 	var count=0
 	for item in inventory:
-		if item=="raw_meat_bundle":
-			count+=1
+		if item is Dictionary and item.get("id")=="raw_meat_bundle":
+			count+=item.get("count",1)
 	return count
 	
 	

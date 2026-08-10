@@ -1,18 +1,21 @@
-extends Panel
+extends CanvasLayer
 
-@onready var helmet_slot:Panel=$MainLayout/CenterPanel/VBoxContainer/EquipLayout/LeftEquip/HelmetSlot
-@onready var armor_slot:Panel=$MainLayout/CenterPanel/VBoxContainer/EquipLayout/LeftEquip/ArmorSlot
-@onready var leggings_slot:Panel=$MainLayout/CenterPanel/VBoxContainer/EquipLayout/LeftEquip/LeggingsSlot
-@onready var boots_slot:Panel=$MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip/BootsSlot
-@onready var weapon_slot:Panel=$MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip/WeaponSlot
-@onready var offhand_slot:Panel=$MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip/OffhandSlot
+@onready var helmet_slot:Panel=$MainLayout/CenterPanel/VBoxContainer/EquipLayout/LeftEquip/HelmetUnit/HelmetSlot
+@onready var armor_slot:Panel=$MainLayout/CenterPanel/VBoxContainer/EquipLayout/LeftEquip/ArmorUnit/ArmorSlot
+@onready var leggings_slot:Panel=$MainLayout/CenterPanel/VBoxContainer/EquipLayout/LeftEquip/LeggingsUnit/LeggingsSlot
+@onready var boots_slot:Panel=$MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip/BootsUnit/BootsSlot
+@onready var weapon_slot:Panel=$MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip/WeaponUnit/WeaponSlot
+@onready var offhand_slot:Panel=$MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip/OffhandUnit/OffhandSlot
 
 
 @onready var crafting_grid:GridContainer=$MainLayout/RightPanel/VBoxContainer/CraftingGrid
 @onready var craft_output_slot:Panel=$MainLayout/RightPanel/VBoxContainer/CraftOutputSlot
 @onready var held_display:Panel=$HeldItemDisplay
 @onready var tooltip_label:Label=$ToolTipLabel
-@onready var inventory_grid: GridContainer = $MainLayout/LeftPanel/InvScrollContainer/InventoryGrid
+@onready var inventory_grid: GridContainer = $MainLayout/LeftPanel/VBoxContainer/InvScrollContainer/InventoryGrid
+
+
+
 
 var craft_grid_items:Array=[{}, {}, {}, {}, {}, {}, {}, {}, {}]
 var craft_result:String=""
@@ -121,7 +124,7 @@ func _build_equip_slot_map():
 		"boots":boots_slot,
 		"weapon":weapon_slot,
 		"offhand":offhand_slot,
-		"wings":$MainLayout/CenterPanel/VBoxContainer/EquipLayout/RightEquip/WingsSlot
+		"wings":$MainLayout/CenterPanel/VBoxContainer/WingsUnit/WingsSlot
 	}
 	for slot_type in equip_slot_map:
 		var slot_node=equip_slot_map[slot_type]
@@ -309,6 +312,7 @@ var craft_recipes:Dictionary={
 	]
 }
 func _check_craft_recipe():
+	var old_result=craft_result
 	craft_result=""
 	var grid=craft_grid_items
 	for item_id in craft_recipes:
@@ -329,8 +333,12 @@ func _check_craft_recipe():
 					break
 			if not match_found:
 				break
+				
 		if match_found:
 			craft_result=item_id
+			if craft_result!=old_result:
+				if craft_output_slot.has_method("show_craft_result"):
+					craft_output_slot.show_craft_result()
 			break
 
 func refresh_inventory():
@@ -447,8 +455,8 @@ func _input(event):
 				
 func show_inventory():
 	visible=true
-	modulate.a=0.0
-	scale=Vector2(0.96,0.96)
+	$MainLayout.modulate.a=0.0
+	$MainLayout.scale=Vector2(0.96,0.96)
 	
 	var tween=create_tween().set_parallel(true)
 	tween.tween_property(self,"modulate:a",1.0,0.15)
@@ -461,8 +469,8 @@ func show_inventory():
 	
 func hide_inventory():
 	var tween=create_tween().set_parallel(true)
-	tween.tween_property(self,"modulate:a",0.0,0.1)
-	tween.tween_property(self,"scale",Vector2(0.96,0.96),0.1)
+	tween.tween_property($MainLayout,"modulate:a",0.0,0.1)
+	tween.tween_property($MainLayout,"scale",Vector2(0.96,0.96),0.1)
 	tween.chain().tween_callback(func():visible=false)
 	
 	var survival_hud=get_tree().current_scene.get_node_or_null("CanvasLayer/SurvivalHUD")
