@@ -46,6 +46,7 @@ var survival_check_timer:float=0.0
 @onready var wings_grip:Marker3D=$CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand/WingsGrip
 @onready var wings_visual:Node3D=$CharacterModel/AuxScene/Node/Skeleton3D/BackAttachment3D/EmberWingsVisual
 @onready var global_env:Environment
+@onready var bandage_grip:Marker3D=$CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand/BandageGrip
 var is_first_person:bool=false
 var is_attacking:bool=false
 var is_dead:bool=false
@@ -300,6 +301,8 @@ func _update_hand_visuals():
 					grip_sword.add_child(current_held_model)
 				elif item_id.to_lower()=="emberwing":
 					wings_grip.add_child(current_held_model)
+				elif item_id.to_lower()=="bandage":
+					bandage_grip.add_child(current_held_model)
 				else:
 					grip_default.add_child(current_held_model)
 				current_held_model.transform=Transform3D()
@@ -430,6 +433,8 @@ func _toggle_camera():
 					current_held_model.reparent(grip_sword,false)
 				elif item_id=="emberwing":
 					current_held_model.reparent(wings_grip,false)
+				elif item_id=="bandage":
+					current_held_model.reparent(bandage_grip,false)
 				else:
 					current_held_model.reparent(grip_default,false)
 					current_held_model.transform=Transform3D()

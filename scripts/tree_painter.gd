@@ -26,8 +26,8 @@ func _scatter_objects():
 	for mesh in mesh_list:
 		var mmi = MultiMeshInstance3D.new()
 		mmi.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-		mmi.visibility_range_end=150.0
-		mmi.visibility_range_end_margin=10.0
+		#mmi.visibility_range_end=150.0
+		#mmi.visibility_range_end_margin=10.0
 		var mm = MultiMesh.new()
 		mm.transform_format = MultiMesh.TRANSFORM_3D
 		mm.mesh = mesh

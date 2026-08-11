@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bq6immw12atql"]
+
+[ext_resource type="PackedScene" uid="uid://bt0nwrsmfqugb" path="res://assets/models/bandage/SM_Bandage_01.FBX" id="1_dci2q"]
+[ext_resource type="Texture2D" uid="uid://b5dn2axjvfyhy" path="res://assets/models/bandage/lp_DefaultMaterial_BaseColor.tga" id="2_qhage"]
+[ext_resource type="Texture2D" uid="uid://d2ukw8v70d0iy" path="res://assets/models/bandage/lp_DefaultMaterial_Normal.tga" id="3_h0vvr"]
+[ext_resource type="Texture2D" uid="uid://2ip27veka7xr" path="res://assets/models/bandage/lp_DefaultMaterial_OcclusionRoughnessMetallic.tga" id="4_1pfe7"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_o2myb"]
+albedo_texture = ExtResource("2_qhage")
+orm_texture = ExtResource("4_1pfe7")
+normal_enabled = true
+normal_texture = ExtResource("3_h0vvr")
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_fqxbf"]
+normal_enabled = true
+
+[node name="Bandage" unique_id=44378424 instance=ExtResource("1_dci2q")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+
+[node name="SM_Bandage_01" parent="." index="0" unique_id=1255405223]
+surface_material_override/0 = SubResource("ORMMaterial3D_o2myb")
+
+[node name="UCX_SM_Bandage_01" parent="." index="1" unique_id=1674895386]
+visible = false
+surface_material_override/0 = SubResource("ORMMaterial3D_fqxbf")
