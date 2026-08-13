@@ -1,0 +1,11 @@
+[gd_resource type="ORMMaterial3D" format=3 uid="uid://yr70ua70y4ch"]
+
+[ext_resource type="Texture2D" uid="uid://ckgxipmmm4tse" path="res://locations/models/village/poor man/3_SET_BC.tga" id="1_km7j1"]
+[ext_resource type="Texture2D" uid="uid://dwxrgoueigoth" path="res://locations/models/village/poor man/3_SET_N.tga" id="2_k4bqi"]
+[ext_resource type="Texture2D" uid="uid://wqkxqtrj1vfs" path="res://locations/models/village/poor man/3_SET_ORM.tga" id="3_j0yrk"]
+
+[resource]
+albedo_texture = ExtResource("1_km7j1")
+orm_texture = ExtResource("3_j0yrk")
+normal_enabled = true
+normal_texture = ExtResource("2_k4bqi")

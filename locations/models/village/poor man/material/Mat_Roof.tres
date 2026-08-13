@@ -1,0 +1,11 @@
+[gd_resource type="ORMMaterial3D" format=3 uid="uid://cdrr25hhbh786"]
+
+[ext_resource type="Texture2D" uid="uid://brw52wuwi5640" path="res://locations/models/village/poor man/WoodRoofTiles (2).jpg" id="1_wst7f"]
+[ext_resource type="Texture2D" uid="uid://cvnbxtshrjygt" path="res://locations/models/village/poor man/WoodRoofTiles (2)_normal.tga" id="2_6to5d"]
+[ext_resource type="Texture2D" uid="uid://bgc8itlgnrcda" path="res://locations/models/village/poor man/WoodRoofTiles (2)_metallic.tga" id="3_wst7f"]
+
+[resource]
+albedo_texture = ExtResource("1_wst7f")
+orm_texture = ExtResource("3_wst7f")
+normal_enabled = true
+normal_texture = ExtResource("2_6to5d")
