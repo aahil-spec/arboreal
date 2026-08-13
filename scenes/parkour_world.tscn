@@ -293,7 +293,7 @@ mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="ParkourPlayer" parent="." unique_id=1052681183 instance=ExtResource("2_fo3hj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64.83072, 211.7673, -221.2365)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6927507, 0)
 
 [node name="Portal" parent="." unique_id=417652037 instance=ExtResource("1_hqrto")]
 transform = Transform3D(-1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0, 1, -68.609146, 196.80559, -253.74269)

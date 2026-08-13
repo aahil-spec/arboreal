@@ -8,6 +8,8 @@ const KNOCKBACK_FORCE:float=3.0
 const KNOCKBACK_DURATION:float=0.3
 const PATROL_RADIUS:float=6.0
 const ALERT_DURATION:float=0.4
+const ATTACK_RANGE:float=1.8
+
 
 var alert_timer:float=0.0
 var is_Alert:bool=false
@@ -17,8 +19,11 @@ var player:Node3D=null
 var knockback_timer:float=0.0
 var patrol_target:Vector3=Vector3.ZERO
 var home_position:Vector3=Vector3.ZERO
+var is_dead:bool=false
+var is_attacking:bool=false
 
-@onready var mesh:MeshInstance3D=$MeshInstance3D
+@onready var anim_player:AnimationPlayer=$HuskModel/AnimationPlayer
+@onready var husk_model:Node3D=$HuskModel
 @onready var nav_agent:NavigationAgent3D=$NavigationAgent3D
 func _ready():
 	player=get_tree().current_scene.get_node("Player")
@@ -26,12 +31,15 @@ func _ready():
 	add_to_group("boss")
 	home_position=global_position
 	_pick_new_patrol_target()
+	anim_player.play("idle")
 	
 func _pick_new_patrol_target():
 	var offset =Vector3(randf_range(-PATROL_RADIUS,PATROL_RADIUS),0,randf_range(-PATROL_RADIUS,PATROL_RADIUS))
 	patrol_target=home_position+offset
 	
 func take_damage(amount:int,attacker_position:Vector3=Vector3.ZERO):
+	if is_dead:
+		return
 	health-=amount
 	_flash()
 	if attacker_position!=Vector3.ZERO:
@@ -42,17 +50,21 @@ func take_damage(amount:int,attacker_position:Vector3=Vector3.ZERO):
 		velocity.z=knockback_dir.z*KNOCKBACK_FORCE
 		knockback_timer=KNOCKBACK_DURATION
 	if health<=0:
-		GameManager.husk_defeated=true
-		GameManager.spawn_drop("sword_ember",global_position)
-		queue_free()
+		_die()
 
 func _flash():
 	var flash_mat=StandardMaterial3D.new()
 	flash_mat.albedo_color=Color(1,1,1)
-	mesh.material_override=flash_mat
+	var meshes=husk_model.find_children("*","MeshInstance3D")
+	for m in meshes:
+		m.material_override=flash_mat
 	await get_tree().create_timer(0.1).timeout
-	mesh.material_override=null
+	for m in meshes:
+		m.material_override=null
 func _physics_process(delta):
+	if is_dead or is_attacking:
+		move_and_slide()
+		return
 	var distance_to_player=global_position.distance_to(player.global_position)
 	if distance_to_player>150.0:
 		velocity.y=0
@@ -64,10 +76,16 @@ func _physics_process(delta):
 		return
 	var detecting=distance_to_player<DETECT_RADIUS
 	
-	if DETECT_RADIUS and not was_detecting:
+	if detecting and not was_detecting:
 		is_Alert=true
 		alert_timer=ALERT_DURATION
 	was_detecting=detecting
+	if detecting and distance_to_player<=ATTACK_RANGE:
+		_attack()
+		velocity.x=move_toward(velocity.x,0,SPEED)
+		velocity.z=move_toward(velocity.z,0,SPEED)
+		move_and_slide()
+		return
 	
 	if is_Alert:
 		alert_timer-=delta
@@ -78,6 +96,7 @@ func _physics_process(delta):
 		velocity.x=move_toward(velocity.x,0,SPEED)
 		velocity.z=move_toward(velocity.z,0,SPEED)
 		
+		anim_player.play("idle")
 		if alert_timer<=0.0:
 			is_Alert=false
 			
@@ -99,7 +118,22 @@ func _physics_process(delta):
 				velocity.z=direction.z*SPEED
 				var look_target=global_position+direction
 				look_at(look_target,Vector3.UP)
+				anim_player.play("run")
 		else:
 			velocity.x=move_toward(velocity.x,0,SPEED)
 			velocity.z=move_toward(velocity.z,0,SPEED)
+			anim_player.play("idle")
 	move_and_slide()
+
+func _die():
+	is_dead=true
+	anim_player.play("death")
+	GameManager.husk_defeated=true
+	GameManager.spawn_drop("sword_ember",global_position)
+	await anim_player.animation_finished
+	queue_free()
+func _attack():
+	is_attacking=true
+	anim_player.play("punch")
+	await anim_player.animation_finished
+	is_attacking=false
