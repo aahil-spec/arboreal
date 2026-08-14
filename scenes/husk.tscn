@@ -9,7 +9,7 @@ radius = 1.7097168
 height = 3.5026855
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_2hxwp"]
-radius = 2.1926348
+radius = 2.8210638
 
 [node name="Husk1" type="CharacterBody3D" unique_id=1374809841]
 script = ExtResource("1_ai7p3")
@@ -22,14 +22,15 @@ shape = SubResource("CapsuleShape3D_ai7p3")
 script = ExtResource("2_2hxwp")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitZone" unique_id=731399362]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.34983397)
 shape = SubResource("SphereShape3D_2hxwp")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1571584614]
 
 [node name="HuskModel" parent="." unique_id=2014268712 instance=ExtResource("3_lwkbf")]
-transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 0, 0, 0)
+transform = Transform3D(-0.03, 0, -2.6226832e-09, 0, 0.03, 0, 2.6226832e-09, 0, -0.03, -0.34485698, 0, 1.2371845)
 
-[node name="Skeleton3D" parent="HuskModel/Node" parent_id_path=PackedInt32Array(2014268712, 637356808) index="0" unique_id=295284879]
+[node name="Skeleton3D" parent="HuskModel/Node" parent_id_path=PackedInt32Array(2014268712, 2005853422) index="0" unique_id=1671098274]
 bones/0/position = Vector3(-0.98423517, 79.65935, 0.68022156)
 bones/0/rotation = Quaternion(0.050238136, -0.4236982, 0.048323855, 0.90311736)
 bones/1/rotation = Quaternion(0.046615288, 0.027089529, -0.016244065, 0.99841344)

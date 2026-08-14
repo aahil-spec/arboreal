@@ -1,14 +1,14 @@
 extends CharacterBody3D
 
 
-const SPEED = 2.5
+const SPEED = 6.0
 const DETECT_RADIUS=10.0
 const MAX_HEALTH:int=80
 const KNOCKBACK_FORCE:float=3.0
 const KNOCKBACK_DURATION:float=0.3
 const PATROL_RADIUS:float=6.0
 const ALERT_DURATION:float=0.4
-const ATTACK_RANGE:float=1.8
+const ATTACK_RANGE:float=4.5
 
 
 var alert_timer:float=0.0
@@ -65,7 +65,9 @@ func _physics_process(delta):
 	if is_dead or is_attacking:
 		move_and_slide()
 		return
+		
 	var distance_to_player=global_position.distance_to(player.global_position)
+	
 	if distance_to_player>150.0:
 		velocity.y=0
 	elif not is_on_floor():
@@ -74,12 +76,8 @@ func _physics_process(delta):
 		knockback_timer-=delta
 		move_and_slide()
 		return
+		
 	var detecting=distance_to_player<DETECT_RADIUS
-	
-	if detecting and not was_detecting:
-		is_Alert=true
-		alert_timer=ALERT_DURATION
-	was_detecting=detecting
 	if detecting and distance_to_player<=ATTACK_RANGE:
 		_attack()
 		velocity.x=move_toward(velocity.x,0,SPEED)
@@ -87,26 +85,30 @@ func _physics_process(delta):
 		move_and_slide()
 		return
 	
-	if is_Alert:
-		alert_timer-=delta
-		var player_look=Vector3(player.global_position.x,global_position.y,player.global_position.z)
-		if global_position.distance_to(player_look):
-			look_at(player_look,Vector3.UP)
-			
-		velocity.x=move_toward(velocity.x,0,SPEED)
-		velocity.z=move_toward(velocity.z,0,SPEED)
+	if detecting:
+		var direction=(player.global_position-global_position)
+		direction.y=0
 		
-		anim_player.play("idle")
-		if alert_timer<=0.0:
-			is_Alert=false
+		if direction.length()>0.05:
+			direction=direction.normalized()
+			velocity.x=direction.x*SPEED
+			velocity.z=direction.z*SPEED
+			var look_target=global_position+direction
+			if global_position.distance_to(look_target)>0.01:
+				look_at(look_target,Vector3.UP)
 			
-	else:
-		if detecting:
-			nav_agent.target_position=player.global_position
+			if anim_player.current_animation!="run" and not is_attacking:
+				anim_player.play("run")
 		else:
-			if global_position.distance_to(patrol_target)<1.0:
-				_pick_new_patrol_target()
-			nav_agent.target_position=patrol_target
+			velocity.x=move_toward(velocity.x,0,SPEED)
+			velocity.z=move_toward(velocity.z,0,SPEED)
+			if anim_player.current_animation!="idle" and not is_attacking:
+				anim_player.play("idle")
+	else:
+		if global_position.distance_to(patrol_target)<1.0:
+			_pick_new_patrol_target()
+		nav_agent.target_position=patrol_target
+		
 		var distance_to_target=global_position.distance_to(nav_agent.target_position)
 		if distance_to_target>1.5:
 			var next_point=nav_agent.get_next_path_position()
@@ -117,12 +119,16 @@ func _physics_process(delta):
 				velocity.x=direction.x*SPEED
 				velocity.z=direction.z*SPEED
 				var look_target=global_position+direction
-				look_at(look_target,Vector3.UP)
-				anim_player.play("run")
+				if global_position.distance_to(look_target)>0.01:
+					look_at(look_target,Vector3.UP)
+				
+				if anim_player.current_animation!="run" and not is_attacking:
+					anim_player.play("run")
 		else:
 			velocity.x=move_toward(velocity.x,0,SPEED)
 			velocity.z=move_toward(velocity.z,0,SPEED)
-			anim_player.play("idle")
+			if anim_player.current_animation!="idle" and not is_attacking:
+				anim_player.play("idle")
 	move_and_slide()
 
 func _die():
@@ -137,3 +143,4 @@ func _attack():
 	anim_player.play("punch")
 	await anim_player.animation_finished
 	is_attacking=false
+	

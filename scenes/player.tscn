@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://r0hhttikvxxp" path="res://scripts/minimap_camera.gd" id="2_g2els"]
 [ext_resource type="PackedScene" uid="uid://gwh7hy6kyf6u" path="res://scenes/character_model.scn" id="2_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://c0xsy1jjjkb4b" path="res://scenes/ember_wings.tscn" id="3_dqkch"]
-[ext_resource type="PackedScene" uid="uid://bq6immw12atql" path="res://models/bandage.tscn" id="3_qlg0r"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
 radius = 0.65527344
@@ -95,8 +94,6 @@ transform = Transform3D(3.971827, 5.353657, -2.1361215, 5.547249, -4.255078, -0.
 
 [node name="BandageGrip" type="Marker3D" parent="CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand" unique_id=1515091239]
 transform = Transform3D(4.6704407, -0.45599258, 1.7259936, 0.23877652, 4.9502664, 0.6617019, -1.769172, -0.53566253, 4.645761, 0.35048056, 4.4403906, 1.6747093)
-
-[node name="Bandage" parent="CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand/BandageGrip" unique_id=44378424 instance=ExtResource("3_qlg0r")]
 
 [node name="BackAttachment3D" type="BoneAttachment3D" parent="CharacterModel/AuxScene/Node/Skeleton3D" index="2" unique_id=784618190]
 transform = Transform3D(0.94228077, -0.12826568, -0.30928105, -0.015513027, 0.90599686, -0.42300022, 0.33446407, 0.40338284, 0.8517136, 0.16258848, 45.71524, 0.051629722)
