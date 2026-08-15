@@ -24,6 +24,7 @@ font_size = 14
 font_color = Color(0.4506483, 0.4506483, 0.45064825, 1)
 
 [node name="QuestPopupUI" type="CanvasLayer" unique_id=1157952168]
+layer = 100
 script = ExtResource("1_s0tb1")
 
 [node name="PopupBox" type="PanelContainer" parent="." unique_id=586147041]

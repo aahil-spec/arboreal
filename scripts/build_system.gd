@@ -3,7 +3,6 @@ extends Node3D
 
 @export var timber_label:Label
 @export var selected_label:Label
-@export var ember_label:Label
 @export var build_distance:float=8.0
 
 @onready var nav_region:NavigationRegion3D=get_tree().current_scene.get_node("NavigationRegion3D")
@@ -67,17 +66,6 @@ func _unhandled_input(event):
 func _process(delta):
 	timber_label.text="Timber:"+str(GameManager.timber)
 	selected_label.text = "Selected: " + pieces[selected_index]["name"] + " (cost " + str(pieces[selected_index]["cost"]) + ")"
-	
-	if GameManager.husk_defeated:
-		ember_label.text="The village is safe."
-	elif GameManager.shrine_lit:
-		ember_label.text="Find what stirred in the Ashen Hollow"
-	elif not GameManager.active_quests.is_empty():
-		var quest_id=GameManager.active_quests[0]
-		var quest=GameManager.quest_definitions[quest_id]
-		ember_label.text="Quest:"+quest["title"]
-	else:
-		ember_label.text="Embers:"+str(GameManager.embers_collected)+"/3"
 	get_tree().current_scene.get_node("CanvasLayer/GravityOverlay").visible=GameManager.in_gravity_zone
 	var weapon_name="None"
 	if GameManager.equipped["weapon"]!="":

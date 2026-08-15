@@ -1,5 +1,6 @@
 extends Node
 
+signal quest_alert(quest_title:String)
 signal player_damaged
 
 var embers_collected:int=0
@@ -408,8 +409,9 @@ func start_quest(quest_id:String):
 		return
 	active_quests.append(quest_id)
 	quest_progress[quest_id]={}
+	var title=quest_definitions[quest_id]["title"]
 	print("Quest started:",quest_definitions[quest_id]["title"])
-	
+	quest_alert.emit(title)
 func update_quest_progress(objective_type:String,value=1):
 	for quest_id in active_quests:
 		var quest =quest_definitions[quest_id]
