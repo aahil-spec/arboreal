@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://b1qqdcccd7ts2"]
+
+[ext_resource type="Script" uid="uid://dj3swponqj4bc" path="res://scripts/quest_popup_ui.gd" id="1_s0tb1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_80un8"]
+bg_color = Color(0, 0, 0, 0.78431374)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_80un8"]
+font_color = Color(0.80984575, 0.804507, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_s0tb1"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_0hm5g"]
+font_size = 14
+font_color = Color(0.4506483, 0.4506483, 0.45064825, 1)
+
+[node name="QuestPopupUI" type="CanvasLayer" unique_id=1157952168]
+script = ExtResource("1_s0tb1")
+
+[node name="PopupBox" type="PanelContainer" parent="." unique_id=586147041]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 50.0
+offset_right = 20.0
+offset_bottom = 127.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_80un8")
+
+[node name="MarginContainer" type="MarginContainer" parent="PopupBox" unique_id=1267763849]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PopupBox/MarginContainer" unique_id=1530194204]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="PopupBox/MarginContainer/VBoxContainer" unique_id=1985411996]
+layout_mode = 2
+text = "NEW QUEST DISCOVERED"
+label_settings = SubResource("LabelSettings_80un8")
+horizontal_alignment = 1
+
+[node name="QuestNameLabel" type="Label" parent="PopupBox/MarginContainer/VBoxContainer" unique_id=1727430471]
+layout_mode = 2
+text = "[Quest Name]"
+label_settings = SubResource("LabelSettings_s0tb1")
+horizontal_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="PopupBox/MarginContainer/VBoxContainer" unique_id=123657259]
+layout_mode = 2
+text = "Press [J] to open Quest Log"
+label_settings = SubResource("LabelSettings_0hm5g")
+horizontal_alignment = 1

@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://bswf6ytf45pnq"]
+
+[ext_resource type="Script" uid="uid://doc52e2mocens" path="res://scripts/dialogue_ui.gd" id="1_y3syv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qn8cy"]
+bg_color = Color(0, 0, 0, 0.7058824)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="DialogueUI" type="CanvasLayer" unique_id=308448124]
+script = ExtResource("1_y3syv")
+
+[node name="DialogueBox" type="PanelContainer" parent="." unique_id=1093632812]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = -61.0
+offset_right = 312.0
+offset_bottom = -21.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_qn8cy")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="DialogueBox" unique_id=1372750970]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="DialogueText" type="RichTextLabel" parent="DialogueBox/MarginContainer" unique_id=1743251751]
+layout_mode = 2
+fit_content = true

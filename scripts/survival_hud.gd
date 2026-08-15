@@ -1,10 +1,10 @@
 extends Node
 
-@onready var health_row:HBoxContainer=$HealthRow
-@onready var hunger_row:HBoxContainer=$HungerRow
-@onready var thirst_row:HBoxContainer=$ThirstRow
-@onready var warmth_row:HBoxContainer=$WarmthRow
-@onready var breath_row:HBoxContainer=$BreathRow
+@onready var health_row:HBoxContainer=$LeftBox/HealthRow
+@onready var hunger_row:HBoxContainer=$LeftBox/HungerRow
+@onready var thirst_row:HBoxContainer=$RightBox/ThirstRow
+@onready var warmth_row:HBoxContainer=$RightBox/WarmthRow
+@onready var breath_row:HBoxContainer=$LeftBox/BreathRow
 
 var pulse_tween:Tween=null
 var update_timer:float=0.0

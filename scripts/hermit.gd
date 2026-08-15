@@ -36,14 +36,17 @@ func _on_interact_zone_body_exited(body):
 	if body.name=="Player":
 		player_in_range=false
 		current_line=0
-		get_tree().current_scene.get_node("CanvasLayer/VBoxContainer/DialogueLabel").visible=false
+		var dialogue_ui=get_tree().current_scene.get_node_or_null("DialogueUI")
+		if dialogue_ui:
+			dialogue_ui.hide_message()
+		
 		
 func _unhandled_input(event):
 	if player_in_range and event.is_action_pressed("interact"):
 		lines=_get_lines()
-		var label = get_tree().current_scene.get_node("CanvasLayer/VBoxContainer/DialogueLabel")
-		label.visible=true
-		label.text=lines[current_line]
+		var dialogue_ui=get_tree().current_scene.get_node_or_null("DialogueUI")
+		if dialogue_ui:
+			dialogue_ui.show_message(lines[current_line])
 		current_line+=1
 		if current_line>=lines.size():
 			current_line=0
@@ -53,5 +56,9 @@ func _offer_quests():
 	for quest_id in ["find_embers","defeat_husk"]:
 		if quest_id not in GameManager.active_quests and quest_id not in GameManager.completed_quests:
 			GameManager.start_quest(quest_id)
-			print("Hermit gives you a new quest:",GameManager.quest_definitions[quest_id]["title"])
+			var quest_title=GameManager.quest_definitions[quest_id]["title"]
+			print("Hermit gives you a new quest:",quest_title)
+			var quest_popup=get_tree().current_scene.get_node_or_null("QuestPopupUI")
+			if quest_popup:
+				quest_popup.show_quest(quest_title)
 			break
