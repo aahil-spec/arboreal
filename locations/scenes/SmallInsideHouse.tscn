@@ -46,6 +46,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_s6n24")
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_3i8m6"]
+cull_mode = 2
 albedo_texture = ExtResource("1_ff3s8")
 normal_enabled = true
 bent_normal_enabled = true

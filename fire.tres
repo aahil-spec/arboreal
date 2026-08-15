@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://m2qbb081v224"]
+
+[ext_resource type="Texture2D" uid="uid://cr1hcvxlnhj5q" path="res://assets/models/camp/campfire/Textures/Campfire_fire_MAT_BaseColor_Alpha.png" id="1_vo2rr"]
+[ext_resource type="Texture2D" uid="uid://bi8d6j52bik1o" path="res://assets/models/camp/campfire/Textures/Campfire_fire_MAT_BaseColor.jpg" id="2_3xn0s"]
+
+[resource]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("1_vo2rr")
+emission_enabled = true
+emission_energy_multiplier = 2.5
+emission_texture = ExtResource("2_3xn0s")

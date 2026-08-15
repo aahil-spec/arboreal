@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://06a58wkw2qg4"]
+
+[ext_resource type="ArrayMesh" uid="uid://bgvb8tpwdtdbi" path="res://assets/models/camp/BasicCampingtente.obj" id="1_mul8w"]
+[ext_resource type="Texture2D" uid="uid://m4isg8jgokwu" path="res://assets/models/camp/blinn1_Base_Color.png" id="2_rqy0r"]
+[ext_resource type="Texture2D" uid="uid://gjr5wsa52y0y" path="res://assets/models/camp/blinn1_Height.png" id="3_7vbx7"]
+[ext_resource type="Texture2D" uid="uid://kpdvj6c87yjl" path="res://assets/models/camp/blinn1_Metallic.png" id="4_xec8r"]
+[ext_resource type="Texture2D" uid="uid://b0tul0st7torf" path="res://assets/models/camp/blinn1_Normal_OpenGL.png" id="5_mqo4j"]
+[ext_resource type="Texture2D" uid="uid://csk5rxuniinb0" path="res://assets/models/camp/blinn1_Roughness.png" id="6_m6rhg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4wv73"]
+cull_mode = 2
+albedo_texture = ExtResource("2_rqy0r")
+metallic = 1.0
+metallic_texture = ExtResource("4_xec8r")
+roughness_texture = ExtResource("6_m6rhg")
+normal_enabled = true
+normal_texture = ExtResource("5_mqo4j")
+heightmap_enabled = true
+heightmap_texture = ExtResource("3_7vbx7")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mul8w"]
+points = PackedVector3Array(-113.41219, 101.80072, 23.198034, -73.46442, 4.209778, -114.34546, 108.39945, 106.233475, 9.884572, 117.29527, -9.123665, 103.07882, -144.49194, -0.23470306, 94.21765, 117.29527, -9.123665, -101.01028, -117.8601, -9.111938, -101.032, 121.74318, 8.630802, 107.53111, -108.96429, 110.677956, -3.4071732, 121.74318, 13.075283, -105.46258, -144.49194, 4.209778, -92.14912, -117.8601, 8.642532, 107.53111, 139.50702, 4.1980515, 94.19593, -117.8601, -9.111938, 103.07882, 139.50702, -0.24642944, -92.127396, -122.28021, 106.233475, 18.767454, 98.75748, 99.457504, -7.2765183, -117.8601, 13.075283, -105.46258, 139.50702, 4.1980515, -92.127396, -144.49194, 4.209778, 94.21765, -144.49194, -0.23470306, -92.14912, -117.8601, 110.677956, 14.336872, -64.59639, -0.23470306, -114.34546, 139.50702, -0.24642944, 94.19593, 112.87516, -0.24642944, 107.53111, -122.28021, 8.642532, -105.46258, -113.41219, 110.677956, 14.336872, -122.28021, 101.80072, 23.198034, 121.74318, 13.075283, 103.07882)
+
+[node name="CampTent" type="Node3D" unique_id=163420982]
+
+[node name="BasicCampingtente" type="MeshInstance3D" parent="." unique_id=476406265]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
+mesh = ExtResource("1_mul8w")
+surface_material_override/0 = SubResource("StandardMaterial3D_4wv73")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="BasicCampingtente" unique_id=1275140094]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BasicCampingtente/StaticBody3D" unique_id=456869840]
+shape = SubResource("ConvexPolygonShape3D_mul8w")
