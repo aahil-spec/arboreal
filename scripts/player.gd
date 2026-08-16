@@ -269,8 +269,11 @@ func _update_shelter_status():
 	
 func _update_heat_status():
 	var near=false
-	for heat_node in get_tree().get_nodes_in_group("heat_source"):
-		if global_position.distance_to(heat_node.global_position)<4.0:
+	var fires=get_tree().get_nodes_in_group("heat_source")
+	for heat_node in fires :
+		var dist=global_position.distance_to(heat_node.global_position)
+		
+		if dist<8.0:
 			near =true
 			break
 	GameManager.near_heat_source=near

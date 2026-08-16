@@ -1,12 +1,10 @@
 extends Node3D
 
 
-@export var timber_label:Label
 @export var selected_label:Label
 @export var build_distance:float=8.0
 
 @onready var nav_region:NavigationRegion3D=get_tree().current_scene.get_node("NavigationRegion3D")
-@onready var equipped_label:Label=get_tree().current_scene.get_node("CanvasLayer/VBoxContainer/EquippedLabel")
 var current_hit_position:Vector3=Vector3.ZERO
 var has_hit:bool=false
 var build_mode:bool=false
@@ -64,13 +62,8 @@ func _unhandled_input(event):
 
 @warning_ignore("unused_parameter")
 func _process(delta):
-	timber_label.text="Timber:"+str(GameManager.timber)
 	selected_label.text = "Selected: " + pieces[selected_index]["name"] + " (cost " + str(pieces[selected_index]["cost"]) + ")"
 	get_tree().current_scene.get_node("CanvasLayer/GravityOverlay").visible=GameManager.in_gravity_zone
-	var weapon_name="None"
-	if GameManager.equipped["weapon"]!="":
-		weapon_name=GameManager.items[GameManager.equipped["weapon"]]["name"]
-	equipped_label.text="Weapon:"+weapon_name
 	
 @warning_ignore("unused_parameter")
 func _physics_process(delta):

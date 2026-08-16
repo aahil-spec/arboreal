@@ -15,7 +15,7 @@ shape = SubResource("CylinderShape3D_mgbmc")
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1145184095]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2180119, -0.078161)
 light_color = Color(1, 0.62352943, 0.19215687, 1)
-light_energy = 1.5
+light_energy = 6.0
 
 [node name="Sketchfab_Scene" parent="." unique_id=1318952924 instance=ExtResource("1_era5j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.007468343, -0.086162746, -0.0228036)

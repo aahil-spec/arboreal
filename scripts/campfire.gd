@@ -11,6 +11,7 @@ const DAY_START=6.0
 var is_lit=true
 
 func _ready():
+	add_to_group("heat_source")
 	_check_time()
 	
 func _process(_delta):

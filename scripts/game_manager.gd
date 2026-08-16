@@ -195,9 +195,6 @@ const DROPPED_ITEM_SCENE=preload("res://scenes/dropped_item.tscn")
 
 func _ready():
 	inventory.clear()
-	add_to_inventory("fiber",3)
-	add_to_inventory("sword_iron",1)
-	add_to_inventory("helmet_leather",1)
 	
 func _process(delta):
 	time_of_day+=(24.0/DAY_LENGTH_SECONDS)*delta
@@ -450,3 +447,8 @@ func spawn_drop(item_id:String,world_position:Vector3):
 	drop.item_id=item_id
 	drop.position=world_position+Vector3(0,0.4,0)
 	get_tree().current_scene.add_child(drop)
+func has_item(target_id:String):
+	for item in inventory:
+		if item is Dictionary and item.has("id") and item["id"]==target_id:
+			return true
+	return false

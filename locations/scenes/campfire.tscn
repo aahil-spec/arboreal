@@ -1818,4 +1818,4 @@ shape = SubResource("ConvexPolygonShape3D_dwkp3")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1092031382]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48290113, -0.04354644)
-light_energy = 2.5
+light_energy = 5.0

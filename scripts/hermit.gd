@@ -60,4 +60,12 @@ func _offer_quests():
 			if quest_id=="find_embers":
 				GameManager.add_item("bandage","1")
 				print("Hermit gives you a new quest:",quest_title)
+				_trigger_tutorial_reminder()
 				break
+func _trigger_tutorial_reminder():
+	await get_tree().create_timer(15.0).timeout
+	var has_timber=GameManager.has_item("timber")
+	var has_fiber=GameManager.has_item("fiber")
+	
+	if not has_timber or not has_fiber:
+		GameManager.quest_alert.emit("Tip: Gather Timber & Fiber")
