@@ -177,6 +177,20 @@ var quest_definitions:Dictionary={
 	},
 }
 
+var chronical_pages:Array=[
+	{
+		"id":"page_1",
+		"title":"The Valley of Emebermoor",
+		"unlock_condition":"always",
+		"text":"Long before thw Sundering,Arboreal was said to burn bright through even the darkest winters. The old shrine at the valley's heart drew its warmth from something older than the kingdom itself - a light that never asked for anything but tending.\n\nThen, one winter, it simply went out. No one alive remembers why."
+	},
+	{
+		"id":"page_2",
+		"title":"The Shaper's Gift",
+		"unlock_condition":"embers_collected_1",
+		"text":"Few are born with the sense for it - a faint pull toward embers, as though the light itself recognizes something in you. The old texts call it the Shaper's gift. Most who have it never learn what it means.\n\nYou are one of the few. Whether that is fortune or burden, the valley has not yet decided. "
+	}
+]
 var quest_progress:Dictionary={}
 
 var in_gravity_zone:bool=false
@@ -247,6 +261,9 @@ func collect_ember(ember_name:String=""):
 		collected_ember_names.append(ember_name)
 	update_quest_progress("collect_ember")
 	
+	if embers_collected==3:
+		quest_alert.emit("Tip: Find the Shrine and light it")
+		
 func add_timber(amount: int, pickup_name: String = ""):
 	timber += amount
 	if pickup_name != "":

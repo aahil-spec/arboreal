@@ -51,17 +51,19 @@ func _on_talk_zone_body_exited(body):
 	if body.name=="Player":
 		player_in_range=false
 		current_line=0
-		get_tree().current_scene.get_node("CanvasLayer/VBoxContainer/DialogueLabel").visible=false
+		var dialogue_ui=get_tree().current_scene.get_node_or_null("DialogueUI")
+		if dialogue_ui:
+			dialogue_ui.hide_message()
 	
 func _unhandled_input(event):
 	if player_in_range and event.is_action_pressed("interact"):
-		var label=get_tree().current_scene.get_node("CanvasLayer/VBoxContainer/DialogueLabel")
-		label.visible=true
-		label.text=dialogue_lines[current_line]
-		current_line+=1
-		if current_line>=dialogue_lines.size():
-			current_line=0
-			_offer_quest()
+		var dialogue_ui=get_tree().current_scene.get_node_or_null("DialogueUI")
+		if dialogue_ui:
+			dialogue_ui.show_message(dialogue_lines[current_line])
+			current_line+=1
+			if current_line>=dialogue_lines.size():
+				current_line=0
+				_offer_quest()
 			
 func _physics_process(delta):
 	if not is_on_floor():
