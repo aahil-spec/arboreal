@@ -12,6 +12,7 @@ func _ready():
 
 func open_book():
 	visible=true
+	get_tree().paused=true
 	current_page_index=GameManager.chronicle_last_page
 	_clamp_to_unlocked()
 	_refresh_page()
@@ -26,6 +27,7 @@ func _animate_open():
 	
 func close_book():
 	GameManager.chronicle_last_page=current_page_index
+	get_tree().paused=false
 	var tween=create_tween().set_parallel(true)
 	tween.tween_property(self,"modulate:a",0.0,0.12)
 	tween.tween_property(self,"scale",Vector2(0.95,0.95),0.12)
@@ -50,8 +52,32 @@ func _refresh_page():
 		page_text.text="[i]This page is bound shut. Something about your journey hasn't happened yet.[/i]"
 		page_title.modulate=Color(0.5,0.45,0.4)
 		
-	page_indidcator.text="Page"+str(current_page_index+1)+"of"+str(pages.size())
+	page_indidcator.text="Page " + str(current_page_index + 1) + " of " + str(pages.size())
 	$HBoxContainer/PrevButton.disabled=current_page_index<=0
 	$HBoxContainer/NextButton.disabled=current_page_index>=pages.size()-1
 	
-func _on_prev
+func _on_prev_button_pressed():
+	if current_page_index>0:
+		current_page_index-=1
+		_refresh_page()
+		_page_turn_effect()
+		
+func _on_next_button_pressed():
+	if current_page_index<GameManager.chronicle_pages.size()-1:
+		current_page_index+=1
+		_refresh_page()
+		_page_turn_effect()
+		
+func _page_turn_effect():
+	page_text.modulate.a=0.0
+	page_title.modulate.a=0.0
+	var tween=create_tween().set_parallel(true)
+	tween.tween_property(page_text,"modulate:a",1.0,0.15)
+	tween.tween_property(page_title,"modulate:a",1.0,0.15)
+	
+func _on_close_button_pressed():
+	close_book()
+	
+func _unhandled_input(event):
+	if visible and event.is_action_pressed("ui_cancel"):
+		close_book()

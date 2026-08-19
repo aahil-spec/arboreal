@@ -21,6 +21,7 @@ offset_top = -61.0
 offset_right = 312.0
 offset_bottom = -21.0
 grow_vertical = 0
+scale = Vector2(1.1199998, 0.6799952)
 theme_override_styles/panel = SubResource("StyleBoxFlat_qn8cy")
 metadata/_edit_use_anchors_ = true
 

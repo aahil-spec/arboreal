@@ -19,6 +19,10 @@ func show_quest(quest_name:String):
 	if quest_name.begins_with("Tip:"):
 		title_label.text="SURVIVAL HINT"
 		prompt_label.hide()
+	elif quest_name.begins_with("Lore:"):
+		title_label.text="CHRONICLE UPDATED"
+		prompt_label.hide()
+		quest_name_label.text=quest_name.trim_prefix("Lore:")
 	else:
 		title_label.text="NEW QUEST DISCOVERED"
 		prompt_label.show()

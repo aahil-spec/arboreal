@@ -248,6 +248,8 @@ const FLIGHT_DRAIN_PER_SECOND:float=100.0/45.0
 const FLIGHT_REGEN_PER_SECOND:float=100.0/12.0
 var is_flying:bool=false
 
+
+var chronicle_notified_pages:Array=[]
 const DROPPED_ITEM_SCENE=preload("res://scenes/dropped_item.tscn")
 
 func _ready():
@@ -303,6 +305,7 @@ func collect_ember(ember_name:String=""):
 	if ember_name!="":
 		collected_ember_names.append(ember_name)
 	update_quest_progress("collect_ember")
+	GameManager.check_chronicle_unlocks()
 	
 	if embers_collected==3:
 		quest_alert.emit("Tip: Find the Shrine and light it")
@@ -350,6 +353,7 @@ func equip_item(item_id:String):
 	var item_type=items[item_id]["type"]
 	equipped[item_type]=item_id
 	print("Equipped: ", items[item_id]["name"])
+	GameManager.check_chronicle_unlocks()
 	
 func get_attack_damage():
 	var base=15
@@ -534,4 +538,13 @@ func is_page_unlocked(page:Dictionary):
 		_:
 			return false
 			
+		
+func check_chronicle_unlock():
+	for page in chronicle_pages:
+		if is_page_unlocked(page) and page["id"] not in chronicle_notified_pages:
+			chronicle_notified_pages.append(page["id"])
+			_show_chronicle_notification(page["title"])
 			
+func _show_chronicle_notification(title:String):
+	await get_tree().create_timer(6.5).timeout
+	quest_alert.emit("Lore:"+ title)

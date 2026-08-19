@@ -13,6 +13,7 @@ func _on_body_entered(body):
 	if body.name=="Player" and not triggered:
 		triggered=true
 		GameManager.discovered_locations.append(location_name)
+		GameManager.check_chronicle_unlocks()
 		_show_discovery()
 		
 func _show_discovery():

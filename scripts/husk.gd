@@ -135,6 +135,7 @@ func _die():
 	is_dead=true
 	anim_player.play("death")
 	GameManager.husk_defeated=true
+	GameManager.check_chronicle_unlocks()
 	GameManager.spawn_drop("sword_ember",global_position)
 	await anim_player.animation_finished
 	queue_free()
