@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://duga36witjb64"]
+
+[ext_resource type="Script" uid="uid://dueq66cj4vu33" path="res://scripts/chronicle_book.gd" id="1_4vflu"]
+[ext_resource type="PackedScene" uid="uid://dt4dwaewxx" path="res://assets/models/book/book_stand_with_book.glb" id="1_rpjjh"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_4vflu"]
+height = 5.3256836
+radius = 1.1538086
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rpjjh"]
+radius = 3.5384867
+
+[node name="ChronicleBook" type="StaticBody3D" unique_id=247147887]
+script = ExtResource("1_4vflu")
+
+[node name="Sketchfab_Scene" parent="." unique_id=1896211462 instance=ExtResource("1_rpjjh")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1125212766]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.304016, 0)
+shape = SubResource("CylinderShape3D_4vflu")
+
+[node name="ReadZone" type="Area3D" parent="." unique_id=1796661043]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ReadZone" unique_id=1542020643]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1499505, 0)
+shape = SubResource("SphereShape3D_rpjjh")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1980550705]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.6185403, 1.3975892)
+light_color = Color(0.7829099, 0.77113134, 0, 1)
+light_energy = 5.0
+
+[connection signal="body_entered" from="ReadZone" to="." method="_on_read_zone_body_entered"]
+[connection signal="body_exited" from="ReadZone" to="." method="_on_read_zone_body_exited"]
+
+[editable path="Sketchfab_Scene"]

@@ -177,10 +177,10 @@ var quest_definitions:Dictionary={
 	},
 }
 
-var chronical_pages:Array=[
+var chronicle_pages:Array=[
 	{
 		"id":"page_1",
-		"title":"The Valley of Emebermoor",
+		"title":"The Valley of Arboreal",
 		"unlock_condition":"always",
 		"text":"Long before thw Sundering,Arboreal was said to burn bright through even the darkest winters. The old shrine at the valley's heart drew its warmth from something older than the kingdom itself - a light that never asked for anything but tending.\n\nThen, one winter, it simply went out. No one alive remembers why."
 	},
@@ -189,8 +189,51 @@ var chronical_pages:Array=[
 		"title":"The Shaper's Gift",
 		"unlock_condition":"embers_collected_1",
 		"text":"Few are born with the sense for it - a faint pull toward embers, as though the light itself recognizes something in you. The old texts call it the Shaper's gift. Most who have it never learn what it means.\n\nYou are one of the few. Whether that is fortune or burden, the valley has not yet decided. "
+	},
+	{
+		"id":"page_3",
+		"title":"The Three Embers",
+		"unlock_condition":"embers_collected_3",
+		"text":"The shrine did not simply go dark - its light scattered, three fragments carried into ruin by forces no one recorded. To religion it is not to restore what was, but to gather what was lost.\n\nYou have done what the last Shaper could not finish."
+		
+	},
+	{
+		"id":"page_4",
+		"title":"What the Light Remembers",
+		"unlock_condition":"shrine_lit",
+		"text":"The shrine burns again. For the first time in a generation, Arboreal Village will see true warmth through the night. The Hermit, who has tended the dead shrine for longer than anyone can say , finally allows himself to hope.\n\nBut light this old does not return withouth waking something else."
+		
+	},
+	{
+		"id":"page_5",
+		"title":"The Ashen Hollow",
+		"unlock_condition":"discovered_ashen_hollow",
+		"text":"North of the valley, where the ground turns to ash and the trees no longer grow, something has stirred that the old texts warn against naming directly. Th Hollow that scavenge at night are one thing. What sleeps beneath the Ashen Hollow is another."
+		
+	},
+	{
+		"id":"page_6",
+		"title":"The Husk",
+		"unlock_condition":"husk_defeated",
+		"text":"It is done. What woke when the shrine relit has fallen. The valley does not yet know how close it came to a second Sundering - and perhaps it never needs to.\n\nThe blade you carry now was not made by any smith in Arboreal. It remembers something the valley has forgotten."
+		
+	},
+	{
+		"id":"page_7",
+		"title":"Gravity's Wound",
+		"unlock_condition":"discovered_gravity_zone",
+		"text":"There is a place in the high forest where the old texts simply stop making sense - where down is a matter of opinion, and the trees grow toward a floor that is not there. No one has ever explained it. The Hermit calls it a wound in the world, left over from whatever first Sundered the valley."
+		
+	},
+	{
+		"id":"page_8",
+		"title":"The Emberwing",
+		"unlock_condition":"has_emberwing",
+		"text":"Wings that were never grown, only found - waiting in a place gravity itself had forgotten how to hold down. Whoever left them there is not recorded in any text of Arboreal.\n\nYou wear them now. The valley looks smaller from above than anyone standing in it could ever guess. "
 	}
 ]
+
+var chronicle_last_page:int=0
 var quest_progress:Dictionary={}
 
 var in_gravity_zone:bool=false
@@ -469,3 +512,26 @@ func has_item(target_id:String):
 		if item is Dictionary and item.has("id") and item["id"]==target_id:
 			return true
 	return false
+func is_page_unlocked(page:Dictionary):
+	var condition=page["unlock_condition"]
+	match condition:
+		"always":
+			return true
+		"embers_collected_1":
+			return embers_collected>=1
+		"embers_collected_3":
+			return embers_collected>=3
+		"shrine_lit":
+			return shrine_lit
+		"discovered_ashen_hollow":
+			return "Ashen Hollow" in discovered_locations
+		"husk_defeated":
+			return husk_defeated
+		"discovered_gravity_zone":
+			return in_gravity_zone or "gravity_zone_visited" in discovered_locations
+		"has_emberwing":
+			return equipped.get("wings","")=="emberwing" or "emberwing" in inventory
+		_:
+			return false
+			
+			
