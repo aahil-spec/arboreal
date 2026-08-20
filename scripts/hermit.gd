@@ -52,6 +52,16 @@ func _unhandled_input(event):
 			current_line=0
 			_offer_quests()
 			
+			if GameManager.shrine_lit==true and GameManager.husk_defeated==false:
+				await get_tree().create_timer(2.5).timeout
+				
+				if dialogue_ui:
+					dialogue_ui.hide_message()
+					
+				var final_ui=get_tree().current_scene.get_node_or_null("CanvasLayer/FinalBossUI")
+				if final_ui:
+					final_ui.show_choice()
+			
 func _offer_quests(): 
 	for quest_id in ["find_embers","defeat_husk"]:
 		if quest_id not in GameManager.active_quests and quest_id not in GameManager.completed_quests:
