@@ -305,7 +305,7 @@ func collect_ember(ember_name:String=""):
 	if ember_name!="":
 		collected_ember_names.append(ember_name)
 	update_quest_progress("collect_ember")
-	GameManager.check_chronicle_unlocks()
+	check_chronicle_unlocks()
 	
 	if embers_collected==3:
 		quest_alert.emit("Tip: Find the Shrine and light it")
@@ -539,7 +539,7 @@ func is_page_unlocked(page:Dictionary):
 			return false
 			
 		
-func check_chronicle_unlock():
+func check_chronicle_unlocks():
 	for page in chronicle_pages:
 		if is_page_unlocked(page) and page["id"] not in chronicle_notified_pages:
 			chronicle_notified_pages.append(page["id"])
