@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://r0hhttikvxxp" path="res://scripts/minimap_camera.gd" id="2_g2els"]
 [ext_resource type="PackedScene" uid="uid://gwh7hy6kyf6u" path="res://scenes/character_model.scn" id="2_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://c0xsy1jjjkb4b" path="res://scenes/ember_wings.tscn" id="3_dqkch"]
+[ext_resource type="PackedScene" uid="uid://dfy5afjr8o8gl" path="res://scenes/wooden_shield.tscn" id="4_qlg0r"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
 radius = 0.65527344
@@ -92,11 +93,22 @@ transform = Transform3D(4.6704407, -0.45599258, 1.7259936, 0.23877652, 4.9502664
 
 [node name="BackAttachment3D" type="BoneAttachment3D" parent="CharacterModel/AuxScene/Node/Skeleton3D" index="2" unique_id=784618190]
 transform = Transform3D(0.94228077, -0.12826568, -0.30928105, -0.015513027, 0.90599686, -0.42300022, 0.33446407, 0.40338284, 0.8517136, 0.16258848, 45.71524, 0.051629722)
+visible = false
 bone_name = "mixamorigSpine2"
 bone_idx = 3
 
 [node name="EmberWingsVisual" parent="CharacterModel/AuxScene/Node/Skeleton3D/BackAttachment3D" unique_id=234992017 instance=ExtResource("3_dqkch")]
 transform = Transform3D(24.874802, 0.9085632, -2.3280401, -0.76258487, 24.938126, 1.5844646, 2.3798616, -1.5055108, 24.840908, -0.7272332, -20.185802, -4.426012)
+
+[node name="ThirdPersonLeftHand" type="BoneAttachment3D" parent="CharacterModel/AuxScene/Node/Skeleton3D" index="3" unique_id=2045257009]
+transform = Transform3D(0.7624559, 0.24394317, -0.5992934, -0.36768222, -0.59878594, -0.7115233, -0.53241974, 0.7628546, -0.3668542, 7.442604, 34.22516, 6.855193)
+bone_name = "mixamorigLeftHand"
+bone_idx = 10
+
+[node name="OffhandGrip" type="Marker3D" parent="CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonLeftHand" unique_id=1052287658]
+transform = Transform3D(1.3561804, 8.686108, -4.7657466, 8.516794, 1.4356098, 5.0401745, 5.06212, -4.7424216, -7.203086, -3.3917763, 2.6356635, -2.4305096)
+
+[node name="WoodenShield" parent="CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonLeftHand/OffhandGrip" unique_id=1598924012 instance=ExtResource("4_qlg0r")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=303846899]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5716858, 0)

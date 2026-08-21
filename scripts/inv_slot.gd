@@ -45,6 +45,7 @@ func set_slot_state(has_item:bool,is_equipped:bool=false):
 		style.set_border_width_all(1)
 	add_theme_stylebox_override("panel",style)
 
+@warning_ignore("unused_parameter")
 func update_display(item_id:String,count:int):
 	if count>1:
 		count_label.text=str(count)

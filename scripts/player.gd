@@ -45,6 +45,8 @@ var survival_check_timer:float=0.0
 @onready var grip_default:Marker3D=$CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand/DefaultGrip
 @onready var wings_grip:Marker3D=$CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand/WingsGrip
 @onready var wings_visual:Node3D=$CharacterModel/AuxScene/Node/Skeleton3D/BackAttachment3D/EmberWingsVisual
+@onready var offhand_grip:Marker3D=$CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonLeftHand/OffhandGrip
+var current_offhand_moel:Node3D=null
 @onready var global_env:Environment
 @onready var bandage_grip:Marker3D=$CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand/BandageGrip
 var is_first_person:bool=false
@@ -99,6 +101,9 @@ func _unhandled_input(event):
 		$CameraPivot.rotate_x(-event.relative.y*0.005)
 		$CameraPivot.rotation.x=clamp($CameraPivot.rotation.x,deg_to_rad(-80),deg_to_rad(80))
 		
+	if event.is_action_pressed("use_item"):
+		use_active_item()
+		
 	if event.is_action_pressed("toggle_camera"):
 		_toggle_camera()
 		
@@ -121,7 +126,7 @@ func _unhandled_input(event):
 		if GameManager.active_hotbar_slot>8:
 			GameManager.active_hotbar_slot=0
 		GameManager.hotbar_changed.emit()
-		
+	
 	for i in range(1,10):
 		if event is InputEventKey and event.pressed and event.keycode==(KEY_0+i):
 			GameManager.active_hotbar_slot=i-1
@@ -279,6 +284,7 @@ func _update_heat_status():
 	GameManager.near_heat_source=near
 
 func _update_hand_visuals():
+	_update_offhand_visuals()
 	if current_held_model!=null:
 		current_held_model.queue_free()
 		current_held_model=null
@@ -423,11 +429,14 @@ func _toggle_camera():
 		if is_instance_valid(current_held_model):
 			current_held_model.reparent(first_person_hand,false)
 			current_held_model.transform=Transform3D()
+		if is_instance_valid(current_offhand_moel):
+			current_offhand_moel.visible=false
 	else:
 		third_person_cam.current=true
 		first_person_cam.current=false
 		character_model.visible=true
 		third_person_arm.spring_length=4.0
+		
 		if is_instance_valid(current_held_model):
 			var item=GameManager.get_acitve_hotbar_item()
 			if not item.is_empty():
@@ -438,9 +447,11 @@ func _toggle_camera():
 					current_held_model.reparent(wings_grip,false)
 				elif item_id=="bandage":
 					current_held_model.reparent(bandage_grip,false)
+				elif "shield" in item_id:
+					current_held_model.reparent(offhand_grip,false)
 				else:
 					current_held_model.reparent(grip_default,false)
-					current_held_model.transform=Transform3D()
+				current_held_model.transform=Transform3D()
 		
 		
 	
@@ -499,3 +510,37 @@ func _update_equipment_visuals():
 		else:
 			wings_visual.visible=false
 	
+func use_active_item():
+	var current_item=GameManager.get_acitve_hotbar_item()
+	if current_item.has("id"):
+		var item_id=current_item["id"]
+		var item_data=GameManager.items[item_id]
+		
+		if item_data["type"]=="consumable":
+			if item_data["bonus_key"]=="health":
+				GameManager.heal_player(item_data["bonus_value"])
+				GameManager.remove_from_inventory(item_id,1)
+				GameManager.emit_signal("hotbar_changed")
+				print("Used " + item_data["name"] + "! Healed for " + str(item_data["bonus_value"]))
+func _update_offhand_visuals():
+
+	if current_offhand_moel!=null:
+		current_offhand_moel.queue_free()
+		current_held_model=null
+		
+	var offhand_item=GameManager.equipped.get("offhand","")
+	if offhand_item=="":
+		return
+	if GameManager.item_models.has(offhand_item):
+		var model_path=GameManager.item_models[offhand_item]
+		if ResourceLoader.exists(model_path):
+			var model_scene=load(model_path)
+			current_offhand_moel=model_scene.instantiate()
+			_disable_secret_triggers(current_offhand_moel)
+			
+			offhand_grip.add_child(current_offhand_moel)
+			current_offhand_moel.transform=Transform3D()
+			
+			if is_first_person:
+				current_offhand_moel.visible=false
+				

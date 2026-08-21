@@ -122,6 +122,7 @@ var item_models:Dictionary={
 	"fiber":"res://scenes/pieces/fiber_bush.tscn",
 	"emberwing":"res://scenes/ember_wings.tscn",
 	"bandage":"res://models/bandage.tscn",
+	"shield_wood":"res://scenes/wooden_shield.tscn",
 }
 
 var active_quests:Array=[]
@@ -350,6 +351,7 @@ func damage_player(amount:int):
 		
 func heal_player(amount:int):
 	player_health=min(player_health+amount,MAX_PLAYER_HEALTH)
+	player_damaged.emit()
 	
 func add_item(item_id:String,pickup_name:String=""):
 	add_to_inventory(item_id,1)
