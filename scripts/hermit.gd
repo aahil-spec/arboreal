@@ -11,6 +11,12 @@ func _get_lines():
 			"you did it.arboreal owes you a debt it cant repay.",
 			"rest now,traveler. youve earned it",
 		]
+	elif GameManager.shrine_lit and "Ashen Hollow" in GameManager.discovered_locations:
+		return[
+			"you've seen it then. the Husk",
+			"it's been waiting down there in the ash for an age.",
+			"this is it, traveler. it ends today, or the valley falls."
+		]
 	elif GameManager.shrine_lit:
 		return[
 			"the shrines light reached further than i'd hoped",
@@ -53,25 +59,26 @@ func _unhandled_input(event):
 			_offer_quests()
 			
 			if GameManager.shrine_lit==true and GameManager.husk_defeated==false:
-				await get_tree().create_timer(2.5).timeout
-				
-				if dialogue_ui:
-					dialogue_ui.hide_message()
-					
-				var final_ui=get_tree().current_scene.get_node_or_null("CanvasLayer/FinalBossUI")
-				if final_ui:
-					final_ui.show_choice()
+				if "Ashen Hollow" in GameManager.discovered_locations:
+					await get_tree().create_timer(2.5).timeout
+					if dialogue_ui:
+						dialogue_ui.hide_message()
+					var final_ui=get_tree().current_scene.get_node_or_null("CanvasLayer/FinalBossUI")
+					if final_ui:
+						final_ui.show_choice()
 			
 func _offer_quests(): 
-	for quest_id in ["find_embers","defeat_husk"]:
-		if quest_id not in GameManager.active_quests and quest_id not in GameManager.completed_quests:
-			GameManager.start_quest(quest_id)
-			var quest_title=GameManager.quest_definitions[quest_id]["title"]
-			if quest_id=="find_embers":
-				GameManager.add_item("bandage","1")
-				print("Hermit gives you a new quest:",quest_title)
-				_trigger_tutorial_reminder()
-				break
+	if not GameManager.shrine_lit:
+		if "find_embers" not in GameManager.active_quests and "find_embers" not in GameManager.completed_quests:
+			GameManager.start_quest("find_embers")
+			GameManager.add_item("bandage","1")
+			_trigger_tutorial_reminder()
+	elif GameManager.shrine_lit and "Ashen Hollow" not in GameManager.discovered_locations:
+		if "explore_ashen_hollow" not in GameManager.active_quests and "explore_ashen_hollow" not in GameManager.completed_quests:
+			GameManager.start_quest("explore_ashen_hollow")
+	elif "Ashen Hollow" in GameManager.discovered_locations:
+		if "defeat_husk" not in GameManager.active_quests and "defeat_husk" not in GameManager.completed_quests:
+			GameManager.start_quest("defeat_husk")
 func _trigger_tutorial_reminder():
 	await get_tree().create_timer(15.0).timeout
 	var has_timber=GameManager.has_item("timber")

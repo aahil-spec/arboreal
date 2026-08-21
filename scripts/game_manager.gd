@@ -141,11 +141,20 @@ var quest_definitions:Dictionary={
 		"reward_item":"sword_iron",
 		"giver":"Hermit"
 	},
-	"defeat_husk":{
-		"title":"The Hollow Threat",
-		"description":"Something woke in the Ashen Hollow. Deal with it.",
+	"explore_ashen_hollow":{
+		"title":"Investigate the Hollow",
+		"description":"The Hermit noticed something stirring north in the Ashen Hollow. Go find out what woke up.",
 		"objectives":[
-			{"text":"Explore the Ashen Hollow","type":"discovery_location","target":"Ashen Hollow"},
+			{"text":"Discover the Ashen Hollow","type":"discover_location","target":"Ashen Hollow"},
+		],
+		"reward_timber":30,
+		"reward_item":"bandage",
+		"giver":"Hermit"
+	},
+	"defeat_husk":{
+		"title":"The Husk",
+		"description":"Final Battle",
+		"objectives":[
 			{"text":"Defeat the Husk","type":"defeat_husk","target":1},
 		],
 		"reward_timber":80,
