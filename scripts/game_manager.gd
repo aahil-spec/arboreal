@@ -112,7 +112,7 @@ var item_icons: Dictionary = {
 }
 
 var item_models:Dictionary={
-	"sword_iron":"res://scenes/pieces/sword_iron.tscn",
+	"sword_iron":"res://scenes/pieces/sword_iron.scn",
 	"timber": "res://scenes/pieces/timber_pickup.tscn",
 	"torch_extra":"res://scenes/torch_extra.tscn" ,
 	"helmet_leather":"res://scenes/pieces/helmet_leather.tscn",

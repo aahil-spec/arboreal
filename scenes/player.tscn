@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://r0hhttikvxxp" path="res://scripts/minimap_camera.gd" id="2_g2els"]
 [ext_resource type="PackedScene" uid="uid://gwh7hy6kyf6u" path="res://scenes/character_model.scn" id="2_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://c0xsy1jjjkb4b" path="res://scenes/ember_wings.tscn" id="3_dqkch"]
+[ext_resource type="PackedScene" uid="uid://drscln8y850cv" path="res://scenes/pieces/sword_iron.scn" id="3_qlg0r"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
 radius = 0.65527344
@@ -79,7 +80,9 @@ bone_name = "mixamorigRightHand"
 bone_idx = 34
 
 [node name="SwordGrip" type="Marker3D" parent="CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand" unique_id=1137616672]
-transform = Transform3D(2.4302218, 19.608929, -3.0959182, -4.3036, -2.5244737, -19.367662, -19.37972, 3.0195584, 3.9126887, 2.6061058, 4.2839937, 1.1722155)
+transform = Transform3D(2.4302218, 19.608932, -3.0959182, -4.3036, -2.5244813, -19.367662, -19.37972, 3.0195584, 3.9126887, -1.7777061, 4.389288, 0.3358841)
+
+[node name="SwordIron" parent="CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand/SwordGrip" unique_id=1151550512 instance=ExtResource("3_qlg0r")]
 
 [node name="DefaultGrip" type="Marker3D" parent="CharacterModel/AuxScene/Node/Skeleton3D/ThirdPersonhand" unique_id=752707483]
 transform = Transform3D(-4.241131, 6.207791, -6.593649, -0.7413112, 7.018483, 7.084587, 9.025707, 3.4934568, -2.5164394, 0.49840498, 1.9188395, 0.21069622)

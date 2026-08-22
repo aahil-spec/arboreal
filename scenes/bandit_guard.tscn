@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://cltksjcidc16c"]
+
+[ext_resource type="PackedScene" uid="uid://ufnwfaws7gr2" path="res://assets/character/BanditGuard/Bandit.glb" id="1_4ccix"]
+[ext_resource type="Script" uid="uid://cmsjgddj10w33" path="res://scripts/bandit_guard.gd" id="1_l6e5r"]
+[ext_resource type="PackedScene" uid="uid://drscln8y850cv" path="res://scenes/pieces/sword_iron.scn" id="3_ym46d"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_l6e5r"]
+radius = 5.6401367
+height = 22.455322
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4ccix"]
+radius = 12.0
+
+[node name="BanditGuard" type="CharacterBody3D" unique_id=406940150]
+script = ExtResource("1_l6e5r")
+
+[node name="AuxScene" parent="." unique_id=1621864510 instance=ExtResource("1_4ccix")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="AuxScene/Node" parent_id_path=PackedInt32Array(1621864510, 1302600022) index="0" unique_id=598842754]
+bones/0/position = Vector3(0.52490896, 93.52953, -2.1966028)
+bones/0/rotation = Quaternion(0.043345228, -0.13614474, -0.00389728, 0.98973256)
+bones/1/rotation = Quaternion(0.2021902, 0.037842695, 0.004265376, 0.97860557)
+bones/2/rotation = Quaternion(0.04488729, 0.01093171, -0.0071749124, 0.9989065)
+bones/3/rotation = Quaternion(0.01712955, 0.011590055, -0.007183356, 0.9997604)
+bones/4/rotation = Quaternion(-0.11036562, 0.011939468, 0.01873033, 0.99364287)
+bones/5/rotation = Quaternion(-0.12424719, 0.06421469, -0.036874957, 0.9894844)
+bones/9/rotation = Quaternion(-0.72932076, -0.31688, 0.43575734, -0.42165613)
+bones/10/rotation = Quaternion(0.41099733, -0.1407994, 0.23014086, 0.8707996)
+bones/11/rotation = Quaternion(0.039150134, 0.015421052, 0.36616254, 0.92959905)
+bones/12/rotation = Quaternion(0.093848005, -0.13843642, 0.109462135, 0.97981936)
+bones/13/rotation = Quaternion(0.26128924, -0.009396312, 0.26130474, 0.9291714)
+bones/14/rotation = Quaternion(0.11072585, 0.09938335, -0.31252524, 0.9381848)
+bones/15/rotation = Quaternion(0.32918555, 0.43832678, -0.37736857, 0.74639106)
+bones/17/rotation = Quaternion(0.60995466, -0.092756696, -0.053448908, 0.78517187)
+bones/18/rotation = Quaternion(0.39776734, -0.017202238, -0.02177588, 0.91706663)
+bones/19/rotation = Quaternion(0.63361174, -0.03407773, 0.023666414, 0.77253795)
+bones/21/rotation = Quaternion(0.727103, -0.35575083, 0.33629417, 0.48131993)
+bones/22/rotation = Quaternion(0.4129815, 0.24252824, -0.2611629, 0.83810526)
+bones/23/rotation = Quaternion(0.04397423, -0.024428125, -0.4849981, 0.87306726)
+bones/24/rotation = Quaternion(0.05151508, 0.14586978, -0.14965026, 0.9765619)
+bones/25/rotation = Quaternion(0.14450036, -0.17385964, -0.25850952, 0.9391833)
+bones/26/rotation = Quaternion(0.11200455, 0.14222725, 0.35107845, 0.9186786)
+bones/27/rotation = Quaternion(0.07536286, -0.04581774, 0.44229072, 0.89252454)
+bones/30/rotation = Quaternion(0.83297575, 0.0030528316, -0.00011353141, 0.55330116)
+bones/31/rotation = Quaternion(0.2867228, -0.010046309, 0.013693571, 0.95786315)
+bones/33/rotation = Quaternion(0.0449691, 0.34191504, 0.93534607, -0.078737594)
+bones/34/rotation = Quaternion(-0.37056413, -0.036636632, 0.02173484, 0.9278296)
+bones/35/rotation = Quaternion(0.43905568, -0.021411857, -0.052163605, 0.89668876)
+bones/36/rotation = Quaternion(0.3870658, 0.0027203835, -0.011912427, 0.92197114)
+bones/38/rotation = Quaternion(-0.09998038, 0.16258757, 0.97591764, 0.10561291)
+bones/39/rotation = Quaternion(-0.36681274, 0.05730088, -0.00045537582, 0.9285284)
+bones/40/rotation = Quaternion(0.5725748, 0.038867667, 0.09851588, 0.8129834)
+bones/41/rotation = Quaternion(0.39407587, -0.0059043765, 0.009020986, 0.9190147)
+
+[node name="Hand" type="BoneAttachment3D" parent="AuxScene/Node/Skeleton3D" index="1" unique_id=1923182713]
+transform = Transform3D(-0.18974784, 0.4856258, 0.85332483, 0.91524523, -0.22712773, 0.33277467, 0.35541782, 0.8441449, -0.4013697, -18.62881, 93.69385, 44.556835)
+bone_name = "mixamorigRightHand"
+bone_idx = 24
+
+[node name="Marker3D" type="Marker3D" parent="AuxScene/Node/Skeleton3D/Hand" unique_id=2127502661]
+transform = Transform3D(-3.8162863, 9.026, -1.9918139, -9.024676, -3.1727815, 2.9135404, 1.997803, 2.909438, 9.356492, 40.59826, 8.545641, 18.674913)
+
+[node name="SwordIron" parent="AuxScene/Node/Skeleton3D/Hand/Marker3D" unique_id=1151550512 instance=ExtResource("3_ym46d")]
+transform = Transform3D(9.508798, -3.0767784, -0.34070754, 3.092158, 9.492344, 0.57787913, 0.14561093, -0.65484625, 9.977467, -0.37710428, -1.5178268, -0.77063704)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=243501832]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.47001648, -0.057739258, 0)
+shape = SubResource("CapsuleShape3D_l6e5r")
+
+[node name="DetectionZone" type="Area3D" parent="." unique_id=285947855]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionZone" unique_id=1900062414]
+shape = SubResource("SphereShape3D_4ccix")
+
+[connection signal="body_entered" from="DetectionZone" to="." method="_on_detection_zone_body_entered"]
+[connection signal="body_exited" from="DetectionZone" to="." method="_on_detection_zone_body_exited"]
+
+[editable path="AuxScene"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ci0cqt1l4s1hk" path="res://scripts/husk.gd" id="1_ai7p3"]
 [ext_resource type="Script" uid="uid://c4ghdbslagsnk" path="res://scripts/hit_zone1.gd" id="2_2hxwp"]
-[ext_resource type="PackedScene" uid="uid://cp4warmmota2s" path="res://assets/character/husk.glb" id="3_lwkbf"]
+[ext_resource type="PackedScene" uid="uid://cp4warmmota2s" path="res://assets/character/Husk/husk.glb" id="3_lwkbf"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ai7p3"]
 radius = 1.7097168
