@@ -190,7 +190,7 @@ func _physics_process(delta):
 	if active_camera and global_env:
 		var camera_y=active_camera.global_position.y
 		
-		if camera_y<current_water_surface_y:
+		if GameManager.in_water and camera_y<current_water_surface_y:
 			global_env.fog_enabled=true
 			global_env.fog_light_color=Color(0.1,0.35,0.45)
 			global_env.fog_density=lerp(global_env.fog_density,0.15,delta*5.0)

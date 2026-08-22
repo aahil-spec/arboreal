@@ -1,8 +1,0 @@
-[gd_scene format=3 uid="uid://n7i4kfd1mvqp"]
-
-[ext_resource type="ArrayMesh" uid="uid://cewrnxpc2wex" path="res://realistic_water_shader/art/seaweed/Seaweed.obj" id="1_spjjx"]
-[ext_resource type="Material" uid="uid://c4f7kjcmyocma" path="res://realistic_water_shader/art/seaweed/Seaweed.material" id="2_wxdpm"]
-
-[node name="Seaweed" type="MeshInstance3D" unique_id=1246149200]
-mesh = ExtResource("1_spjjx")
-surface_material_override/0 = ExtResource("2_wxdpm")
